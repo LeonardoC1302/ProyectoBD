@@ -1,0 +1,20 @@
+{
+    "name": "leona/web-app",
+    "description": "Full Stack Web Application for a package delivery system",
+    "type": "project",
+    "autoload" : {
+        "psr-4" : {
+            "MVC\\" : "./",
+            "Controllers\\" : "./controllers",
+            "Model\\" : "./models",
+            "Classes\\" : "./classes"
+        }
+    },
+    "authors": [
+        {
+            "name": "Leonardo Céspedes",
+            "email": "lecespedes@estudiantec.cr"
+        }
+    ],
+    "require": {}
+}
