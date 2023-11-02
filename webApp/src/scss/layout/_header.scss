@@ -1,0 +1,42 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.header{
+    display: flex;
+    margin: calc(v.$gap/2);
+    align-items: center;
+    .company-name{
+        text-transform: uppercase;
+        font-family: v.$logo-font;
+        font-size: 3rem;
+        color: v.$black;
+    }
+    .navigation{
+        padding: 0 v.$gap;
+        display: flex;
+        width: 100%;
+        .header-links{
+            gap: v.$gap;
+            display: flex;
+            justify-content: space-between;
+            a{
+                display: inline-flex;
+                align-items: center;
+                &:hover{
+                    border-bottom: 3px solid v.$black;
+                }
+            }
+        }
+        .header-account{
+            display: flex;
+            gap: calc(v.$gap/2);
+            justify-content: space-between;
+            margin-left: auto;
+        }
+    }
+
+    .icon{
+        font-size: 3rem;
+        color: v.$black;
+    }
+}

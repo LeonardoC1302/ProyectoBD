@@ -1,0 +1,40 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.footer{
+    background-color: v.$primary;
+    @include m.grid(5, calc(v.$gap/2));
+    margin-top: auto;
+    padding: v.$gap;
+}
+
+.logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .logo-image{
+        width: 15rem;
+        height: auto;
+        margin: 0;
+    }
+    .logo-name{
+        margin: 0;
+        text-transform: uppercase;
+        color: v.$white;
+        font-family: v.$logo-font;
+    }
+}
+
+.footer-links{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .link-section{
+        color: v.$secondary;
+        font-weight: v.$bold;
+        margin: 0;
+    }
+    a{
+        color: v.$white;
+    }
+}
