@@ -3,15 +3,23 @@
 
 .footer{
     background-color: v.$primary;
-    @include m.grid(5, calc(v.$gap/2));
+    @include m.tablet{
+        @include m.grid(5, calc(v.$gap/2));
+    }
+    @include m.grid(2, calc(v.$gap/2));
+    grid-template-columns: auto 1fr;
     margin-top: auto;
     padding: v.$gap;
 }
 
 .logo{
+    @include m.tablet{
+        grid-column: 1/2;
+    }
     display: flex;
     flex-direction: column;
     align-items: center;
+    grid-column: 1/3;
     .logo-image{
         width: 15rem;
         height: auto;
