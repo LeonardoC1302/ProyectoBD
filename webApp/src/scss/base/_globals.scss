@@ -36,3 +36,36 @@ a {
 img {
     max-width: 100%;
 }
+
+.section-start{
+    @include m.tablet {
+        display: flex;
+        justify-content: flex-start;
+        margin: 1rem;
+    }
+    display: flex;
+    justify-content: center;
+    .section-name{
+        font-size: 2.5rem;
+        color: v.$accent;
+    }
+}
+
+.rectangle{
+    display: inline-block;
+    width: 1.5rem;
+    height: auto;
+    background-color: v.$accent;
+    border-radius: .5rem;
+    margin: 2rem 1.5rem 2rem 0;
+}
+
+.list{
+    @include m.tablet {
+        display: flex;
+        // justify-content: center;
+        margin-left: 2rem;
+        gap: calc(v.$gap / 2);
+    }
+    // @include m.grid(2, 2rem);
+}

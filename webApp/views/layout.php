@@ -16,16 +16,16 @@
         </div>
         <nav class="navigation">
             <div class="header-links">
-                <a href="#">Home</a>
-                <a href="#">Products</a>
-                <a href="#">Contact</a>
-                <a href="#">About</a>
+                <a href="/">Home</a>
+                <a href="/products">Products</a>
+                <a href="/contact">Contact</a>
+                <a href="/about">About</a>
             </div>
             <div class="header-account">
-                <a class="icon" href="#">
+                <a class="icon" href="/cart">
                     <i class='bx bx-cart' ></i>
                 </a>
-                <a class="icon" href="#">
+                <a class="icon" href="/account"> <!-- Change if its not logged in -->
                     <i class='bx bxs-user-circle'></i>
                 </a>
             </div>
@@ -33,7 +33,7 @@
     </header>
 
     <div class="search-bar">
-        <form action="#" class="search-input">
+        <form action="/products" class="search-input">
             <input type="text" name="search" placeholder="Search on LabProSource">
             <button class="search-icon" type="submit">
                 <i class='bx bx-search' ></i>
@@ -55,30 +55,31 @@
 
         <div class="footer-links">
             <p class="link-section">My Account</p>
-            <a href="#">Login/Register</a>
-            <a href="#">Account Settings</a>
-            <a href="#">Order History</a>
+            <a href="/login">Login/Register</a> <!-- Change if its logged in -->
+            <a href="/account">Account Settings</a>
+            <a href="/orders">Order History</a>
         </div>
 
         <div class="footer-links">
             <p class="link-section">Company Information</p>
-            <a href="#">About Us</a>
-            <a href="#">Contact Us</a>
-            <a href="#">Apply for a job</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+            <a href="/policies">Policies</a>
         </div>
 
         <div class="footer-links">
             <p class="link-section">How can we help?</p>
-            <a href="#">Customer Service</a>
-            <a href="#">Returns</a>
-            <a href="#">Quick Order</a>
+            <a href="/service">Customer Service</a>
+            <a href="/returns">Returns</a>
+            <a href="/apply">Apply for a job</a>
+            
         </div>
 
         <div class="footer-links">
             <p class="link-section">Quick Links</p>
-            <a href="#">Our Products</a>
-            <a href="#">International Orders</a>
-            <a href="#">Policies</a>
+            <a href="/products">Our Products</a>
+            <a href="/international">International Orders</a>
+            <a href="/cart">Shopping Cart</a>
         </div>
     </footer>
 
