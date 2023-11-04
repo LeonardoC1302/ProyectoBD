@@ -17,11 +17,22 @@
         color: v.$black;
     }
     .navigation{
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        transition: visibility 0.3s ease-in-out, opacity 0.5s linear, height 0.5s linear;
+        &.show{
+            visibility: visible;
+            opacity: 1;
+            height: auto;
+        }
         @include m.tablet{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             width: 100%;
+            opacity: 1;
+            visibility: visible;
         }
         padding: 0 v.$gap;
         display: flex;
@@ -67,5 +78,45 @@
     .icon{
         font-size: 3rem;
         color: v.$black;
+    }
+}
+
+.mobile-menu{
+    @include m.tablet{
+        display: none;
+    }
+    font-size: 3rem;
+    margin-top: 2rem;
+}
+
+.search-bar {
+    margin: 0 2rem;
+    border: 1px solid v.$black;
+    border-radius: 3rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    .search-input{
+        flex: 1;
+        display: flex;
+    }
+
+    .search-input input{
+        flex: 1;
+        padding: 1rem;
+        border: none;
+        border-radius: 0;
+        outline: none;
+        &:focus{
+            outline: none;
+        }
+    }
+    .search-icon{
+        background-color: v.$accent;
+        border: none;
+        color: v.$white;
+        border-radius: 3rem;
+        padding: 0 2rem;
+        justify-content: flex-end;
     }
 }

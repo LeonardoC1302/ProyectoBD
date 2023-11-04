@@ -11,6 +11,9 @@
 <body>
     <header class="header">
         <a href="/" class="company-name">Labprosource</a>
+        <div class="mobile-menu">
+            <i class='bx bx-menu' ></i>
+        </div>
         <nav class="navigation">
             <div class="header-links">
                 <a href="#">Home</a>
@@ -28,6 +31,15 @@
             </div>
         </nav>
     </header>
+
+    <div class="search-bar">
+        <form action="#" class="search-input">
+            <input type="text" name="search" placeholder="Search on LabProSource">
+            <button class="search-icon" type="submit">
+                <i class='bx bx-search' ></i>
+            </button>
+        </form>
+    </div>
 
     <?php echo $content; ?>
 
@@ -69,5 +81,7 @@
             <a href="#">Policies</a>
         </div>
     </footer>
+
+    <script src="/build/js/app.js"></script>
 </body>
 </html>
