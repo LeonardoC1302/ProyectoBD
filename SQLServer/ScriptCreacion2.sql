@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [storage]    Script Date: 5/11/2023 11:56:51 ******/
+/****** Object:  Database [storage]    Script Date: 5/11/2023 12:53:48 ******/
 CREATE DATABASE [storage]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -84,91 +84,91 @@ ALTER DATABASE [storage] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_P
 GO
 USE [storage]
 GO
-/****** Object:  Table [dbo].[addresses]    Script Date: 5/11/2023 11:56:52 ******/
+/****** Object:  Table [dbo].[addresses]    Script Date: 5/11/2023 12:53:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[addresses](
-	[addressId] [int] IDENTITY(1,1) NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[street] [varchar](50) NOT NULL,
 	[postalCode] [varchar](50) NOT NULL,
 	[countryId] [int] NOT NULL,
  CONSTRAINT [PK_addresses] PRIMARY KEY CLUSTERED 
 (
-	[addressId] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[affinities]    Script Date: 5/11/2023 11:56:52 ******/
+/****** Object:  Table [dbo].[affinities]    Script Date: 5/11/2023 12:53:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[affinities](
-	[affinityId] [int] IDENTITY(1,1) NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[productTypeId1] [int] NOT NULL,
 	[productTypeId2] [int] NOT NULL,
 	[description] [varchar](50) NOT NULL,
  CONSTRAINT [PK__affiniti__D16298329A1F9316] PRIMARY KEY CLUSTERED 
 (
-	[affinityId] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[countries]    Script Date: 5/11/2023 11:56:52 ******/
+/****** Object:  Table [dbo].[countries]    Script Date: 5/11/2023 12:53:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[countries](
-	[countryId] [int] IDENTITY(1,1) NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[countryName] [varchar](50) NOT NULL,
 	[currencyId] [int] NOT NULL,
  CONSTRAINT [PK__countrie__D320769C203D34D6] PRIMARY KEY CLUSTERED 
 (
-	[countryId] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[currencies]    Script Date: 5/11/2023 11:56:52 ******/
+/****** Object:  Table [dbo].[currencies]    Script Date: 5/11/2023 12:53:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[currencies](
-	[currencyId] [int] IDENTITY(1,1) NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[currencyName] [varchar](50) NOT NULL,
 	[exchangeRate] [decimal](10, 2) NOT NULL,
  CONSTRAINT [PK_currencies] PRIMARY KEY CLUSTERED 
 (
-	[currencyId] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[employees]    Script Date: 5/11/2023 11:56:52 ******/
+/****** Object:  Table [dbo].[employees]    Script Date: 5/11/2023 12:53:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[employees](
-	[employeeId] [int] IDENTITY(1,1) NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[employeeName] [varchar](50) NOT NULL,
 	[warehouseId] [int] NOT NULL,
 	[roleId] [int] NOT NULL,
  CONSTRAINT [PK_employees] PRIMARY KEY CLUSTERED 
 (
-	[employeeId] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[products]    Script Date: 5/11/2023 11:56:52 ******/
+/****** Object:  Table [dbo].[products]    Script Date: 5/11/2023 12:53:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[products](
-	[productId] [int] IDENTITY(1,1) NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[productName] [varchar](50) NOT NULL,
 	[productTypeId] [int] NOT NULL,
 	[warehouseId] [int] NOT NULL,
@@ -176,96 +176,96 @@ CREATE TABLE [dbo].[products](
 	[stock] [int] NULL,
  CONSTRAINT [PK__products__2D10D16AE0CDFBF8] PRIMARY KEY CLUSTERED 
 (
-	[productId] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[productTypes]    Script Date: 5/11/2023 11:56:52 ******/
+/****** Object:  Table [dbo].[productTypes]    Script Date: 5/11/2023 12:53:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[productTypes](
-	[productTypeId] [int] IDENTITY(1,1) NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[productTypeName] [varchar](50) NOT NULL,
  CONSTRAINT [PK_productTypes] PRIMARY KEY CLUSTERED 
 (
-	[productTypeId] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[roles]    Script Date: 5/11/2023 11:56:52 ******/
+/****** Object:  Table [dbo].[roles]    Script Date: 5/11/2023 12:53:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[roles](
-	[roleId] [int] IDENTITY(1,1) NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[roleName] [nchar](10) NOT NULL,
 	[salary] [decimal](10, 2) NOT NULL,
  CONSTRAINT [PK_roles] PRIMARY KEY CLUSTERED 
 (
-	[roleId] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[warehouses]    Script Date: 5/11/2023 11:56:52 ******/
+/****** Object:  Table [dbo].[warehouses]    Script Date: 5/11/2023 12:53:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[warehouses](
-	[warehouseId] [int] IDENTITY(1,1) NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[warehouseName] [varchar](50) NOT NULL,
 	[addressId] [int] NOT NULL,
  CONSTRAINT [PK__warehous__102CD5F7271F1C63] PRIMARY KEY CLUSTERED 
 (
-	[warehouseId] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[addresses]  WITH CHECK ADD  CONSTRAINT [FK_addresses_countries] FOREIGN KEY([countryId])
-REFERENCES [dbo].[countries] ([countryId])
+REFERENCES [dbo].[countries] ([id])
 GO
 ALTER TABLE [dbo].[addresses] CHECK CONSTRAINT [FK_addresses_countries]
 GO
 ALTER TABLE [dbo].[affinities]  WITH CHECK ADD  CONSTRAINT [FK_affinities_productTypes] FOREIGN KEY([productTypeId1])
-REFERENCES [dbo].[productTypes] ([productTypeId])
+REFERENCES [dbo].[productTypes] ([id])
 GO
 ALTER TABLE [dbo].[affinities] CHECK CONSTRAINT [FK_affinities_productTypes]
 GO
 ALTER TABLE [dbo].[affinities]  WITH CHECK ADD  CONSTRAINT [FK_affinities_productTypes1] FOREIGN KEY([productTypeId2])
-REFERENCES [dbo].[productTypes] ([productTypeId])
+REFERENCES [dbo].[productTypes] ([id])
 GO
 ALTER TABLE [dbo].[affinities] CHECK CONSTRAINT [FK_affinities_productTypes1]
 GO
 ALTER TABLE [dbo].[countries]  WITH CHECK ADD  CONSTRAINT [FK_countries_currencies] FOREIGN KEY([currencyId])
-REFERENCES [dbo].[currencies] ([currencyId])
+REFERENCES [dbo].[currencies] ([id])
 GO
 ALTER TABLE [dbo].[countries] CHECK CONSTRAINT [FK_countries_currencies]
 GO
 ALTER TABLE [dbo].[employees]  WITH CHECK ADD  CONSTRAINT [FK_employees_roles] FOREIGN KEY([roleId])
-REFERENCES [dbo].[roles] ([roleId])
+REFERENCES [dbo].[roles] ([id])
 GO
 ALTER TABLE [dbo].[employees] CHECK CONSTRAINT [FK_employees_roles]
 GO
 ALTER TABLE [dbo].[employees]  WITH CHECK ADD  CONSTRAINT [FK_employees_warehouses] FOREIGN KEY([warehouseId])
-REFERENCES [dbo].[warehouses] ([warehouseId])
+REFERENCES [dbo].[warehouses] ([id])
 GO
 ALTER TABLE [dbo].[employees] CHECK CONSTRAINT [FK_employees_warehouses]
 GO
 ALTER TABLE [dbo].[products]  WITH CHECK ADD  CONSTRAINT [FK_products_productTypes] FOREIGN KEY([productTypeId])
-REFERENCES [dbo].[productTypes] ([productTypeId])
+REFERENCES [dbo].[productTypes] ([id])
 GO
 ALTER TABLE [dbo].[products] CHECK CONSTRAINT [FK_products_productTypes]
 GO
 ALTER TABLE [dbo].[products]  WITH CHECK ADD  CONSTRAINT [FK_products_warehouses] FOREIGN KEY([warehouseId])
-REFERENCES [dbo].[warehouses] ([warehouseId])
+REFERENCES [dbo].[warehouses] ([id])
 GO
 ALTER TABLE [dbo].[products] CHECK CONSTRAINT [FK_products_warehouses]
 GO
 ALTER TABLE [dbo].[warehouses]  WITH CHECK ADD  CONSTRAINT [FK_warehouses_addresses] FOREIGN KEY([addressId])
-REFERENCES [dbo].[addresses] ([addressId])
+REFERENCES [dbo].[addresses] ([id])
 GO
 ALTER TABLE [dbo].[warehouses] CHECK CONSTRAINT [FK_warehouses_addresses]
 GO
