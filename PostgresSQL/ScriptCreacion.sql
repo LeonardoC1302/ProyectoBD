@@ -38,6 +38,14 @@ CREATE TABLE IF NOT EXISTS public."assistLog"
     PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS public.orders
+(
+    id bigint NOT NULL,
+    description text NOT NULL,
+    "commentId" bigint,
+    PRIMARY KEY (id)
+);
+
 ALTER TABLE IF EXISTS public.comment
     ADD FOREIGN KEY ("clienteId")
     REFERENCES public.clients (id) MATCH SIMPLE
@@ -55,6 +63,14 @@ ALTER TABLE IF EXISTS public.comment
 
 
 ALTER TABLE IF EXISTS public."assistLog"
+    ADD FOREIGN KEY ("commentId")
+    REFERENCES public.comment (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.orders
     ADD FOREIGN KEY ("commentId")
     REFERENCES public.comment (id) MATCH SIMPLE
     ON UPDATE NO ACTION
