@@ -6,16 +6,19 @@ use MVC\Router;
 class PagesController {
     public static function index(Router $router){
         $router->render('pages/index', [
+            'mainPage' => true
         ]);
     }
 
     public static function products(Router $router){
         $router->render('pages/products', [
+            'mainPage' => true
         ]);
     }
 
     public static function product(Router $router){
         $router->render('pages/product', [
+            'mainPage' => true
         ]);
     }
 

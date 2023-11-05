@@ -1,0 +1,66 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.contact{
+    @include m.tablet{
+        display: flex;
+        flex-direction: row;
+        // justify-content: space-between;
+        .contact-info{
+            width: 30%;
+        }
+    }
+    display: flex;
+    flex-direction: column;
+    // width: 100%;
+    margin: 0 v.$gap;
+    .contact-info{
+        @include m.tablet{
+            align-items: flex-start;
+            margin-right: 2rem;
+        }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .title-info{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .icon-contact{
+                margin-right: 1rem;
+                background-color: v.$accent;
+                padding: 1rem;
+                border-radius: 5rem;
+            }
+        }
+        .info-description{
+            p{
+                font-size: 1.5rem;
+            }
+            @include m.tablet{
+                text-align: left;
+            }
+            text-align: center;
+        }
+    }
+}
+
+
+.contact-form{
+    width: 100%;
+    .form__field{
+        @include m.tablet{
+            width: 30%;
+        }
+        width: 100%;
+    }
+
+    .form__submit{
+        @include m.tablet{
+            width: auto;
+            align-self: flex-end;
+        }
+        margin: 2rem;
+        width: 100%;
+    }
+}
