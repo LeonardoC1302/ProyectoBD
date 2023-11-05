@@ -1,0 +1,29 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.login-container{
+    @include m.tablet {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin: calc(v.$gap/2) v.$gap;
+    }
+    display: flex;
+    flex-direction: column;
+    margin:  0 v.$gap;
+    .image-login{
+        // background-color: v.$light-blue;
+        width: min(50rem, 100%);
+        height: auto;
+    }
+    .login-form{
+        @include m.tablet {
+            margin:auto v.$gap;
+            width: 40%;
+        }
+        margin: v.$gap auto;
+        width: 100%;
+    }
+}

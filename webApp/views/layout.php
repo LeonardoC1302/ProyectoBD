@@ -31,15 +31,18 @@
             </div>
         </nav>
     </header>
-
-    <div class="search-bar">
-        <form action="/products" class="search-input">
-            <input type="text" name="search" placeholder="Search on LabProSource">
-            <button class="search-icon" type="submit">
-                <i class='bx bx-search' ></i>
-            </button>
-        </form>
-    </div>
+    <?php
+        $mainPage = $mainPage ?? false;
+        if ($mainPage) { ?>
+            <div class="search-bar">
+                <form action="/products" class="search-input">
+                    <input type="text" name="search" placeholder="Search on LabProSource">
+                    <button class="search-icon" type="submit">
+                        <i class='bx bx-search' ></i>
+                    </button>
+                </form>
+            </div>
+    <?php } ?>
 
     <?php echo $content; ?>
 
