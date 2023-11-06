@@ -76,6 +76,14 @@
     align-items: center;
     justify-content: space-between;
     .action{
+        color: v.$black;
+        span{
+            text-decoration: underline;
+            color: v.$accent;
+        }
+        font-size: 1.5rem;
+    }
+    .action-accent{
         color: v.$accent;
         font-size: 1.5rem;
     }

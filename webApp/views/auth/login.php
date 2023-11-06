@@ -13,9 +13,10 @@
                 <input class="form__input-login" type="password" id="password" placeholder="Enter your password" name="password">
             </div>
 
+            <input class="form__submit-100" type="submit" value="Log In">
             <div class="actions">
-                <input class="form__submit" type="submit" value="Log In">
-                <a href="/register" class="action">Forget Password?</a>
+                <a href="/register" class="action">Don't have an account? <span>Register</span></a>
+                <a href="/forgot" class="action-accent">Forget Password?</a>
             </div>  
 
         </form>

@@ -23,15 +23,15 @@
         <form class="form">
             <div class="horizontal">
                 <div class="form__field">
-                    <input class="form__input" type="text" id="name" placeholder="Your name" name="name">
+                    <input class="form__input" type="tel" id="phone" placeholder="Your phone" name="phone">
                 </div>
                 <div class="form__field">
                     <input class="form__input" type="email" id="email" placeholder="Your email" name="email">
                 </div>
-                <div class="form__field">
-                    <input class="form__input" type="tel" id="phone" placeholder="Your phone" name="phone">
-                </div>
             </div>
+
+            <input class="form__input" type="text" id="name" placeholder="Your name" name="name">
+            
             <textarea class="form__textarea" name="message" id="message" placeholder="Your message"></textarea>
 
             <input class="form__submit" type="submit" value="Send Message">
