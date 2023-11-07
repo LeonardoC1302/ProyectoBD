@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
+use Controllers\EmployeeController;
 use MVC\Router;
 use Controllers\LoginController;
 use Controllers\PagesController;
@@ -44,6 +45,8 @@ $router->get('/service', [HelpController::class, 'service']);
 $router->get('/returns', [HelpController::class, 'returns']);
 $router->get('/international', [HelpController::class, 'international']);
 $router->get('/policies', [HelpController::class, 'policies']);
+
+$router->get('/employees', [EmployeeController::class, 'employees']);
 
 // Checks and validates the routes, ensuring they exist and assigns them to the Controller functions
 $router->checkRoutes();
