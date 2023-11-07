@@ -2,7 +2,157 @@
 @use 'base/mixins' as m;
 
 .products{
+    // margin: 5rem;
+    &__list{
+        @include m.tablet{
+            @include m.grid(5, calc(v.$gap/2));
+        }
+        display: flex;
+        flex-direction: column;
+        gap: v.$gap;
+        align-items: center;
+        margin:  2rem v.$gap;
+    }
+}
+
+.product{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: min(100%, 20rem);
+    &__image{
+        background-color: v.$light-gray;
+        padding: 3rem;
+        border-radius: 2rem;
+    }
+    &__name{
+        margin: 0;
+        text-align: center;
+    }
+    &__price{
+        text-align: center;
+        font-weight: v.$bold;
+        color: v.$accent;
+        margin: 0;
+    }
+}
+
+.detail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 2rem;
+}
+.product-details{
     @include m.tablet{
-        @include m.grid(5, calc(v.$gap/2));
+        display: flex;
+        margin: v.$gap;
+    }
+    margin: 2rem;
+    .product-images{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .main-image{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            width: min(100%, 40rem);
+        }
+        .small-image{
+            display: flex;
+            justify-content: center;
+            img{
+                padding: .5rem;
+                width: 5rem;
+                height: auto;
+                border: 1px solid v.$black;
+            }
+        }
+    }
+    .product-info{
+        display: flex;
+        flex-direction: column;
+        margin: 0 v.$gap;
+        .info-name{
+            font-weight: v.$bold;
+            font-size: 2.5rem;
+        }
+
+        .info-price{
+            margin: 0;
+            font-weight: v.$bold;
+            font-size: 2rem;
+            color: v.$accent;
+            span{
+                display: block;
+                margin: 1rem 0;
+                color: v.$black;
+            }
+        }
+        .info-description{
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            // width: max(50%, 30rem);
+        }
+    }
+    .shipping{
+        @include m.tablet{
+            padding-top: 0;
+            width: 50%;
+            margin:  0 v.$gap;
+        }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        form{
+            border-radius: 3rem;
+            border: 1px solid v.$black;
+            padding: 2rem;
+        }
+        margin:  2rem v.$gap;
+        // width: 100%;
+        &__address{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid v.$black;
+            i{
+                font-size: 4rem;
+            }
+        }
+
+        &__details{
+            border-bottom: 1px solid v.$black;
+            p span {
+                color: v.$accent;
+            }
+            .delivery{
+                color: v.$green2;
+                font-weight: v.$bold;
+            }
+            .date span{
+                font-weight: bold;
+                color: v.$black;
+            }
+
+        }
+        .quantity{
+            margin: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            input{
+                width: 8rem;
+                border-radius: 5rem;
+                padding: 1rem .5rem 1rem 2rem;
+            }
+        }
+
+        .add{
+            @include m.button(v.$accent, v.$white, 5rem)
+        }
     }
 }
