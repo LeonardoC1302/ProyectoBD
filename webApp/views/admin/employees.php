@@ -1,14 +1,14 @@
-<h1>Employees</h1>
-<table class="employees">
+<h1 class="line">Employees</h1>
+<table>
     <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Rol</th>
-            <th>Department</th>
-            <th>Hours</th>
-            <th>Last Pay</th>
-            <th>Countries</th>
-            <th>Payed in this 4 week period</th>
+            <th class="line">Nombre</th>
+            <th class="line">Rol</th>
+            <th class="line">Department</th>
+            <th class="line">Hours</th>
+            <th class="line">Last Pay</th>
+            <th class="line">Countries</th>
+            <th class="line">Payed in this 4 week period</th>
         </tr>
 
     </thead>

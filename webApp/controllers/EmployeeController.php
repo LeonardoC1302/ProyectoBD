@@ -11,7 +11,7 @@ class EmployeeController {
         
     }
 
-    public static function employeesSearch(Router $router){
+    public static function employeeSearch(Router $router){
         $router->render('admin/employeeSearch', [
         ]);
         
