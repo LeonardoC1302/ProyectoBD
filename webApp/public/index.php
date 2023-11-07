@@ -38,6 +38,7 @@ $router->get('/cart', [PagesController::class, 'cart']);
 $router->get('/account', [PagesController::class, 'account']);
 $router->get('/orders', [PagesController::class, 'orders']);
 
+
 $router->get('/apply', [HelpController::class, 'apply']);
 $router->get('/service', [HelpController::class, 'service']);
 $router->get('/returns', [HelpController::class, 'returns']);
