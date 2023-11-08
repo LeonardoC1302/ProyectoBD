@@ -39,3 +39,19 @@
     margin-right: 10px;
 }
 
+.box {
+    flex: 0 0 250px; /* Width of the right box */
+    padding: 20px;
+    border: 2px solid black;
+    height: 50px; 
+    width: 40%;
+    background-color: #ffffff;
+    margin: 0 auto;
+    justify-content:center;
+
+}
+
+.red-button {
+    color: v.$white;
+    background-color: v.$red;
+}

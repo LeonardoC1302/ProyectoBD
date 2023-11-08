@@ -31,16 +31,17 @@
     </tbody>
 </table>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Buttons</title>
-</head>
+<div class="button-container" >
+    <a class="button" href="/products">Return to Shop</a>
+    <a class="button" href="/cart">Update Cart</a>
+</div>
 
-<body>
-    <div class="button-container">
-        <button class="button">Return to Shop</button>
-        <button class="button">Update Cart</button>
-    </div>
-</body>
+
+<div class="box">
+    <h2>Cart Total</h2>
+    <p>Subtotal: $14.72</p>
+    <p>Shipping: $15.28</p>
+    <p>Total: $30.00</p>
+
+    <a class="red-button" href="/cart">Procees to checkout</a>
+</div>
