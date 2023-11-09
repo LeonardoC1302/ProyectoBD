@@ -22,9 +22,10 @@
             @include m.grid(2, calc(v.$gap/2));
         }
         img{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: auto;
+            height: auto; 
+            margin-left: 50px; 
+            margin-top: 150px; 
         }
     }
 
@@ -43,5 +44,7 @@
             margin: 1.5rem;
         }
     }
+    
 }
+
 

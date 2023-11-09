@@ -1,6 +1,7 @@
 <div class="policies">
     <h1 class="policies_title">Our Policies</h1>
     <div class="policies__info">
+        <img loading="policies_image" src="/images/policies2.png" alt="policies1 image">
         <div class="policies__description">
             <p class="description__title">Privacy Policy</p>
             <p>At LabProSource, we are dedicated to protecting your privacy and ensuring the security of your personal information. Our Privacy Policy explains how we collect, use, and safeguard your data, as well as your rights regarding privacy.</p>
