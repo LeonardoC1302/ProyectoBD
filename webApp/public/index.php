@@ -7,7 +7,7 @@ use Controllers\LoginController;
 use Controllers\PagesController;
 use Controllers\HelpController;
 use Controllers\ProductController;
-use Controllers\EmployeeController;
+use Controllers\AdminController;
 
 $router = new Router();
 
@@ -46,8 +46,9 @@ $router->get('/returns', [HelpController::class, 'returns']);
 $router->get('/international', [HelpController::class, 'international']);
 $router->get('/policies', [HelpController::class, 'policies']);
 
-$router->get('/employees', [EmployeeController::class, 'employees']);
-$router->get('/employeeSearch', [EmployeeController::class, 'employeeSearch']);
+$router->get('/employees', [AdminController::class, 'employees']);
+$router->get('/employeeSearch', [AdminController::class, 'employeeSearch']);
 
+$router->get('/admin', [AdminController::class, 'index']);
 // Checks and validates the routes, ensuring they exist and assigns them to the Controller functions
 $router->checkRoutes();

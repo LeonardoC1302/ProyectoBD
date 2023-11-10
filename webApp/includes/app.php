@@ -1,6 +1,9 @@
 <?php 
 use Model\ActiveRecord;
+use Model\User;
 require __DIR__ . '/../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ );
+$dotenv->safeLoad();
 
 require 'functions.php';
 require 'database.php';
@@ -10,4 +13,5 @@ $db_server = connect_sql_server();
 $db_mysql = connect_db_mysql();
 $db_postgresql = connect_postgresql();
 
-// ActiveRecord::setDB($db);
+// ActiveRecord::setDB($db_mysql);
+User::setDB($db_mysql);

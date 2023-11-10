@@ -1,0 +1,11 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.action-buttons{
+    display: flex;
+    margin: v.$gap;
+    justify-content: space-between;
+    a{
+        @include m.button(v.$primary, v.$white, 2rem)
+    }
+}

@@ -112,6 +112,7 @@ class ActiveRecord {
 
     public static function where($column, $value){
         $query = "SELECT * FROM " . static::$table . " WHERE $column = '$value'";
+        // debug($query);
         $result = self::querySQL($query);
         return array_shift($result); // Get the first element of the array
     }

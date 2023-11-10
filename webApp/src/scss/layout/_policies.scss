@@ -21,11 +21,19 @@
         @include m.tablet{
             @include m.grid(2, calc(v.$gap/2));
         }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         img{
             width: auto;
             height: auto; 
-            margin-left: 50px; 
-            margin-top: 150px; 
+            // @include m.tablet{
+                // margin-left: 50px; 
+                // margin-top: 150px; 
+            // }
+            margin: 0;
+
         }
     }
 

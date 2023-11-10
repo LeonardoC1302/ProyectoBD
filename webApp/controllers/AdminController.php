@@ -4,7 +4,13 @@ namespace Controllers;
 use MVC\Router;
 
 
-class EmployeeController {
+class Admincontroller {
+    public static function index(Router $router){
+        $router->render('admin/index', [
+        ]);
+        
+    }
+
     public static function employees(Router $router){
         $router->render('admin/employees', [
         ]);
