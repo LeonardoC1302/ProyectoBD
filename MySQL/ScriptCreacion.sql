@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `recursos_humanos`.`users` (
   `username` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(60) NOT NULL,
+  `phone` VARCHAR(10) NOT NULL,
   `verified` TINYINT NOT NULL,
   `token` TINYINT NOT NULL,
   `admin` TINYINT NOT NULL,
