@@ -1,6 +1,8 @@
 <?php
 
 namespace Controllers;
+
+use Model\Product;
 use MVC\Router;
 
 class PagesController {
@@ -11,14 +13,23 @@ class PagesController {
     }
 
     public static function products(Router $router){
+        $products = Product::all();
         $router->render('pages/products', [
-            'mainPage' => true
+            'mainPage' => true,
+            'products' => $products
         ]);
     }
 
     public static function product(Router $router){
+        $id = $_GET['id'] ?? null;
+        if(!$id){
+            header('Location: /products');
+        }
+        $product = Product::find($id);
+
         $router->render('pages/product', [
-            'mainPage' => true
+            'mainPage' => true,
+            'product' => $product
         ]);
     }
 

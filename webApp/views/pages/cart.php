@@ -39,9 +39,9 @@
 
 <div class="box">
     <h2>Cart Total</h2>
-    <p>Subtotal: $14.72</p>
-    <p>Shipping: $15.28</p>
-    <p>Total: $30.00</p>
+    <p>Subtotal: <span>$14.72</span></p>
+    <p>Shipping: <span>$15.28</span></p>
+    <p>Total: <span>$30.00</span></p>
 
-    <a class="red-button" href="/cart">Procees to checkout</a>
+    <a class="red-button" href="/cart">Proceed to checkout</a>
 </div>

@@ -1,19 +1,21 @@
+
+
 <div class="product-details">
     <div class="detail">
         <div class="main-info">
             <div class="product-images">
                 <div class="main-image">
-                    <img loading="lazy" src="/images/erlenmeyer.png" alt="product">
+                    <img loading="lazy" src="/images/<?php echo $product->image; ?>" alt="product">
                 </div>
                 <div class="small-image">
-                    <img loading="lazy" src="/images/erlenmeyer.png" alt="product">
+                    <img loading="lazy" src="/images/<?php echo $product->image; ?>" alt="product">
                 </div>
             </div>
         </div>
         <div class="product-info">
-            <p class="info-name">Erlenmeyer Flask, 250mL</p>
-            <p class="info-price">US $7.36<span>+Shipping: US $20.3</span></p>
-            <p class="info-description">Elevate your laboratory experiments with our 250mL Erlenmeyer Flask. Crafted from durable borosilicate glass, it's designed for precise mixing, heating, and storage in the lab. Upgrade your equipment today for better results!</p>
+            <p class="info-name"><?php echo $product->productName; ?></p>
+            <p class="info-price">$ <?php echo $product->price; ?><span>+Shipping: US $20.3</span></p>
+            <p class="info-description"><?php echo $product->description; ?></p>
         </div>
     </div>
     <div class="shipping">

@@ -47,6 +47,7 @@
 .product-details{
     @include m.tablet{
         display: flex;
+        justify-content: space-between;
         margin: v.$gap;
     }
     margin: 2rem;
@@ -100,7 +101,7 @@
     .shipping{
         @include m.tablet{
             padding-top: 0;
-            width: 50%;
+            // width: 50%;
             margin:  0 v.$gap;
         }
         display: flex;

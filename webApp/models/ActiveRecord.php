@@ -117,6 +117,12 @@ class ActiveRecord {
         return array_shift($result); // Get the first element of the array
     }
 
+    public static function find($id){
+        $query = "SELECT * FROM " . static::$table . " WHERE id = $id";
+        $result = self::querySQL($query);
+        return array_shift($result); // Get the first element of the array
+    }
+
     public static function SQL($query){
         $result = self::querySQL($query);
         return $result;

@@ -40,18 +40,34 @@
 }
 
 .box {
-    flex: 0 0 250px; /* Width of the right box */
-    padding: 20px;
-    border: 2px solid black;
-    height: 50px; 
-    width: 40%;
-    background-color: #ffffff;
-    margin: 0 auto;
-    justify-content:center;
+    h2{
+        font-size: 2.5rem;
+        // font-weight: v.$regular;
+        text-align: left;
+    }
+
+    p{
+        border-bottom: 1px solid v.$black;
+        padding-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        &:last-of-type {
+            border-bottom: none;
+        }
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    @include m.tablet{
+        margin: 0 2rem 2rem auto;
+    }
+    margin: auto;
+    padding: 2rem;
+    width: min(95%, 50rem);
+    border: 1px solid v.$black;
 
 }
 
 .red-button {
-    color: v.$white;
-    background-color: v.$red;
+    @include m.button(v.$accent, v.$white, 0);
 }
