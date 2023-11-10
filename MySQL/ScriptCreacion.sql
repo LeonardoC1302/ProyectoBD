@@ -64,8 +64,9 @@ CREATE TABLE IF NOT EXISTS `recursos_humanos`.`users` (
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(60) NOT NULL,
   `verified` TINYINT NOT NULL,
-  `token` TINYINT NOT NULL,
+  `token` VARCHAR(15) NOT NULL,
   `admin` TINYINT NOT NULL,
+  `phone` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
