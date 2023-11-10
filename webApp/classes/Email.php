@@ -24,7 +24,7 @@ class Email {
         $mail->Password = $_ENV['EMAIL_PASS'];
         $mail->SMTPSecure = 'ssl';
 
-        $mail->setFrom($_ENV['EMAIL_USER'], 'CRAdventures.com');
+        $mail->setFrom($_ENV['EMAIL_USER'], 'LabProSource.com');
         $mail->addAddress($this->email); // Email from user
         $mail->Subject = 'Confirm your account';
         $mail->isHTML(true);
@@ -52,7 +52,7 @@ class Email {
         $mail->Password = $_ENV['EMAIL_PASS'];
         $mail->SMTPSecure = 'ssl';
 
-        $mail->setFrom($_ENV['EMAIL_USER'], 'CRAdventures.com');
+        $mail->setFrom($_ENV['EMAIL_USER'], 'LabProSource.com');
         $mail->addAddress($this->email); // Email from user
         $mail->Subject = 'Reset your password';
         $mail->isHTML(true);
