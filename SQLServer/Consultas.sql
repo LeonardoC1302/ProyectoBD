@@ -35,8 +35,14 @@ VALUES ('John Doe', 1, 1), ('Alice Smith', 2, 2), ('Bob Johnson', 3, 3), ('Eva B
 INSERT INTO productTypes (productTypeName)
 VALUES ('Electronics'), ('Clothing'), ('Furniture'), ('Appliances'), ('Books');
 
-INSERT INTO products (productName, productTypeId, warehouseId, location, stock)
-VALUES ('Laptop', 1, 1, NULL, 100), ('T-shirt', 2, 2, NULL, 500), ('Sofa', 3, 3, NULL, 50), ('Refrigerator', 4, 4, NULL, 30), ('Book', 5, 5, NULL, 200);
+INSERT INTO products (productName, productTypeId, warehouseId, location, stock, price, image, description)
+VALUES 
+  ('Laptop', 1, 1, NULL, 100, 999.99, 'laptop_image.jpg', 'High-performance laptop with advanced features.'),
+  ('T-shirt', 2, 2, NULL, 500, 19.99, 'tshirt_image.jpg', 'Comfortable cotton t-shirt in various colors.'),
+  ('Sofa', 3, 3, NULL, 50, 599.99, 'sofa_image.jpg', 'Stylish and comfortable sofa for your living room.'),
+  ('Refrigerator', 4, 4, NULL, 30, 799.99, 'fridge_image.jpg', 'Energy-efficient refrigerator with spacious compartments.'),
+  ('Book', 5, 5, NULL, 200, 9.99, 'book_image.jpg', 'Best-selling novel by a renowned author.');
+
 
 INSERT INTO affinities (productTypeId1, productTypeId2, description)
 VALUES (1, 2, 'Electronics and Clothing'), (3, 4, 'Furniture and Appliances'), (2, 5, 'Clothing and Books'), (1, 3, 'Electronics and Furniture'), (4, 5, 'Appliances and Books');
