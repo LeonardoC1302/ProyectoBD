@@ -11,8 +11,35 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema recursos_humanos
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `recursos_humanos` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `recursos_humanos` DEFAULT CHARACTER SET utf8mb3 ;
 USE `recursos_humanos` ;
+
+-- -----------------------------------------------------
+-- Table `recursos_humanos`.`country`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `recursos_humanos`.`country` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `recursos_humanos`.`city`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `recursos_humanos`.`city` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `countryId` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_city_country1_idx` (`countryId` ASC) VISIBLE,
+  CONSTRAINT `fk_city_country1`
+    FOREIGN KEY (`countryId`)
+    REFERENCES `recursos_humanos`.`country` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `recursos_humanos`.`department`
@@ -21,7 +48,8 @@ CREATE TABLE IF NOT EXISTS `recursos_humanos`.`department` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
@@ -37,38 +65,9 @@ CREATE TABLE IF NOT EXISTS `recursos_humanos`.`rol` (
   INDEX `fk_rol_department1_idx` (`departmentId` ASC) VISIBLE,
   CONSTRAINT `fk_rol_department1`
     FOREIGN KEY (`departmentId`)
-    REFERENCES `recursos_humanos`.`department` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `recursos_humanos`.`country`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `recursos_humanos`.`country` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `recursos_humanos`.`users`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `recursos_humanos`.`users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(30) NOT NULL,
-  `surname` VARCHAR(30) NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(60) NOT NULL,
-  `verified` TINYINT NOT NULL,
-  `token` VARCHAR(15) NOT NULL,
-  `admin` TINYINT NOT NULL,
-  `phone` VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+    REFERENCES `recursos_humanos`.`department` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
@@ -85,62 +84,17 @@ CREATE TABLE IF NOT EXISTS `recursos_humanos`.`employee` (
   `lastPay` DATE NOT NULL,
   `rolId` INT NOT NULL,
   `countryId` INT NOT NULL,
-  `usersId` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_empleado_department_idx` (`rolId` ASC) VISIBLE,
   INDEX `fk_employee_country1_idx` (`countryId` ASC) VISIBLE,
-  INDEX `fk_employee_users1_idx` (`usersId` ASC) VISIBLE,
   CONSTRAINT `fk_empleado_department`
     FOREIGN KEY (`rolId`)
-    REFERENCES `recursos_humanos`.`rol` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `recursos_humanos`.`rol` (`id`),
   CONSTRAINT `fk_employee_country1`
     FOREIGN KEY (`countryId`)
-    REFERENCES `recursos_humanos`.`country` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_employee_users1`
-    FOREIGN KEY (`usersId`)
-    REFERENCES `recursos_humanos`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `recursos_humanos`.`city`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `recursos_humanos`.`city` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `countryId` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_city_country1_idx` (`countryId` ASC) VISIBLE,
-  CONSTRAINT `fk_city_country1`
-    FOREIGN KEY (`countryId`)
-    REFERENCES `recursos_humanos`.`country` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `recursos_humanos`.`socialCharge`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `recursos_humanos`.`socialCharge` (
-  `id` INT NOT NULL,
-  `description` VARCHAR(300) NOT NULL,
-  `quantity` DECIMAL(10,2) NOT NULL,
-  `countryId` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_socialCharge_country1_idx` (`countryId` ASC) VISIBLE,
-  CONSTRAINT `fk_socialCharge_country1`
-    FOREIGN KEY (`countryId`)
-    REFERENCES `recursos_humanos`.`country` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `recursos_humanos`.`country` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
@@ -155,18 +109,17 @@ CREATE TABLE IF NOT EXISTS `recursos_humanos`.`performance` (
   INDEX `fk_performance_employee1_idx` (`employeeId` ASC) VISIBLE,
   CONSTRAINT `fk_performance_employee1`
     FOREIGN KEY (`employeeId`)
-    REFERENCES `recursos_humanos`.`employee` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `recursos_humanos`.`employee` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `recursos_humanos`.`salaryLog`
+-- Table `recursos_humanos`.`salarylog`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `recursos_humanos`.`salaryLog` (
+CREATE TABLE IF NOT EXISTS `recursos_humanos`.`salarylog` (
   `id` INT NOT NULL,
-  `description` VARCHAR(100) NULL,
+  `description` VARCHAR(100) NULL DEFAULT NULL,
   `amount` DECIMAL(10,2) NOT NULL,
   `datePayed` DATE NOT NULL,
   `employeeId` INT NOT NULL,
@@ -174,10 +127,44 @@ CREATE TABLE IF NOT EXISTS `recursos_humanos`.`salaryLog` (
   INDEX `fk_salaryLog_employee1_idx` (`employeeId` ASC) VISIBLE,
   CONSTRAINT `fk_salaryLog_employee1`
     FOREIGN KEY (`employeeId`)
-    REFERENCES `recursos_humanos`.`employee` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `recursos_humanos`.`employee` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `recursos_humanos`.`socialcharge`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `recursos_humanos`.`socialcharge` (
+  `id` INT NOT NULL,
+  `description` VARCHAR(300) NOT NULL,
+  `quantity` DECIMAL(10,2) NOT NULL,
+  `countryId` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_socialCharge_country1_idx` (`countryId` ASC) VISIBLE,
+  CONSTRAINT `fk_socialCharge_country1`
+    FOREIGN KEY (`countryId`)
+    REFERENCES `recursos_humanos`.`country` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `recursos_humanos`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `recursos_humanos`.`users` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(60) NOT NULL,
+  `surname` VARCHAR(60) NOT NULL,
+  `email` VARCHAR(90) NOT NULL,
+  `password` VARCHAR(60) NOT NULL,
+  `phone` VARCHAR(10) NOT NULL,
+  `admin` TINYINT NOT NULL,
+  `verified` TINYINT NOT NULL,
+  `token` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
