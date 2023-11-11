@@ -1,0 +1,68 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.service{
+    display: flex;
+    flex-direction: column;
+    margin: v.$gap;
+    margin-top: 0;
+    &__title{
+        @include m.tablet{
+            text-align: left;
+        }
+        text-align: center;
+        border-bottom: 1px solid #000;
+        font-size: 3.5rem;
+        font-weight: v.$bold;
+        padding-bottom: 1rem;
+    }
+
+    &__info{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: 200px;
+            height: 200px;
+            // @include m.tablet{
+                // margin-left: 50px; 
+                // margin-top: 150px; 
+            // }
+
+        }
+        
+    }
+
+    &__description{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        @include m.tablet{
+            text-align: left;
+        }
+        text-align: center;
+        .description__title{
+            text-align: center;
+            margin-top: 1.5rem;
+            font-weight: v.$bold;
+        }
+        p{
+            margin: 0.5rem;
+        }
+        .title-info{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .icon-contact{
+                margin-top: 1.5rem;
+                margin-right: 0.5rem;
+                background-color: v.$accent;
+                padding: 1rem;
+                border-radius: 5rem;
+            }
+        }
+        
+    }
+    
+}
