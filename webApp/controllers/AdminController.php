@@ -2,6 +2,7 @@
 
 namespace Controllers;
 use MVC\Router;
+use Model\Employee;
 
 
 class Admincontroller {
@@ -12,7 +13,9 @@ class Admincontroller {
     }
 
     public static function employees(Router $router){
+        $employee = Employee::all();
         $router->render('admin/employees', [
+            'employee' => $employee
         ]);
         
     }
