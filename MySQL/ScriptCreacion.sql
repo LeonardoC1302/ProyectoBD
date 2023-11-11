@@ -58,15 +58,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `recursos_humanos`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(30) NOT NULL,
-  `surname` VARCHAR(30) NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(60) NOT NULL,
+  `surname` VARCHAR(60) NOT NULL,
+  `email` VARCHAR(90) NOT NULL,
   `password` VARCHAR(60) NOT NULL,
   `phone` VARCHAR(10) NOT NULL,
-  `verified` TINYINT NOT NULL,
-  `token` TINYINT NOT NULL,
   `admin` TINYINT NOT NULL,
+  `verified` TINYINT NOT NULL,
+  `token` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
