@@ -49,9 +49,9 @@
     <footer class="footer">
         <div class="logo">
             <picture>
-                <source srcset="build/img/labLogo.webp" type="image/webp">
-                <source srcset="build/img/labLogo.jpg" type="image/jpeg">
-                <img class="logo-image" loading="lazy" src="build/img/labLogo.jpg" alt="Logo Image">
+                <source srcset="/build/img/labLogo.webp" type="image/webp">
+                <source srcset="/build/img/labLogo.jpg" type="image/jpeg">
+                <img class="logo-image" loading="lazy" src="/build/img/labLogo.jpg" alt="Logo Image">
             </picture>
             <p class="logo-name">Labprosource</p>
         </div>
