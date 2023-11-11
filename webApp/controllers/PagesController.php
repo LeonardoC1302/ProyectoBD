@@ -48,6 +48,11 @@ class PagesController {
         ]);
     }
 
+    public static function checkout(Router $router){
+        $router->render('pages/checkout', [
+        ]);
+    }
+
     public static function account(Router $router){
         $router->render('pages/account', [
         ]);

@@ -64,6 +64,7 @@ class LoginController {
                     // Generate token
                     $user->generateToken();
                     $user->save();
+                    User::syncSQLServer();
                     // Send email
                     $mail = new Email($user->email, $user->name, $user->token);
                     $mail->sendRecover();
@@ -100,6 +101,7 @@ class LoginController {
                 $user->hashPassword();
                 $user->token = '';
                 $result = $user->save();
+                User::syncSQLServer();
                 if($result){
                     header('Location: /');
                 }
@@ -136,6 +138,7 @@ class LoginController {
                     $email->sendConfirmation();
                     // Save user
                     $result = $user->save();
+                    User::syncSQLServer();
                     if($result){
                         header('Location: /message');
                     }
@@ -160,6 +163,7 @@ class LoginController {
             $user->verified = 1;
             $user->token = '';
             $user->save();
+            User::syncSQLServer();
             User::setAlerts('success', 'Your account has been verified');
         }
 

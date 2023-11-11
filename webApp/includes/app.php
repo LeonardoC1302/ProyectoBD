@@ -17,4 +17,5 @@ $db_postgresql = connect_postgresql();
 
 // ActiveRecord::setDB($db_mysql);
 User::setDB($db_mysql);
+User::setDbServer($db_server);
 Product::setDB($db_server);

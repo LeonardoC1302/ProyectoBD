@@ -36,6 +36,8 @@ $router->get('/product', [PagesController::class, 'product']);
 $router->get('/contact', [PagesController::class, 'contact']);
 $router->get('/about', [PagesController::class, 'about']);
 $router->get('/cart', [PagesController::class, 'cart']);
+$router->get('/checkout', [PagesController::class, 'checkout']);
+$router->post('/checkout', [PagesController::class, 'checkout']);
 $router->get('/account', [PagesController::class, 'account']);
 $router->get('/orders', [PagesController::class, 'orders']);
 
