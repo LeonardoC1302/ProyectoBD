@@ -1,6 +1,6 @@
 USE [storage]
 GO
-/****** Object:  Table [dbo].[addresses]    Script Date: 10/11/2023 15:29:48 ******/
+/****** Object:  Table [dbo].[addresses]    Script Date: 11/11/2023 11:08:53 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16,7 +16,7 @@ CREATE TABLE [dbo].[addresses](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[affinities]    Script Date: 10/11/2023 15:29:48 ******/
+/****** Object:  Table [dbo].[affinities]    Script Date: 11/11/2023 11:08:53 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -32,7 +32,21 @@ CREATE TABLE [dbo].[affinities](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[countries]    Script Date: 10/11/2023 15:29:48 ******/
+/****** Object:  Table [dbo].[carts]    Script Date: 11/11/2023 11:08:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[carts](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[userId] [int] NOT NULL,
+ CONSTRAINT [PK_carts] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[countries]    Script Date: 11/11/2023 11:08:53 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -47,7 +61,7 @@ CREATE TABLE [dbo].[countries](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[currencies]    Script Date: 10/11/2023 15:29:48 ******/
+/****** Object:  Table [dbo].[currencies]    Script Date: 11/11/2023 11:08:53 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -62,7 +76,7 @@ CREATE TABLE [dbo].[currencies](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[employees]    Script Date: 10/11/2023 15:29:48 ******/
+/****** Object:  Table [dbo].[employees]    Script Date: 11/11/2023 11:08:53 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -78,7 +92,7 @@ CREATE TABLE [dbo].[employees](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[products]    Script Date: 10/11/2023 15:29:48 ******/
+/****** Object:  Table [dbo].[products]    Script Date: 11/11/2023 11:08:53 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -99,7 +113,24 @@ CREATE TABLE [dbo].[products](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[productTypes]    Script Date: 10/11/2023 15:29:48 ******/
+/****** Object:  Table [dbo].[productsXCart]    Script Date: 11/11/2023 11:08:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[productsXCart](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[cartId] [int] NOT NULL,
+	[productId] [int] NOT NULL,
+	[quantity] [int] NOT NULL,
+	[price] [decimal](10, 2) NOT NULL,
+ CONSTRAINT [PK_productsXCart] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[productTypes]    Script Date: 11/11/2023 11:08:53 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -113,7 +144,24 @@ CREATE TABLE [dbo].[productTypes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[roles]    Script Date: 10/11/2023 15:29:48 ******/
+/****** Object:  Table [dbo].[productXsales]    Script Date: 11/11/2023 11:08:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[productXsales](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[saleId] [int] NOT NULL,
+	[productId] [int] NOT NULL,
+	[quantity] [int] NOT NULL,
+	[total] [decimal](10, 2) NOT NULL,
+ CONSTRAINT [PK_productXsales] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[roles]    Script Date: 11/11/2023 11:08:53 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -128,7 +176,45 @@ CREATE TABLE [dbo].[roles](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[warehouses]    Script Date: 10/11/2023 15:29:48 ******/
+/****** Object:  Table [dbo].[sales]    Script Date: 11/11/2023 11:08:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[sales](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[userId] [int] NOT NULL,
+	[saleDate] [datetime] NOT NULL,
+	[total] [decimal](10, 2) NOT NULL,
+ CONSTRAINT [PK_sales] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[users]    Script Date: 11/11/2023 11:08:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[users](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [varchar](30) NOT NULL,
+	[surname] [varchar](30) NOT NULL,
+	[username] [varchar](45) NOT NULL,
+	[email] [varchar](45) NOT NULL,
+	[password] [varchar](60) NOT NULL,
+	[phone] [varchar](10) NOT NULL,
+	[verified] [tinyint] NOT NULL,
+	[token] [tinyint] NOT NULL,
+	[admin] [tinyint] NOT NULL,
+ CONSTRAINT [PK_users] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[warehouses]    Script Date: 11/11/2023 11:08:53 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -158,6 +244,11 @@ REFERENCES [dbo].[productTypes] ([id])
 GO
 ALTER TABLE [dbo].[affinities] CHECK CONSTRAINT [FK_affinities_productTypes1]
 GO
+ALTER TABLE [dbo].[carts]  WITH CHECK ADD  CONSTRAINT [FK_carts_users] FOREIGN KEY([userId])
+REFERENCES [dbo].[users] ([id])
+GO
+ALTER TABLE [dbo].[carts] CHECK CONSTRAINT [FK_carts_users]
+GO
 ALTER TABLE [dbo].[countries]  WITH CHECK ADD  CONSTRAINT [FK_countries_currencies] FOREIGN KEY([currencyId])
 REFERENCES [dbo].[currencies] ([id])
 GO
@@ -182,6 +273,31 @@ ALTER TABLE [dbo].[products]  WITH CHECK ADD  CONSTRAINT [FK_products_warehouses
 REFERENCES [dbo].[warehouses] ([id])
 GO
 ALTER TABLE [dbo].[products] CHECK CONSTRAINT [FK_products_warehouses]
+GO
+ALTER TABLE [dbo].[productsXCart]  WITH CHECK ADD  CONSTRAINT [FK_productsXCart_carts] FOREIGN KEY([cartId])
+REFERENCES [dbo].[carts] ([id])
+GO
+ALTER TABLE [dbo].[productsXCart] CHECK CONSTRAINT [FK_productsXCart_carts]
+GO
+ALTER TABLE [dbo].[productsXCart]  WITH CHECK ADD  CONSTRAINT [FK_productsXCart_products] FOREIGN KEY([productId])
+REFERENCES [dbo].[products] ([id])
+GO
+ALTER TABLE [dbo].[productsXCart] CHECK CONSTRAINT [FK_productsXCart_products]
+GO
+ALTER TABLE [dbo].[productXsales]  WITH CHECK ADD  CONSTRAINT [FK_productXsales_products] FOREIGN KEY([productId])
+REFERENCES [dbo].[products] ([id])
+GO
+ALTER TABLE [dbo].[productXsales] CHECK CONSTRAINT [FK_productXsales_products]
+GO
+ALTER TABLE [dbo].[productXsales]  WITH CHECK ADD  CONSTRAINT [FK_productXsales_sales] FOREIGN KEY([saleId])
+REFERENCES [dbo].[sales] ([id])
+GO
+ALTER TABLE [dbo].[productXsales] CHECK CONSTRAINT [FK_productXsales_sales]
+GO
+ALTER TABLE [dbo].[sales]  WITH CHECK ADD  CONSTRAINT [FK_sales_users] FOREIGN KEY([userId])
+REFERENCES [dbo].[users] ([id])
+GO
+ALTER TABLE [dbo].[sales] CHECK CONSTRAINT [FK_sales_users]
 GO
 ALTER TABLE [dbo].[warehouses]  WITH CHECK ADD  CONSTRAINT [FK_warehouses_addresses] FOREIGN KEY([addressId])
 REFERENCES [dbo].[addresses] ([id])
