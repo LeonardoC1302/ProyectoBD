@@ -6,6 +6,7 @@
     <thead>
         <tr>
             <th>Product</th>
+            <th>Image</th>
             <th>Price</th>
             <th>Quantity</th>
             <th>Subtotal</th>
@@ -16,15 +17,17 @@
     <tbody>
         <tr>
             <td>Erlenmeyer Flask, 250mL</td>
+            <td> <img loading="lazy" src="/images/erlenmeyer.png" > </td>
             <td>$7.36</td>
-            <td>1</td>
+            <td><input type="number" id="quantity" name="quantity" value="1" min="1"></td>
             <td>$7.36</td>
 
         </tr>
         <tr>
             <td>Erlenmeyer Flask, 350mL</td>
+            <td> <img loading="lazy" src="/images/erlenmeyer.png" > </td>
             <td>$7.36</td>
-            <td>1</td>
+            <td><input type="number" id="quantity" name="quantity" value="1" min="1"></td>
             <td>$7.36</td>
            
         </tr>

@@ -6,6 +6,16 @@
     width: 80%;
     border-collapse: collapse;
     margin: 0 auto;
+
+    input {
+        width: 40px;
+        text-align: center;
+    }
+
+    img{
+        max-width: 50px;
+        max-height: 50px;
+    }
 }
 
 .cart th, .cart td {
@@ -19,6 +29,8 @@
     padding: 20px; 
     border: 1px solid #ccc;
     height: 100px; 
+
+
 }
 
 .button-container {
