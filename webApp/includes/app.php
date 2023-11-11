@@ -2,6 +2,8 @@
 // use Model\ActiveRecord;
 use Model\User;
 use Model\Product;
+use Model\ProductType;
+use Model\Warehouse;
 
 require __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ );
@@ -19,3 +21,5 @@ $db_postgresql = connect_postgresql();
 User::setDB($db_mysql);
 User::setDbServer($db_server);
 Product::setDB($db_server);
+ProductType::setDB($db_server);
+Warehouse::setDB($db_server);

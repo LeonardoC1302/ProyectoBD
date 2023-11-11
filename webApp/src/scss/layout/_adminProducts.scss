@@ -1,0 +1,60 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.admin-actions{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 v.$gap;
+}
+.action-btn{
+    @include m.button(v.$accent, v.$white, 0)
+}
+
+.products-table{
+    margin-top: 2rem;
+    width: 100%;
+    border-spacing: 0;
+
+    thead {
+        background-color: v.$accent;
+        th {
+            color: v.$white;
+            padding: 2rem;
+        }
+    }
+
+    tbody {
+        td{
+            text-align: center;
+            img {
+                display: block;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    .table-image {
+        width: 10rem;
+    }
+
+    .icon-delete {
+        @include m.button(v.$white, v.$accent, 0);
+        @include m.tablet {
+            width: 100%;
+        }
+        margin: 1rem 0;
+        font-size: 2.5rem;
+        font-weight: v.$bold;
+    }
+    
+    .icon-update {
+        @include m.button(v.$white, v.$black, 0);
+        margin: 1rem 0;
+        font-size: 2.5rem;
+        font-weight: v.$bold;
+    }
+}
+
+.image-small {
+    width: 20rem;
+}

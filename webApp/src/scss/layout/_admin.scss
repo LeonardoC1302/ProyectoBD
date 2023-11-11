@@ -1,0 +1,35 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.admin-options{
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: calc(v.$gap/2);
+
+    .option{
+        border-radius: 2rem;
+        padding: 0 1rem;
+        &:hover{
+            background-color: lighten(v.$accent, 20%);
+        }
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        justify-content: flex-start;
+        width: min(35rem, 95%);
+        &__icon{
+            font-size: 3rem;
+            color: v.$white;
+            background-color: v.$accent;
+            padding: 1rem;
+            border-radius: 50%;
+        }
+
+        &__name{
+            font-weight: v.$bold;
+        }
+    }
+}
