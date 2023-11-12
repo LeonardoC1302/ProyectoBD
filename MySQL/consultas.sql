@@ -28,3 +28,4 @@ delete from country where id = 2;
 alter table country AUTO_INCREMENT = 2;
 
 update employee set lastPay = '23-10-25' where id = 4;
+update department set name = 'Ventas' where id = 2;

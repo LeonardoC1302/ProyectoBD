@@ -37,6 +37,11 @@ class Admincontroller {
         ]);
     }
 
+    public static function employeeReport(Router $router){
+        $router->render('admin/employeeReport', [
+        ]);
+    }
+
     public static function products(Router $router){
         $products = Product::all();
         $productTypes = ProductType::all();
