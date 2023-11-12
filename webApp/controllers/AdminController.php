@@ -6,6 +6,9 @@ use Model\Employee;
 use Model\Product;
 use Model\ProductType;
 use Model\Warehouse;
+use Model\Rol;
+use Model\Department;
+use Model\Country;
 
 
 class Admincontroller {
@@ -17,14 +20,25 @@ class Admincontroller {
 
     public static function employees(Router $router){
         $employee = Employee::all();
+        $rol = Rol::all();
+        $country = Country::all();
+        $department = Department::all();
         $router->render('admin/employees', [
-            'employee' => $employee
+            'employee' => $employee,
+            'rol' => $rol,
+            'country' => $country,
+            'department' => $department
         ]);
         
     }
 
     public static function employeeSearch(Router $router){
         $router->render('admin/employeeSearch', [
+        ]);
+    }
+
+    public static function employeeReport(Router $router){
+        $router->render('admin/employeeReport', [
         ]);
     }
 
