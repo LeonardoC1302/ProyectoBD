@@ -1,91 +1,146 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
-
 .checkout{
     display: flex;
-    flex-direction: column;
-    margin: v.$gap;
-    margin-top: 0;
-    
-    &__productsPrice{
+
+    .leftBlock{
         display: flex;
         flex-direction: column;
-
-    }
-
-    .total{
-        opacity: 0.5;
-        margin: 0;
-        padding: 0;
-    }
-
-    .price{
-        font-size: 4rem;
+        margin: v.$gap;
         margin-top: 0;
-        padding: 0;
-    }
-
-    &__productsInfo{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        @include m.tablet{
-            margin: 0 auto 0 0;
+        
+        &__productsPrice{
+            display: flex;
+            flex-direction: column;
+    
         }
-
-        img{
-            max-width: 4rem;
-            max-height: 4rem;
-            margin-right: 2rem;
-
+    
+        .total{
+            opacity: 0.5;
+            margin: 0;
+            padding: 0;
         }
-
-        &__productRow{
-            display:flex;
-            align-items: center;
-
-
-            .text{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-
-                .prodName{
+    
+        .price{
+            font-size: 4rem;
+            margin-top: 0;
+            padding: 0;
+        }
+    
+        &__productsInfo{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            @include m.tablet{
+                margin: 0 auto 0 0;
+            }
+    
+            img{
+                max-width: 4rem;
+                max-height: 4rem;
+                margin-right: 2rem;
+    
+            }
+    
+            &__productRow{
+                display:flex;
+                align-items: center;
+    
+    
+                .text{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+    
+                    .prodName{
+                        font-size: 1.5rem;
+                        margin: 1;
+                        font-weight: bold;
+                        margin-bottom: 0;
+                    }
+                
+                    .prodQuantity{
+                        margin-top: 0;
+                        opacity: 0.5;
+                        font-size: 1.2rem;
+                    }
+    
+    
+                }
+    
+                .prodPrice{
                     font-size: 1.5rem;
-                    margin: 1;
+                    margin-left: 10rem;
                     font-weight: bold;
                     margin-bottom: 0;
+                    align-self: flex-start;
                 }
-            
-                .prodQuantity{
-                    margin-top: 0;
-                    opacity: 0.5;
-                    font-size: 1.2rem;
+    
+                .subTotal{
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    margin-bottom: 2rem;
+                    margin-left: 5rem;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
                 }
-
-
+        
+                .shipping{
+                    font-size: 1.5rem;
+                    margin-bottom: 2rem;
+                    margin-left: 5rem;
+                    color: rgba(0, 0, 0, 0.5);
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+                }
+        
+                .total{
+                    font-size: 1.75rem;
+                    font-weight: bold;
+                    margin-left: 5rem;
+                    opacity: 1;
+                }
+    
+                .subTotalPrice {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    margin-bottom: 2rem;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    
+                }
+    
+                .shippingPrice{
+                    font-size: 1.5rem;
+                    margin-bottom: 2rem;
+                    color: rgba(0, 0, 0, 0.5);
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+                    
+    
+                }
+                .totalPrice{
+                    font-size: 1.75rem;
+                    font-weight: bold;
+                    opacity: 1;
+                    
+                    
+                }
+    
+    
+                
+    
             }
-
-            .prodPrice{
-                font-size: 1.5rem;
-                margin-left: 10rem;
-                font-weight: bold;
-                margin-bottom: 0;
-                align-self: flex-start;
-            }
-
+    
+           
+        
             
-
-        }
-
-        .subTotal{
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 0;
-            margin-left: 5rem;
-            border-bottom: 1px solid #000;
         }
     
-        
+      
     }
+
+    .rightBlock{
+        .form__field{
+            width: 60%;
+        }
+
+    }
+
 }
