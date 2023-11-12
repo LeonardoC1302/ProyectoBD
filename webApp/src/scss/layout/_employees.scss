@@ -79,4 +79,25 @@
 
 .line {
   border-bottom: 1px solid black;  
+  text-align: center;
 }
+
+table.line{
+  margin-bottom: 20px;
+}
+
+.link-btn{
+  background-color: v.$gray; 
+  color: v.$black;
+  padding: 15px 25px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer;
+  font-size: 16px; 
+  text-align: center;
+}
+
+.link-btn:hover {
+  background-color: #606060;
+}
+

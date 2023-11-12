@@ -1,5 +1,9 @@
 <h1 class="line">Employee Search</h1>
 
+<div class="actions">
+    <a href="/admin/employees" class="link-btn">Return to Employees</a>
+</div>
+
 <div class="container">
         <form class="square-container" method="POST">
             <!-- Add search input fields and buttons here -->
