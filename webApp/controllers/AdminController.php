@@ -55,6 +55,7 @@ class Admincontroller {
             'results'=> $results
         ]);
     }
+    //Employee Validations Search and Reports
 
     public static function employeeReport(Router $router){
         $router->render('admin/employeeReport', [

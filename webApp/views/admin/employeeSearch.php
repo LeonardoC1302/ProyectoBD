@@ -37,7 +37,7 @@
                 </select>
             </div>
             
-            <input class="search-button" type="submit" value="Search" onclick="return confirm('Aceptar?')">
+            <input class="search-button" type="submit" value="Search" onclick="return confirm('Search Employee With this Data?')">
 
             <div> <p>NOTE: If not all data is introduced, search will return all employees</p> </div>
 
