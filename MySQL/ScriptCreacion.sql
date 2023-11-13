@@ -20,6 +20,7 @@ USE `recursos_humanos` ;
 CREATE TABLE IF NOT EXISTS `recursos_humanos`.`country` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
+  `socialcharge` DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 2
@@ -132,23 +133,6 @@ CREATE TABLE IF NOT EXISTS `recursos_humanos`.`salarylog` (
   CONSTRAINT `fk_salaryLog_employee1`
     FOREIGN KEY (`employeeId`)
     REFERENCES `recursos_humanos`.`employee` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `recursos_humanos`.`socialcharge`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `recursos_humanos`.`socialcharge` (
-  `id` INT NOT NULL,
-  `description` VARCHAR(300) NOT NULL,
-  `quantity` DECIMAL(10,2) NOT NULL,
-  `countryId` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_socialCharge_country1_idx` (`countryId` ASC) VISIBLE,
-  CONSTRAINT `fk_socialCharge_country1`
-    FOREIGN KEY (`countryId`)
-    REFERENCES `recursos_humanos`.`country` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 

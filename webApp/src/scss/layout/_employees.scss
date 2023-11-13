@@ -53,10 +53,10 @@
 }
 .search-button {
   width: 100px;
-  height: 50px;
+  height: 100px;
   border: none; 
   border-radius: 20px; 
-  background-color: #bbbbbb;
+  background-color: v.$accent;
   color: #000000;
   font-size: 16px;
   display: flex;
@@ -64,6 +64,10 @@
   justify-content: center;
   text-align: center;
   margin: 0 auto;
+}
+
+.search-button:hover {
+  background-color: #630707;
 }
 
 .result-list {
@@ -87,7 +91,7 @@ table.line{
 }
 
 .link-btn{
-  background-color: v.$gray; 
+  background-color: v.$accent; 
   color: v.$black;
   padding: 15px 25px; 
   border: none; 
@@ -98,6 +102,49 @@ table.line{
 }
 
 .link-btn:hover {
-  background-color: #606060;
+  background-color: #630707;
 }
 
+.link-btn2{
+  background-color: #169c16;
+  color: v.$black;
+  padding: 15px 25px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer;
+  font-size: 16px; 
+  text-align: center;
+}
+
+.link-btn2:hover {
+  background-color: #0c5c24;
+}
+
+.drop-down {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  margin: 5px;
+}
+
+.drop-down label {
+  text-align: left; 
+}
+
+.drop-down select {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  width: 350px; 
+  text-align: left;
+  background: url('path-to-dropdown-arrow-icon.png') no-repeat right center / 20px;
+  cursor: pointer;
+}
+
+.drop-down select option {
+  text-align: left;
+}
+
+.drop-down select option[disabled]:first-child {
+  color: #999;
+}

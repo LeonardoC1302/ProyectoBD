@@ -148,6 +148,92 @@ class ActiveRecord {
         return $object;
     }
 
+    public static function employeeQuery($name, $surname, $rolId, $countryId) {
+        $query = "
+            SELECT
+            CONCAT(e.name, ' ', e.surname) AS Name,
+            d.Name AS Department,
+            r.rol AS Rol,
+            e.hours,
+            r.salary,
+            c.socialcharge,
+            (e.hours * r.salary * (1 - c.socialcharge)) AS CurrentSalary,
+            DATE_ADD(e.lastPay, INTERVAL 15 DAY) AS NextPay
+            FROM
+                employee e
+            JOIN
+                rol r ON e.rolId = r.id
+            JOIN
+                department d ON e.countryId = d.id
+            JOIN
+                country c ON e.countryId = c.id
+            WHERE
+                e.name = ? AND
+                e.surname = ? AND
+                e.rolId = ? AND
+                e.countryId = ?
+        ";
+
+        $statement = self::$db->prepare($query);
+
+        if ($statement === false) {
+            die("Query preparation failed: " . self::$db->error);
+        }
+
+        $statement->bind_param("ssii", $name, $surname, $rolId, $countryId);
+        $statement->execute();
+        $result = $statement->get_result();
+
+        $array = [];
+        while ($register = $result->fetch_assoc()) {
+            $array[] = static::createObject($register);
+        }
+
+        $statement->close();
+        return $array;
+    }
+
+    public static function employeeQueryAll() {
+        $query = "
+            SELECT
+            CONCAT(e.name, ' ', e.surname) AS Name,
+            d.Name AS Department,
+            r.rol AS Rol,
+            e.hours,
+            r.salary,
+            c.socialcharge,
+            (e.hours * r.salary * (1 - c.socialcharge)) AS CurrentSalary,
+            DATE_ADD(e.lastPay, INTERVAL 15 DAY) AS NextPay
+            FROM
+                employee e
+            JOIN
+                rol r ON e.rolId = r.id
+            JOIN
+                department d ON e.countryId = d.id
+            JOIN
+                country c ON e.countryId = c.id
+            ";
+    
+            $statement = self::$db->prepare($query);
+
+            if ($statement === false) {
+                die("Query preparation failed: " . self::$db->error);
+            }
+    
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            $array = [];
+            while ($register = $result->fetch_assoc()) {
+                $array[] = static::createObject($register);
+            }
+    
+            $statement->close();
+
+            return $array;
+        }
+    
+
     // Sync the object with the new values
     public function sync($args = []){
         foreach($args as $key=>$value){

@@ -3,12 +3,14 @@
 namespace Controllers;
 use MVC\Router;
 use Model\Employee;
+use Model\EmployeeResults;
 use Model\Product;
 use Model\ProductType;
 use Model\Warehouse;
 use Model\Rol;
 use Model\Department;
 use Model\Country;
+use Model\ActiveRecord;
 
 
 class Admincontroller {
@@ -33,7 +35,24 @@ class Admincontroller {
     }
 
     public static function employeeSearch(Router $router){
+        $employee = Employee::all();
+        $rol = Rol::all();
+        $country = Country::all();
+        $department = Department::all();
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if(count($_POST) == 4){
+                $results = EmployeeResults::employeeQuery($_POST['Name'], $_POST['Surname'], $_POST['Rol'], $_POST['Country']);
+            }else{
+                $results = EmployeeResults::employeeQueryAll();
+            }
+        }
+
         $router->render('admin/employeeSearch', [
+            'employee' => $employee,
+            'rol' => $rol,
+            'country' => $country,
+            'department' => $department,
+            'results'=> $results
         ]);
     }
 
