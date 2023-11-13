@@ -14,8 +14,17 @@ class HelpController {
         $router->render('help/service', [
         ]);
         
+    }public static function serviceEmp(Router $router){
+        $router->render('help/serviceEmp', [
+        ]);
+        
     }
 
+    public static function serviceEmp2(Router $router){
+        $router->render('help/serviceEmp2', [
+        ]);
+        
+    }
     public static function returns(Router $router){
         $router->render('help/returns', [
         ]);
