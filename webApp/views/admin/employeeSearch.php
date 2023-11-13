@@ -56,7 +56,7 @@
                 <li>Name: <?php echo $r->Name ?> </li>
                 <li>Deparment: <?php echo $r->Department ?></li>
                 <li>Rol: <?php echo $r->Rol ?></li>
-                <li>Hours Worked: <?php echo $r->hours ?></li>
+                <li>Hours Worked This Period: <?php echo $r->hours ?></li>
                 <li>Pay per Hour: ₡<?php echo $r->salary ?> - Social Charge: <?php echo $r->socialcharge*100 ?>%</li>
                 <li>Current Salary To Pay: ₡<?php echo round($r->CurrentSalary,2) ?></li>
                 <li>Next Pay: <?php echo $r->NextPay ?> </li>
