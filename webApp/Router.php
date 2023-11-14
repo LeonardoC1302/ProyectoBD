@@ -19,6 +19,7 @@ class Router
 
     public function checkRoutes()
     {
+        session_start();
         $currentUrl = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
         $method = $_SERVER['REQUEST_METHOD'];
 

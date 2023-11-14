@@ -22,12 +22,18 @@
                 <a href="/about">About</a>
             </div>
             <div class="header-account">
-                <a class="icon" href="/cart">
-                    <i class='bx bx-cart' ></i>
-                </a>
-                <a class="icon" href="/account"> <!-- Change if its not logged in -->
-                    <i class='bx bxs-user-circle'></i>
-                </a>
+                <?php if($_SESSION['login']) { ?>
+                    <a class="icon" href="/cart">
+                        <i class='bx bx-cart' ></i>
+                    </a>
+                    <a class="icon" href="/account"> <!-- Change if its not logged in -->
+                        <i class='bx bxs-user-circle'></i>
+                    </a>
+                    <a class="simple-button" href="/logout">Log Out</a>
+                <?php } else{ ?>
+                    <a class="simple-button" href="/login">Log In</a>
+                    <a class="simple-button" href="/register">Register</a>
+                <?php } ?>
             </div>
         </nav>
     </header>

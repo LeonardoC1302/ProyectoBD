@@ -61,10 +61,14 @@
             }
         }
         .header-account{
+            .simple-button{
+                @include m.button(v.$black, v.$white, 2rem)
+            }
             display: flex;
             @include m.tablet{
                 flex-direction: row;
                 justify-content: space-between;
+                align-items: center;
                 margin: 0 0 0 auto;
             }
             flex-direction: column;
@@ -76,7 +80,7 @@
     }
 
     .icon{
-        font-size: 3rem;
+        font-size: 4rem;
         color: v.$black;
     }
 }

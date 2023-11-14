@@ -1,0 +1,114 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+section{
+    margin: 2rem 0;
+    .section-description{
+        text-align: center;
+    }
+}
+
+.category-list{
+    @include m.tablet{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    .category{
+        border: 1px solid v.$gray;
+        list-style: none;
+        padding: 2rem;
+        border-radius: .5rem;
+        @include m.tablet{
+            width: auto;
+        }
+        width: 95%;
+        text-align: center;
+        a{
+            color: v.$black;
+        }
+        font-size: 2rem;
+        &:hover{
+            background-color: v.$accent;
+            border: none;
+            a{
+                color: v.$white;
+            }
+        }
+    }
+}
+
+.info-section{
+    background-position: center center;
+    background-size: cover;
+    background-image: url('/build/img/info.jpg');
+    padding: calc(2 * v.$gap);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    h2{
+        font-size: 4rem;
+        font-weight: v.$black-font;
+        color: v.$white;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    }
+
+    p {
+        font-size: 1.8rem;
+        color: v.$white;
+    }
+
+    .contact-button{
+        @include m.button(v.$black, v.$white, 2);
+        display: inline-block;
+    }
+
+}
+
+.products-home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.products-list{
+    display: flex;
+    @include m.tablet{
+        flex-direction: row;
+    }
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    gap: 2rem;
+    .product-home{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid v.$gray;
+        padding: 1rem;
+        .product-name{
+            font-size: 2rem;
+            font-weight: v.$bold;
+            text-align: center;
+        }
+        .product-price{
+            font-size: 1.8rem;
+            font-weight: v.$bold;
+            text-align: center;
+            margin-top: auto;
+            color: v.$accent;
+        }
+    }
+}
+
+.all-button{
+    @include m.button(v.$accent, v.$white, 2);
+    display: inline-block;
+    margin: 2rem 0;
+}

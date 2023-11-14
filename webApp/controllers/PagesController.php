@@ -3,12 +3,17 @@
 namespace Controllers;
 
 use Model\Product;
+use Model\ProductType;
 use MVC\Router;
 
 class PagesController {
     public static function index(Router $router){
+        $products = Product::all();
+        $categories = ProductType::all();
         $router->render('pages/index', [
-            'mainPage' => true
+            'mainPage' => true,
+            'products' => $products,
+            'categories' => $categories
         ]);
     }
 
