@@ -47,6 +47,7 @@ $router->get('/service', [HelpController::class, 'service']);
 $router->get('/customerService', [HelpController::class, 'serviceEmp']);
 $router->get('/orderInfo', [HelpController::class, 'serviceEmp2']);
 $router->get('/orderReport', [HelpController::class, 'report']);
+$router->get('/clients/consults', [HelpController::class, 'consult']);
 $router->get('/returns', [HelpController::class, 'returns']);
 $router->get('/international', [HelpController::class, 'international']);
 $router->get('/policies', [HelpController::class, 'policies']);
