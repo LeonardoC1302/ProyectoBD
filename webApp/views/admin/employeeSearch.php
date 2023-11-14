@@ -54,6 +54,7 @@
                     foreach($results as $r){?>
                 <li><?php echo $index . "." ?></li>
                 <li>Name: <?php echo $r->Name ?> </li>
+                <li>Country: <?php echo $r->Country ?> </li>
                 <li>Deparment: <?php echo $r->Department ?></li>
                 <li>Rol: <?php echo $r->Rol ?></li>
                 <li>Hours Worked This Period: <?php echo $r->hours ?></li>

@@ -158,7 +158,8 @@ class ActiveRecord {
             r.salary,
             c.socialcharge,
             (e.hours * r.salary * (1 - c.socialcharge)) AS CurrentSalary,
-            DATE_ADD(e.lastPay, INTERVAL 15 DAY) AS NextPay
+            DATE_ADD(e.lastPay, INTERVAL 15 DAY) AS NextPay,
+            c.name AS Country
             FROM
                 employee e
             JOIN
@@ -203,7 +204,8 @@ class ActiveRecord {
             r.salary,
             c.socialcharge,
             (e.hours * r.salary * (1 - c.socialcharge)) AS CurrentSalary,
-            DATE_ADD(e.lastPay, INTERVAL 15 DAY) AS NextPay
+            DATE_ADD(e.lastPay, INTERVAL 15 DAY) AS NextPay,
+            c.name AS Country
             FROM
                 employee e
             JOIN

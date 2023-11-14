@@ -3,7 +3,7 @@ namespace Model;
 
 class EmployeeResults extends ActiveRecord{
     protected static $table = 'employeeresults';
-    protected static $columns_db = ['Name', 'Department', 'Rol', 'hours', 'salary', 'socialcharge', 'currentSalary', 'NextPay'];
+    protected static $columns_db = ['Name', 'Department', 'Rol', 'hours', 'salary', 'socialcharge', 'currentSalary', 'NextPay', 'Country'];
 
     public $Name;
     public $Department;
@@ -13,6 +13,7 @@ class EmployeeResults extends ActiveRecord{
     public $socialcharge;
     public $CurrentSalary;
     public $NextPay;
+    public $Country;
 
     public function __construct($args = []){
         $this->Name = $args['Name'] ?? '';
@@ -23,5 +24,6 @@ class EmployeeResults extends ActiveRecord{
         $this->socialcharge = $args['socialcharge'] ?? null;
         $this->CurrentSalary = $args['CurrentSalary'] ?? null;
         $this->NextPay = $args['NextPay'] ?? null;
+        $this->Country = $args['Country'] ?? '';
     }
 }
