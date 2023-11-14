@@ -1,5 +1,5 @@
 <h1 class="line">Employee Report</h1>
-<h1>Social Charges</h1>
+<h1>Social Charges Report</h1>
 
 <div class="actions">
     <a href="/admin/employeeReport" class="link-btn">Return Salary Report</a>

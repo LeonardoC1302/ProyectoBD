@@ -123,7 +123,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- Table `recursos_humanos`.`salarylog`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `recursos_humanos`.`salarylog` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(100) NULL DEFAULT NULL,
   `amount` DECIMAL(10,2) NOT NULL,
   `datePayed` DATE NOT NULL,

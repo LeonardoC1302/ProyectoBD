@@ -151,6 +151,7 @@ class ActiveRecord {
     public static function employeeQuery($name, $surname, $rolId, $countryId) {
         $query = "
             SELECT
+            e.id,
             CONCAT(e.name, ' ', e.surname) AS Name,
             d.Name AS Department,
             r.rol AS Rol,
@@ -197,6 +198,7 @@ class ActiveRecord {
     public static function employeeQueryAll() {
         $query = "
             SELECT
+            e.id,
             CONCAT(e.name, ' ', e.surname) AS Name,
             d.Name AS Department,
             r.rol AS Rol,
@@ -232,6 +234,50 @@ class ActiveRecord {
     
             $statement->close();
 
+            return $array;
+        }
+
+        public static function employeeQueryDate($date) {
+            $query = "
+                SELECT
+                e.id,
+                CONCAT(e.name, ' ', e.surname) AS Name,
+                d.Name AS Department,
+                r.rol AS Rol,
+                e.hours,
+                r.salary,
+                c.socialcharge,
+                (e.hours * r.salary * (1 - c.socialcharge)) AS CurrentSalary,
+                DATE_ADD(e.lastPay, INTERVAL 15 DAY) AS NextPay,
+                c.name AS Country
+                FROM
+                    employee e
+                JOIN
+                    rol r ON e.rolId = r.id
+                JOIN
+                    department d ON e.countryId = d.id
+                JOIN
+                    country c ON e.countryId = c.id
+                WHERE
+                    DATE_ADD(e.lastPay, INTERVAL 15 DAY) = ? 
+            ";
+    
+            $statement = self::$db->prepare($query);
+    
+            if ($statement === false) {
+                die("Query preparation failed: " . self::$db->error);
+            }
+    
+            $statement->bind_param("s", $date);
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            $array = [];
+            while ($register = $result->fetch_assoc()) {
+                $array[] = static::createObject($register);
+            }
+    
+            $statement->close();
             return $array;
         }
     
