@@ -125,6 +125,7 @@ table.line{
   align-items: center;
   justify-content: space-between; 
   margin: 5px;
+  margin-top:5px;
 }
 
 .drop-down label {
@@ -147,4 +148,30 @@ table.line{
 
 .drop-down select option[disabled]:first-child {
   color: #999;
+}
+
+.description-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
+.description-container label {
+  text-align: left; 
+}
+
+.description-container textarea {
+  border: 2px solid #ccc;;
+  padding: 10px;
+  width: 350px;
+  height: 250px;
+  overflow: auto; 
+  resize: vertical; 
+  user-select: text;
+  border-radius: 10px; 
+  word-wrap: break-word;
+  margin-bottom: 3rem;
+}
+
+.description-container input::placeholder {
+  text-align: left; 
 }

@@ -25,6 +25,13 @@ class HelpController {
         ]);
         
     }
+
+    public static function report(Router $router){
+        $router->render('help/report', [
+        ]);
+        
+    }
+
     public static function returns(Router $router){
         $router->render('help/returns', [
         ]);
