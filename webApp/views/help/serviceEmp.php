@@ -6,3 +6,9 @@
         </button>
     </form>
 </div>
+<div class="service-form">
+        <div class="actions">
+            <a href="/clients/consults" class="boton">Consult</a>
+        </div>  
+</div>
+

@@ -32,6 +32,12 @@ class HelpController {
         
     }
 
+    public static function consult(Router $router){
+        $router->render('help/consult', [
+        ]);
+        
+    }
+
     public static function returns(Router $router){
         $router->render('help/returns', [
         ]);
