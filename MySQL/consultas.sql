@@ -41,7 +41,7 @@ alter table employee AUTO_INCREMENT = 1;
 delete from rol where id > 0;
 alter table rol AUTO_INCREMENT = 1;
 
-update employee set hours = 100 where id = 2;
+update employee set hours = 52 where id = 4;
 update country set socialcharge = 0.05 where id = 1;
 
 SELECT

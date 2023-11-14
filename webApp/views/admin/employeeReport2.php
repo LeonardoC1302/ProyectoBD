@@ -1,5 +1,5 @@
 <h1 class="line">Employee Report</h1>
-<h1>Social Charges Report</h1>
+<h1>Social Charge Report</h1>
 
 <div class="actions">
     <a href="/admin/employeeReport" class="link-btn">Return Salary Report</a>
@@ -8,18 +8,21 @@
 </div>
 
 <div class = 'center'>
-<div>
-    <label class='extra-margin' for="datePicker">Select a Date to Filter: </label>
-    <input type="date" id="datePicker" name="selectedDate">
-</div>
+    <form method = 'POST'>
+        <label class='extra-margin' for="datePicker">Select a Date to Filter: </label>
+        <input type="date" id="datePicker" name="selectedDate" placeholder="YYYY-MM-DD">
+        <input class="link-btn" type="submit" value="Search">
+    </form>
 </div>
 
 <div class='container'> 
 <div class = 'scrollable-content'>
 <li class='square-container-list'> 
     <ul class='result-list'>
-        <li> Filtered By: </li> 
-        <li> Percentage: </li> 
+        <li> Social Charge Per Employee: </li> 
+        <li> Social Charge Per Rol: </li> 
+        <li> Social Charge Per Department:  </li> 
+        <li> Social Charge Per Country: </li> 
     </ul>
 </li>
 </div>
