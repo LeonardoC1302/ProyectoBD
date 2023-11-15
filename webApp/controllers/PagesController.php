@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Model\Cart;
 use Model\Product;
+use Model\productsXCart;
 use Model\UserServer;
 use Model\ProductType;
 use MVC\Router;
@@ -58,7 +59,30 @@ class PagesController {
     }
 
     public static function cart(Router $router){
+        $productsXcart = productsXCart::where('cartId', $_SESSION['cartId']);
+
+        $products = [];
+        foreach($productsXcart as $productXcart){
+            $product = Product::find($productXcart->productId);
+            $products[] = [$product, $productXcart->quantity];
+        }
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if (isset($_POST["delete"])) {
+                $productXcart = productsXCart::findProductInCart($_SESSION['cartId'], $_POST['id']);
+                $productXcart[0]->delete();
+                header('Location: /cart');
+            } elseif (isset($_POST["update"])) {
+                // Handle update cart action
+                debug( "Update Cart button clicked");
+            } elseif (isset($_POST["checkout"])) {
+                // Handle proceed to checkout action
+                debug( "Proceed to Checkout button clicked");
+            }
+        }
+
         $router->render('pages/cart', [
+            'products' => $products
         ]);
     }
 

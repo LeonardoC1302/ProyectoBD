@@ -160,5 +160,11 @@ class ActiveRecordServer {
         }
         return $sanitized;
     }
+
+    public function delete(){
+        $query = "DELETE FROM " . static::$table . " WHERE id = '" . $this->id . "' ";
+        $result = self::$db->query($query);
+        return $result;
+    }
     
 }

@@ -19,4 +19,11 @@ class productsXCart extends ActiveRecordServer{
         $this->quantity = $args['quantity'] ?? 0;
         $this->price = $args['price'] ?? 0;
     }
+
+    public static function findProductInCart($cartId, $productId){
+        $query = "SELECT * FROM " . static::$table . " WHERE cartId = $cartId AND productId = $productId";
+        $stmt = self::$db->query($query);
+        $array = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return array_map([static::class, 'createObject'], $array);
+    }
 }
