@@ -11,6 +11,9 @@
             <div class="input-container">
                 <label for="OrderID">OrderID:</label>
             </div>
+            <div class="input-container">
+                <label for="ClientID">ClientID:</label>
+            </div>
             <div class="drop-down">
                 <legend>Report Type</legend>
                 <select name="type" id="type">

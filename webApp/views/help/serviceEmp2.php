@@ -5,12 +5,12 @@
 <div class="squareContainer">
     <div class="scrollable-content">
         <ul class = "result-list">
-        <li>Client Name:</li>
-        <li>Order ID:</li>
-        <li>Sale Date:</li>
-        <li>Total:</li>
-        <li>Status</li>
-        <li>Comments:</li>
+        <li>Client Name: <?php echo $orderInfo[0]["clientId"]; ?></li>
+            <li>Order ID: <?php echo $orderInfo[0]["id"]; ?></li>
+            <li>Sale Date: <?php echo $orderInfo[0]["date"]; ?></li>
+            <li>Total: <?php echo $orderInfo[0]["total"]; ?></li>
+            <li>Status: <?php echo $orderInfo[0]["status"]; ?></li>
+            <li>Comments: <?php echo $orderInfo[0]["description"]; ?></li>
         </ul>
     </div>
 </div>

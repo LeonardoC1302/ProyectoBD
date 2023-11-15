@@ -2,6 +2,7 @@
 
 namespace Controllers;
 use MVC\Router;
+use Model\Order;
 
 class HelpController {
     public static function apply(Router $router){
@@ -15,13 +16,39 @@ class HelpController {
         ]);
         
     }public static function serviceEmp(Router $router){
-        $router->render('help/serviceEmp', [
-        ]);
+        $alerts = [];
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+            if (!empty($_GET['search'])) {
+                $clientOrderId = (int)$_GET['search'];
+            if(empty($alerts['error'])){
+                // check if order exists
+                $order = Order::find($clientOrderId);
+                if($order){
+                    header("Location: /orderInfo?id={$clientOrderId}");
+                }
+                
+                 else{
+                    Order::setAlerts('error', 'The order does not exist');
+                }
+            }}else{
+                Order::setAlerts('error', 'Insert a client Order ID');
+             
+            }}
         
+
+        $alerts = Order::getAlerts();
+        $router->render('help/serviceEmp', [
+            'alerts' => $alerts
+        ]);
     }
 
     public static function serviceEmp2(Router $router){
+        $alerts = [];
+        $clientOrderId = isset($_GET['id']) ? (int)$_GET['id'] : null;
+        $clientOrderId = filter_var($clientOrderId, FILTER_VALIDATE_INT);
+        $orderInfo = Order::orderQuery($clientOrderId);
         $router->render('help/serviceEmp2', [
+        'orderInfo'=>$orderInfo
         ]);
         
     }
