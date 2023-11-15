@@ -1,5 +1,3 @@
-
-
 <div class="product-details">
     <div class="detail">
         <div class="main-info">
@@ -19,7 +17,7 @@
         </div>
     </div>
     <div class="shipping">
-        <form>
+        <form method="POST">
             <div class="shipping__address">
                 <p>Ship to</p>
                 <i class='bx bx-map'></i>
@@ -35,6 +33,7 @@
                 <label for="quantity">Quantity:</label>
                 <input type="number" id="quantity" name="quantity" value="1" min="1">
             </div>
+            <input type="hidden" value="<?php echo $product->id ?>" id="id" name="id">
             <input class="add" type="submit" value="Add to Cart">
         </form>
     </div>

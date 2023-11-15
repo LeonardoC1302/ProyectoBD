@@ -32,7 +32,10 @@ $router->get('/message', [LoginController::class, 'message']);
 // Pages routes
 $router->get('/', [PagesController::class, 'index']);
 $router->get('/products', [PagesController::class, 'products']);
+
 $router->get('/product', [PagesController::class, 'product']);
+$router->post('/product', [PagesController::class, 'product']);
+
 $router->get('/contact', [PagesController::class, 'contact']);
 $router->get('/about', [PagesController::class, 'about']);
 $router->get('/cart', [PagesController::class, 'cart']);

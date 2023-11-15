@@ -3,7 +3,7 @@
 namespace Model;
 
 class User extends ActiveRecord {
-    protected static $db_server;
+    protected static $db;
     protected static $table = 'users';
     protected static $columns_db = ['id', 'name', 'surname', 'email', 'password', 'phone', 'admin', 'verified', 'token'];
 
@@ -30,7 +30,7 @@ class User extends ActiveRecord {
     }
 
     public static function setDbServer($database){
-        self::$db_server = $database;
+        self::$db = $database;
     }
 
     public function validateLogin(){
@@ -121,7 +121,7 @@ class User extends ActiveRecord {
         $users = self::all();
 
         $query = "Delete from " . self::$table;
-        $result = self::$db_server->query($query);
+        $result = self::$db->query($query);
 
         foreach($users as $user){
             $attributes = $user->sanitizeData();
@@ -131,7 +131,7 @@ class User extends ActiveRecord {
             $query .= join("', '", array_values($attributes));
             $query .= "')";
 
-            $result = self::$db_server->query($query);
+            $result = self::$db->query($query);
         }
     }
 }

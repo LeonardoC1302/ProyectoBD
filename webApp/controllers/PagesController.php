@@ -2,7 +2,9 @@
 
 namespace Controllers;
 
+use Model\Cart;
 use Model\Product;
+use Model\UserServer;
 use Model\ProductType;
 use MVC\Router;
 
@@ -30,6 +32,13 @@ class PagesController {
         if(!$id){
             header('Location: /products');
         }
+        
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $cart = Cart::find($_SESSION['cartId']);
+            $cart->addProduct($id, $_POST['quantity'] ?? 1);
+        }
+
         $product = Product::find($id);
 
         $router->render('pages/product', [

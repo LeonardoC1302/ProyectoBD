@@ -4,6 +4,8 @@ namespace Controllers;
 use MVC\Router;
 use Model\User;
 use Classes\Email;
+use Model\UserServer;
+use Model\Cart;
 
 class LoginController {
     public static function login(Router $router){
@@ -24,6 +26,18 @@ class LoginController {
                         $_SESSION['name'] = $user->name . " " . $user->surname;
                         $_SESSION['email'] = $user->email;
                         $_SESSION['login'] = true;
+
+                        // Create or use cart
+                        $userServer = UserServer::where('email', $user->email);
+                        $cart = Cart::where('userId', $userServer->id);
+                        if(empty($cart)){
+                            $cart = new Cart();
+                            $cart->userId = $userServer->id;
+                            $cart->save();
+                        }
+
+                        $_SESSION['cartId'] = $cart->id;
+
                         // Redirect 
                         if($user->admin == 1){
                             $_SESSION['admin'] = $user->admin;

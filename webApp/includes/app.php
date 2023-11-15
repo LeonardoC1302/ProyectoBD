@@ -3,6 +3,7 @@
 use Model\User;
 use Model\Product;
 use Model\ProductType;
+use Model\UserServer;
 use Model\Warehouse;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -20,6 +21,7 @@ $db_postgresql = connect_postgresql();
 // ActiveRecord::setDB($db_mysql);
 User::setDB($db_mysql);
 User::setDbServer($db_server);
+UserServer::setDbServer($db_server);
 Product::setDB($db_server);
 ProductType::setDB($db_server);
 Warehouse::setDB($db_server);
