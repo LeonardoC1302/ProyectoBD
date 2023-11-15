@@ -62,7 +62,10 @@ $router->get('/admin/employees', [AdminController::class, 'employees']);
 $router->get('/admin/employeeSearch', [AdminController::class, 'employeeSearch']);
 $router->post('/admin/employeeSearch', [AdminController::class, 'employeeSearch']);
 $router->get('/admin/employeeReport', [AdminController::class, 'employeeReport']);
+$router->post('/admin/employeeReport', [AdminController::class, 'employeeReport']);
+$router->post('/admin/payment', [AdminController::class, 'payment']);
 $router->get('/admin/employeeReport2', [AdminController::class, 'employeeReport2']);
+$router->post('/admin/employeeReport2', [AdminController::class, 'employeeReport2']);
 
 $router->get('/admin/products', [AdminController::class, 'products']);
 

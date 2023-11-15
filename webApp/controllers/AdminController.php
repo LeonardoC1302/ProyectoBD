@@ -10,6 +10,7 @@ use Model\Warehouse;
 use Model\Rol;
 use Model\Department;
 use Model\Country;
+use Model\Salarylog;
 use Model\ActiveRecord;
 
 
@@ -58,10 +59,42 @@ class Admincontroller {
     //Employee Validations Search and Reports
 
     public static function employeeReport(Router $router){
-        $results = EmployeeResults::employeeQueryAll();
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $selectedDate = $_POST["selectedDate"];
+            $date = date("Y-m-d", strtotime($selectedDate));
+            $results = EmployeeResults::employeeQueryDate($date);
+
+        }else{
+            $results = EmployeeResults::employeeQueryAll();
+        }
+
+        $payLog = SalaryLog::all();
+            
         $router->render('admin/employeeReport', [
-            'results'=>$results
+            'results'=>$results,
+            'payLog'=>$payLog
         ]);
+    }
+
+    public static function payment(Router $router){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $id = $_POST['id'];
+            $employee = Employee::find($id); 
+
+            $log = new Salarylog();
+            $log->description = "Pago a " . $employee->name . " " . $employee->surname . " el dia " . date("Y-m-d") . ", Con un monto de: ₡" . round($_POST['totalSalary'], 2);
+            $log->amount = (float)round($_POST['totalSalary'], 2);
+            $log->datePayed = date("Y-m-d");
+            $log->employeeId = (int)$_POST['id'];
+            $log->save();
+
+            $employee->hours = 0;
+            $employee->lastPay = date("Y-m-d");
+            $employee->pay = 1;
+
+            $employee->save();
+        }
+            header('Location: /admin/employeeReport ');
     }
 
     public static function employeeReport2(Router $router){

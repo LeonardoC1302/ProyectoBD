@@ -52,15 +52,14 @@
                 <?php 
                     $index = 1;
                     foreach($results as $r){?>
-                <li><?php echo $index . "." ?></li>
-                <li>Name: <?php echo $r->Name ?> </li>
+                <li><b><?php echo $index . "." ?> <?php echo $r->Name ?></b></li>
                 <li>Country: <?php echo $r->Country ?> </li>
                 <li>Deparment: <?php echo $r->Department ?></li>
                 <li>Rol: <?php echo $r->Rol ?></li>
                 <li>Hours Worked This Period: <?php echo $r->hours ?></li>
                 <li>Pay per Hour: ₡<?php echo $r->salary ?> - Social Charge: <?php echo $r->socialcharge*100 ?>%</li>
                 <li>Current Salary To Pay: ₡<?php echo round($r->CurrentSalary,2) ?></li>
-                <li>Next Pay: <?php echo $r->NextPay ?> </li>
+                <li class='line'>Next Pay: <?php echo $r->NextPay ?> </li>
                 <?php $index = $index+1; 
                         }?>
                 </ul>

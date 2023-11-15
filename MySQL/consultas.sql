@@ -5,6 +5,7 @@ select * from employee;
 select* from rol;
 select * from department;
 select * from country;
+select * from salarylog;
 
 INSERT INTO department (name) 
 VALUES
@@ -40,8 +41,8 @@ alter table employee AUTO_INCREMENT = 1;
 delete from rol where id > 0;
 alter table rol AUTO_INCREMENT = 1;
 
-update employee set hours = 1 where id = 3;
-update rol set rol = 'Organizador' where id = 2;
+update employee set hours = 52 where id = 4;
+update country set socialcharge = 0.05 where id = 1;
 
 SELECT
 	CONCAT(e.name, ' ', e.surname) AS Name,
@@ -61,8 +62,6 @@ JOIN
 JOIN
     country c ON e.countryId = c.id
 WHERE
-    e.name = 'Kevin' AND
-    e.surname = 'Chang' AND
-    e.rolId = 3;
+    DATE_ADD(e.lastPay, INTERVAL 15 DAY) = '23-11-29' ;
     
 SELECT DATE_ADD(CURDATE(), INTERVAL 15 DAY) AS NextPay;
