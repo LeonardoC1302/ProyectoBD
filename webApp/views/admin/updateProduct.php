@@ -4,7 +4,7 @@
     <a href="/admin" class="action-btn">Return back</a>
     <div class="form__field">
         <label for="name" class="form__label">Product Name:</label>
-        <input class="form__input" type="text" placeholder="Product Name" id="name" name="name">
+        <input class="form__input" type="text" placeholder="Product Name" id="name" name="name" value="<?php echo $producto->name; ?>">
     </div> <!-- /form__field -->
     <div class="form__field">
         <label for="price" class="form__label">Price:</label>
