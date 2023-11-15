@@ -38,6 +38,7 @@ class PagesController {
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $cart = Cart::find($_SESSION['cartId']);
             $cart->addProduct($id, $_POST['quantity'] ?? 1);
+            header('Location: /products');
         }
 
         $product = Product::find($id);
@@ -69,25 +70,52 @@ class PagesController {
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if (isset($_POST["delete"])) {
-                $productXcart = productsXCart::findProductInCart($_SESSION['cartId'], $_POST['id']);
+                $productXcart = productsXCart::findProductInCart($_SESSION['cartId'], $_POST['delete']);
                 $productXcart[0]->delete();
                 header('Location: /cart');
             } elseif (isset($_POST["update"])) {
-                // Handle update cart action
-                debug( "Update Cart button clicked");
+                $productsXcart = productsXCart::where('cartId', $_SESSION['cartId']);
+                foreach($productsXcart as $productXcart){
+                    foreach($_POST['quantity'] as $key => $quantity){
+                        if($productXcart->productId == $_POST['product_ids'][$key]){
+                            $productXcart->quantity = $quantity;
+                            break;
+                        }
+                    }
+                    $productXcart->save();
+                }
+                header('Location: /cart');
             } elseif (isset($_POST["checkout"])) {
                 // Handle proceed to checkout action
                 debug( "Proceed to Checkout button clicked");
             }
         }
 
+        $cart = Cart::find($_SESSION['cartId']);
+
         $router->render('pages/cart', [
-            'products' => $products
+            'products' => $products,
+            'cart' => $cart
         ]);
     }
 
     public static function checkout(Router $router){
+        $productsXcart = productsXCart::where('cartId', $_SESSION['cartId']);
+
+        $products = [];
+        foreach($productsXcart as $productXcart){
+            $product = Product::find($productXcart->productId);
+            $products[] = [$product, $productXcart->quantity];
+        }
+        $cart = Cart::find($_SESSION['cartId']);
+
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+            debug($_POST);
+        }
+
         $router->render('pages/checkout', [
+            'products' => $products,
+            'cart' => $cart
         ]);
     }
 

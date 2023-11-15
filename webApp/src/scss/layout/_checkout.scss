@@ -1,6 +1,7 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 .checkout{
+    margin-bottom: 2rem;
     display: flex;
     justify-content:space-evenly;
 
@@ -26,6 +27,7 @@
             font-size: 4rem;
             margin-top: 0;
             padding: 0;
+            color: v.$accent;
         }
     
         &__productsInfo{
@@ -42,6 +44,7 @@
     
             &__productRow{
                 display:flex;
+                justify-content: space-between;
                 align-items: center;
     
     

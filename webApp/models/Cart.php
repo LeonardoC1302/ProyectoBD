@@ -38,4 +38,21 @@ class Cart extends ActiveRecordServer{
         }
 
     }
+
+    public function subtotal(){
+        $productsXcart = productsXCart::where('cartId', $this->id);
+        $subtotal = 0;
+        foreach($productsXcart as $productXcart){
+            $subtotal += $productXcart->price * $productXcart->quantity;
+        }
+        return $subtotal;
+    }
+
+    public function shippingPrice(){
+        return 15.28;
+    }
+
+    public function totalPrice(){
+        return $this->subtotal() + $this->shippingPrice();
+    }
 }
