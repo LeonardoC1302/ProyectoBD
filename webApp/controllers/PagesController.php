@@ -5,8 +5,13 @@ namespace Controllers;
 use Model\Cart;
 use Model\Product;
 use Model\productsXCart;
-use Model\UserServer;
+use Model\productsXsale;
+// use Model\UserServer;
+use Model\User;
+use Model\Payment;
+use Model\Sale;
 use Model\ProductType;
+use Model\UserServer;
 use MVC\Router;
 
 class PagesController {
@@ -60,7 +65,7 @@ class PagesController {
     }
 
     public static function cart(Router $router){
-        $productsXcart = productsXCart::where('cartId', $_SESSION['cartId']);
+        $productsXcart = productsXCart::whereAll('cartId', $_SESSION['cartId']);
 
         $products = [];
         foreach($productsXcart as $productXcart){
@@ -68,13 +73,14 @@ class PagesController {
             $products[] = [$product, $productXcart->quantity];
         }
 
+
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if (isset($_POST["delete"])) {
                 $productXcart = productsXCart::findProductInCart($_SESSION['cartId'], $_POST['delete']);
                 $productXcart[0]->delete();
                 header('Location: /cart');
             } elseif (isset($_POST["update"])) {
-                $productsXcart = productsXCart::where('cartId', $_SESSION['cartId']);
+                $productsXcart = productsXCart::whereAll('cartId', $_SESSION['cartId']);
                 foreach($productsXcart as $productXcart){
                     foreach($_POST['quantity'] as $key => $quantity){
                         if($productXcart->productId == $_POST['product_ids'][$key]){
@@ -100,7 +106,8 @@ class PagesController {
     }
 
     public static function checkout(Router $router){
-        $productsXcart = productsXCart::where('cartId', $_SESSION['cartId']);
+        $alerts = [];
+        $productsXcart = productsXCart::whereAll('cartId', $_SESSION['cartId']);
 
         $products = [];
         foreach($productsXcart as $productXcart){
@@ -109,18 +116,74 @@ class PagesController {
         }
         $cart = Cart::find($_SESSION['cartId']);
 
+        if($cart->subtotal() == 0){
+            header('Location: /cart');
+        }
+
+        $payment = new Payment();
+
         if($_SERVER["REQUEST_METHOD"] === "POST"){
-            debug($_POST);
+            $payment->sync($_POST);
+            $alerts = $payment->validate();
+
+            if(empty($alerts['error'])){
+                $result = $payment->save();
+                $userId = UserServer::where('email', $_SESSION['email'])->id;
+                $sale = new Sale([
+                    'userId' => $userId,
+                    'total' => $cart->totalPrice(),
+                    'paymentId' => $result['id']
+                ]);
+                $result = $sale->save();
+                $saleId = $result['id'];
+                $sale->saveProducts($productsXcart, $saleId);
+                $cart->clear();
+                header('Location: /products');
+            }
         }
 
         $router->render('pages/checkout', [
             'products' => $products,
-            'cart' => $cart
+            'cart' => $cart,
+            'alerts' => $alerts,
+            'payment' => $payment
         ]);
     }
 
     public static function account(Router $router){
+        $alerts = [];
+        $user = User::find($_SESSION['id']);
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $auth = new User($_POST);
+            $auth->sync($_POST);
+            $alerts = $auth->validateUpdate();
+
+            if($_POST['currentPassword'] || $_POST['password1'] || $_POST['password2']) {
+                // append to the alerts array
+                $alerts = array_merge($alerts, $user->validatePasswordChange($_POST['currentPassword'], $_POST['password1'], $_POST['password2']));
+                if(empty($alerts['error'])){
+                    $user->password = $_POST['password1'];
+                    $user->hashPassword();
+                    $result = $user->save();
+                    User::syncSQLServer();
+                }
+            }
+            
+            if(empty($alerts['error'])){
+                $user->name = $auth->name;
+                $user->surname = $auth->surname;
+                $user->email = $auth->email;
+                $user->phone = $auth->phone;
+                $user->save();
+                User::setAlerts('success', 'The user was updated successfully');
+            }
+        }
+
+        $alerts = User::getAlerts();
         $router->render('pages/account', [
+            'user' => $user,
+            'alerts' => $alerts
         ]);
     }
 

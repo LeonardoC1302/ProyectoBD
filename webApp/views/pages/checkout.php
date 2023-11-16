@@ -1,21 +1,25 @@
+<?php 
+    include_once __DIR__ . "/../templates/alerts.php";
+?>
+
 <div class="checkout">
     <div class="leftBlock">
     <form method="POST">
         <h4>Shipping Information</h4>
         <div class="form__field">
             <label for="email" class="form__label">Email:</label>
-            <input class="form__input" type="email" id="email" placeholder="Your email" name="email">
+            <input class="form__input" type="email" id="email" placeholder="Your email" name="email" value="<?php echo $payment->email;?>">
         </div>
         <div class="form__field">
             <label for="address" class="form__label">Shipping Address:</label>
-            <input class="form__input" type="text" id=" country" placeholder="Your country" name="country">
-            <input class="form__input" type="text" id="address" placeholder="Your address" name="address">
+            <input class="form__input" type="text" id=" country" placeholder="Your country" name="country" value="<?php echo $payment->country;?>">
+            <input class="form__input" type="text" id="address" placeholder="Your address" name="address" value="<?php echo $payment->address;?>">
         </div>
         <div class="form__field">
-            <label for="address" class="form__label">Card Information:</label>
-            <input class="form__input" type="text" id=" card" placeholder="1234 1234 1234" name="card">
-            <input class="form__input" type="text" id="expDate" name="expDate" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/\d{2}" title="Please enter a valid MM/YY format">
-            <input class="form__input" type="text" id=" cvc" placeholder="CVC" name="cvc">
+            <label for="CardNumber" class="form__label">Card Information:</label>
+            <input class="form__input" type="text" id="CardNumber" placeholder="1234 1234 1234" name="CardNumber" value="<?php echo $payment->CardNumber;?>">
+            <input class="form__input" type="date" id="ExpiryDate" name="ExpiryDate" value="<?php echo $payment->ExpiryDate;?>">
+            <input class="form__input" type="text" id="CVC" placeholder="CVC" name="CVC" value="<?php echo $payment->CVC;?>">
         </div>
 
 

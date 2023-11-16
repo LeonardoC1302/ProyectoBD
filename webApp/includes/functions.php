@@ -9,9 +9,15 @@ function includeTemplate(string $name, bool $start=false){
     include TEMPLATES_URL . "/{$name}.php";
 }
 
-function isAuth(){
+function isAuth() : void{
     session_start();
     if(!$_SESSION['login']) {
+        header('Location: /');
+    }
+}
+
+function isAdmin() : void{
+    if(!isset($_SESSION['admin'])){
         header('Location: /');
     }
 }
@@ -63,4 +69,20 @@ function validateORredirect(string $url){
     }
 
     return $id;
+}
+
+function showErrors($code){
+    switch($code){
+        case 1:
+            $message = 'The product cannot be deleted because it is in a cart or sale';
+            break;
+        case 2:
+            $message = "An empty sale cannot be created";
+            break;
+        default:
+            $message = False;
+            break;
+    }
+
+    return $message;
 }

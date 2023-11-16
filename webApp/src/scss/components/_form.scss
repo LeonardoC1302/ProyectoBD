@@ -27,7 +27,7 @@
         font-size: 1.5rem;
     }
 
-    &__input, &__textarea{
+    &__input, &__textarea, &__select{
         background-color: v.$light-gray;
         color: v.$black;
         border: none;

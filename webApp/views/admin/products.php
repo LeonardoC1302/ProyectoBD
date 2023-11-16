@@ -1,3 +1,19 @@
+<?php
+    if($result){
+        $message = showNotification(intval($result));
+        if($message) { ?>
+            <p class='alert success'> <?php echo s($message) ?> </p>;
+        <?php }
+    }
+
+    if($error){
+        $error = showErrors(intval($error));
+        if($error) {?>
+            <p class='alert error'> <?php echo s($error) ?> </p>;
+        <?php }
+    }
+?>
+
 <div class="admin-actions">
     <a class="action-btn" href="/admin">Return to Panel</a>
     <a class="action-btn" href="/admin/products/create">Create Product</a>
@@ -44,12 +60,12 @@
                         }
                         ?> 
                     </td>
-                    <td><?php echo $product->location ?? 'No location'; ?> </td>
+                    <td><?php echo $product->formatLocation() ?? 'No location'; ?> </td>
                     <td><?php echo $product->stock; ?> </td>
                     <td>$ <?php echo $product->price; ?> </td>
                     <td>
                         <form method="POST" class="w-100" action="/admin/products/delete">
-                            <input type="hidden" name="id" value="<?php echo $product->id ?>">
+                            <input type="hidden" name="id" value="<?php echo $product->id; ?>">
                             <input type="hidden" name="type" value="product">
                             <input type="submit" class="icon-delete" value="&#128465;">
                         </form>

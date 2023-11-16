@@ -20,6 +20,9 @@
                 <a href="/products">Products</a>
                 <a href="/contact">Contact</a>
                 <a href="/about">About</a>
+                <?php if($_SESSION['admin']) { ?>
+                    <a href="/admin">Admin</a>
+                <?php } ?>
             </div>
             <div class="header-account">
                 <?php if($_SESSION['login']) { ?>
