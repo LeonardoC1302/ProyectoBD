@@ -27,7 +27,7 @@ class ActiveRecordPostgreSql {
 
         return $result;
     }
-    public static function orderQuery($id) {
+    public static function iDQuery($id) {
         $query = "SELECT * FROM " . static::$table . " WHERE id = :id";
 
         $stmt = self::$db->prepare($query);
@@ -41,19 +41,6 @@ class ActiveRecordPostgreSql {
         return $result;
     }
 
-    public static function clientQuery($id) {
-        $query = "SELECT * FROM " . static::$table . " WHERE id = :id";
-
-        $stmt = self::$db->prepare($query);
-
-        $stmt->bindParam(':id', $id);
-        
-        $stmt->execute();
-
-        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-        return $result;
-    }
     public static function all() {
         $query = "SELECT * FROM " . static::$table;
 
@@ -64,8 +51,32 @@ class ActiveRecordPostgreSql {
 
         return $result;
     }
-    public static function create($description,$resolved, $typeId, $clientId, $orderId) {
-        $query = "INSERT INTO " . static::$table . " (description, resolved, \"typeId\", \"clienteId\", \"ordenID\") VALUES (:description, :resolved, :typeId, :clientId, :orderId)";
+    public static function dateQuery($date) {
+        $query = "SELECT * FROM " . static::$table . " WHERE date = :date ";
+
+        $stmt = self::$db->prepare($query);
+
+        $stmt->bindParam(':date', $date);
+        
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+    public static function dateAll() {
+        $query = "SELECT * FROM " . static::$table;
+
+        $stmt = self::$db->prepare($query);
+        
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+    public static function create($description,$resolved, $typeId, $clientId, $orderId, $date) {
+        $query = "INSERT INTO " . static::$table . " (description, resolved, \"typeId\", \"clienteId\", \"ordenID\", date) VALUES (:description, :resolved, :typeId, :clientId, :orderId, :date)";
 
         $stmt = self::$db->prepare($query);
     
@@ -74,7 +85,7 @@ class ActiveRecordPostgreSql {
         $stmt->bindParam(':clientId', $clientId);
         $stmt->bindParam(':orderId', $orderId);
         $stmt->bindParam(':resolved', $resolved);
-        
+        $stmt->bindParam(':date', $date);
         $stmt->execute();
     }
 

@@ -3,7 +3,7 @@ namespace Model;
 
 class Comment extends ActiveRecordPostgreSql{
     protected static $table = 'comment';
-    protected static $columns_db = ['id','description','resolved','typeId','clientId','ordenId'];
+    protected static $columns_db = ['id','description','resolved','typeId','clientId','ordenId', 'date'];
 
     public $id;
     public $description;
@@ -11,6 +11,7 @@ class Comment extends ActiveRecordPostgreSql{
     public $typeId;
     public $clientId;
     public $ordenId;
+    public $date;
 
 
     public function __construct($args = []){
@@ -20,6 +21,7 @@ class Comment extends ActiveRecordPostgreSql{
         $this->typeId = $args['typeId'] ?? null;
         $this->clientId = $args['clientId'] ?? null;
         $this->ordenId = $args['ordenId'] ?? null;
+        $this->date = $args['date'] ?? '';
 
     }
 }

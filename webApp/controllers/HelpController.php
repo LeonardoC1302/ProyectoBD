@@ -49,8 +49,8 @@ class HelpController {
         $alerts = [];
         $clientOrderId = isset($_GET['id']) ? (int)$_GET['id'] : null;
         $clientOrderId = filter_var($clientOrderId, FILTER_VALIDATE_INT);
-        $orderInfo = Order::orderQuery($clientOrderId);
-        $clientInfo= Client::clientQuery($orderInfo[0]['clientId'] );
+        $orderInfo = Order::iDQuery($clientOrderId);
+        $clientInfo= Client::iDQuery($orderInfo[0]['clientId'] );
         $router->render('help/serviceEmp2', [
         'orderInfo'=>$orderInfo,
         'clientInfo'=>$clientInfo
@@ -62,14 +62,16 @@ class HelpController {
         $alerts = [];
         $clientOrderId = isset($_GET['id']) ? (int)$_GET['id'] : null;
         $clientOrderId = filter_var($clientOrderId, FILTER_VALIDATE_INT);
-        $orderInfo = Order::orderQuery($clientOrderId);
-        $clientInfo= Client::clientQuery($orderInfo[0]['clientId'] );
+        $orderInfo = Order::iDQuery($clientOrderId);
+        $clientInfo= Client::iDQuery($orderInfo[0]['clientId'] );
         $type = CommentType::all();
+        $date = date('Y-m-d');
+        
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $reportType = (int)$_POST["Type"];
                 $description = $_POST["Description"];
                 $comment = new Comment();
-                $comment->create($description, 0,$reportType,$orderInfo[0]['clientId'], $clientOrderId);
+                $comment->create($description, 0,$reportType,$orderInfo[0]['clientId'], $clientOrderId, $date);
                 header("Location: /orderInfo?id={$clientOrderId}");
         }
         $router->render('help/report', [
@@ -81,10 +83,60 @@ class HelpController {
     }
 
     public static function consult(Router $router){
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $whereClause = ""; 
+            
+            $selectedDate = $_POST['selectedDate'];
+
+            if (!empty($selectedDate)) {
+                $consultInfo = Comment::dateQuery($selectedDate);
+            }
+            else {
+                $consultInfo = Comment::dateAll();
+            }
+            $clientNames = [];
+            $i=0;
+            foreach ($consultInfo as $c) {
+                $clientInfo = Client::iDQuery($consultInfo[$i]['clienteId']);
+                if (!empty($clientInfo)) {
+                    $clientNames[$consultInfo[$i]['clienteId']] = $clientInfo[0]['name'];
+                }
+                $i++;
+            }
+            
+            $i=0;
+            foreach ($consultInfo as &$info) {
+                $clientId = $consultInfo[$i]['clienteId'];
+                if (isset($clientNames[$clientId])) {
+                    $consultInfo[$i]['clientName'] = $clientNames[$clientId];
+                }$i++;
+            }
+            unset($info);
+            $typesNames = [];
+            $i=0;
+            foreach ($consultInfo as $c) {
+                $typeInfo = CommentType::iDQuery($consultInfo[$i]['typeId']);
+                if (!empty($typeInfo)) {
+                    $typesNames[$consultInfo[$i]['typeId']] = $typeInfo[0]['commentType'];
+                }
+                $i++;
+            }
+            
+            $i=0;
+            foreach ($consultInfo as &$info) {
+                $typeId = $consultInfo[$i]['typeId'];
+                if (isset($typesNames[$typeId])) {
+                    $consultInfo[$i]['typeName'] = $typesNames[$typeId];
+                }$i++;
+            }
+            unset($info);
+    }
         $router->render('help/consult', [
+            'consultInfo'=>$consultInfo
         ]);
         
     }
+
 
     public static function returns(Router $router){
         $router->render('help/returns', [
