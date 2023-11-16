@@ -6,6 +6,7 @@ use Model\Order;
 use Model\Client;
 use Model\CommentType;
 use Model\Comment;
+use Model\Consult;
 
 class HelpController {
     public static function apply(Router $router){
@@ -89,10 +90,10 @@ class HelpController {
             $selectedDate = $_POST['selectedDate'];
 
             if (!empty($selectedDate)) {
-                $consultInfo = Comment::dateQuery($selectedDate);
+                $consultInfo = Consult::dateQuery($selectedDate);
             }
             else {
-                $consultInfo = Comment::dateAll();
+                $consultInfo = Consult::dateAll();
             }
             $clientNames = [];
             $i=0;
