@@ -44,7 +44,10 @@ $router->post('/cart', [PagesController::class, 'cart']);
 
 $router->get('/checkout', [PagesController::class, 'checkout']);
 $router->post('/checkout', [PagesController::class, 'checkout']);
+
 $router->get('/account', [PagesController::class, 'account']);
+$router->post('/account', [PagesController::class, 'account']);
+
 $router->get('/orders', [PagesController::class, 'orders']);
 
 

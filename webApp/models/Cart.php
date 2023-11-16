@@ -15,7 +15,7 @@ class Cart extends ActiveRecordServer{
     }
 
     public function addProduct($productId, $quantity = 1){
-        $productsXcart = productsXCart::where('cartId', $this->id);
+        $productsXcart = productsXCart::whereAll('cartId', $this->id);
         // debug($productsXcart);
         $exists = false;
         foreach($productsXcart as $productXcart){
@@ -37,5 +37,33 @@ class Cart extends ActiveRecordServer{
             $productXcart->save();
         }
 
+    }
+
+    public function subtotal(){
+        $productsXcart = productsXCart::whereAll('cartId', $this->id);
+        $subtotal = 0;
+        foreach($productsXcart as $productXcart){
+            $subtotal += $productXcart->price * $productXcart->quantity;
+        }
+        return $subtotal;
+    }
+
+    public function shippingPrice(){
+        if($this->subtotal() == 0){
+            return 0;
+        } else{
+            return 15.28;
+        }
+    }
+
+    public function totalPrice(){
+        return $this->subtotal() + $this->shippingPrice();
+    }
+
+    public function clear(){
+        $productsXcart = productsXCart::whereAll('cartId', $this->id);
+        foreach($productsXcart as $productXcart){
+            $productXcart->delete();
+        }
     }
 }

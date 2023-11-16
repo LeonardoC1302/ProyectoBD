@@ -37,7 +37,6 @@ class LoginController {
                         }
 
                         $_SESSION['cartId'] = $cart->id;
-
                         // Redirect 
                         if($user->admin == 1){
                             $_SESSION['admin'] = $user->admin;
@@ -134,7 +133,6 @@ class LoginController {
         $alerts = [];
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            // debug($_POST);
             $user->sync($_POST);
             $alerts = $user->validateRegister();
 

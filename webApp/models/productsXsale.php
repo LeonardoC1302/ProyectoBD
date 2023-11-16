@@ -2,8 +2,8 @@
 
 namespace Model;
 
-class productsXsales extends ActiveRecordServer{
-    protected static $table = 'productsXsales';
+class productsXsale extends ActiveRecordServer{
+    protected static $table = 'productXsales';
     protected static $columns_db = ['id', 'saleId', 'productId', 'quantity', 'total'];
 
     public $id;

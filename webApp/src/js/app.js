@@ -13,3 +13,10 @@ function responsiveMenu() {
     const navigation = document.querySelector('.navigation');
     navigation.classList.toggle('show');
 }
+
+setTimeout(() => {
+    const alert = document.querySelector('.alert.success');
+    if (alert) {
+        alert.remove();
+    }
+}, 5000); // 5 seconds

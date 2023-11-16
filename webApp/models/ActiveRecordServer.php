@@ -84,6 +84,35 @@ class ActiveRecordServer {
                 return null;
             }
     
+            return $array[0];
+        } catch (\PDOException $e) {
+            // Handle the exception, e.g., log or print the error
+            echo "Error: " . $e->getMessage();
+            return null;
+        }
+    }
+
+    public static function whereAll($columnName, $columnValue) {
+        try {
+            $query = "SELECT * FROM " . static::$table . " WHERE $columnName = :columnValue";
+    
+            // Assuming self::$db is a PDO connection to SQL Server
+            $stmt = self::$db->prepare($query);
+            $stmt->bindParam(':columnValue', $columnValue, \PDO::PARAM_STR); // Adjust the parameter type based on your column type
+            $stmt->execute();
+    
+            // Fetch the result as an associative array
+            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $array = [];
+            foreach($result as $register){
+                $array[] = static::createObject($register);
+            }
+    
+            if ($result === false) {
+                // Handle record not found
+                return null;
+            }
+    
             return $array;
         } catch (\PDOException $e) {
             // Handle the exception, e.g., log or print the error
@@ -112,20 +141,35 @@ class ActiveRecordServer {
         return $result;
     }
 
-    public function create(){
+    public function create()
+    {
         $attributes = $this->attributes();
-        $query = "INSERT INTO " . static::$table . " (";
-        $query .= join(', ', array_keys($attributes));
-        $query .= ") VALUES ('";
-        $query .= join("', '", array_values($attributes));
-        $query .= "')";
+        $columns = implode(', ', array_keys($attributes));
+        $values = "'" . implode("', '", array_values($attributes)) . "'";
+
+        $query = "INSERT INTO " . static::$table . " ($columns) OUTPUT INSERTED.id VALUES ($values)";
 
         $result = self::$db->query($query);
-        return [
-            'result' =>  $result,
-            'id' => self::$db->insert_id
-         ];
+
+        if ($result) {
+            // Assuming $db is your PDO connection object
+            $insertedRow = $result->fetch(\PDO::FETCH_ASSOC); // Fetch the inserted row
+            $insertedId = $insertedRow['id']; // Assuming 'id' is your primary key column name
+
+            return [
+                'result' => $result,
+                'id' => $insertedId
+            ];
+        } else {
+            // Handle the case when the query fails
+            return [
+                'result' => false,
+                'id' => null
+            ];
+        }
     }
+
+
 
     public function update(){
         $attributes = $this->attributes();
@@ -165,6 +209,18 @@ class ActiveRecordServer {
         $query = "DELETE FROM " . static::$table . " WHERE id = '" . $this->id . "' ";
         $result = self::$db->query($query);
         return $result;
+    }
+
+    public function sync($args = []){
+        foreach($args as $key=>$value){
+            if(property_exists($this, $key) && !is_null($value)) {
+                $this->$key = $value;
+            }
+        }
+    }
+
+    public static function getAlerts() {
+        return static::$alerts;
     }
     
 }

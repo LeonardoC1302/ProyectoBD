@@ -11,7 +11,9 @@ use Model\Rol;
 use Model\Department;
 use Model\Country;
 use Model\Salarylog;
-use Model\ActiveRecord;
+use Model\productsXCart;
+use Model\productsXsale;
+use Intervention\Image\ImageManagerStatic as Image;
 use Model\ByEmployee;
 use Model\ReportResult;
 
@@ -136,26 +138,124 @@ class Admincontroller {
         $productTypes = ProductType::all();
         $warehouses = Warehouse::all();
 
+        $result = $_GET['result'] ?? null;
+        $error = $_GET['error'] ?? null;
+
         $router->render('admin/products', [
             'products' => $products,
             'productTypes' => $productTypes,
-            'warehouses' => $warehouses
+            'warehouses' => $warehouses,
+            'result' => $result,
+            'error' => $error
         ]);
     }
 
     public static function createProduct(Router $router){
+        $warehouses = Warehouse::all();
+        $productTypes = ProductType::all();
+
+        $alerts = [];
+        $product = new Product();
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $product->sync($_POST);
+            $imageName = md5(uniqid(rand(), true)) .  '.jpg';
+            if($_FILES['image']['tmp_name']){
+                $image = Image::make($_FILES['image']['tmp_name'])->fit(800, 600);
+                $product->setImage($imageName);
+            }
+            $alerts = $product->validate();
+            if(empty($alerts)){
+                if(!is_dir(IMAGES_DIR)){
+                    mkdir(IMAGES_DIR);
+                }
+                $image->save(IMAGES_DIR . $imageName);
+                $product->save();
+                header('Location: /admin/products?result=1');
+            }
+        }
+
+        $alerts = Product::getAlerts();
         $router->render('admin/createProduct', [
+            'warehouses' => $warehouses,
+            'productTypes' => $productTypes,
+            'alerts' => $alerts,
+            'product' => $product
         ]);
     }
 
     public static function updateProduct(Router $router){
+        $id = validateORredirect('/admin/products');
+        $product = Product::find($id);
+        $alerts = [];
+
+        $warehouses = Warehouse::all();
+        $productTypes = ProductType::all();
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $product->sync($_POST);
+            if($product->location == ''){
+                $product->location = 'null';
+            }
+            if($_FILES['image']['name'] != ""){
+                $imageName = md5(uniqid(rand(), true)) .  '.jpg';
+                if($_FILES['image']){
+                    $image = Image::make($_FILES['image']['tmp_name'])->fit(800, 600);
+                    $product->setImage($imageName);
+                    if(!is_dir(IMAGES_DIR)){
+                        mkdir(IMAGES_DIR);
+                    }
+                    $image->save(IMAGES_DIR . $imageName);
+                }
+            }
+
+            $alerts = $product->validate();
+            if(empty($alerts)){
+                // debug($product);
+                $product->save();
+                header('Location: /admin/products?result=2');
+            }
+
+        }
+
         $router->render('admin/updateProduct', [
+            'warehouses' => $warehouses,
+            'productTypes' => $productTypes,
+            'alerts' => $alerts,
+            'product' => $product
         ]);
     }
 
     public static function deleteProduct(Router $router){
-        $router->render('admin/deleteProduct', [
-        ]);
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // debug($_POST['id']);
+            $id = $_POST['id'];
+            $product = Product::find($id); 
+            // debug($product);
+            $valid = true;
+
+            $productsCart = productsXCart::all();
+            // debug($productsCart);
+            foreach($productsCart as $prod){
+                if($prod->productId == $id){
+                    $valid = false;
+                }
+            }
+
+
+            $productsSale = productsXsale::all();
+            foreach($productsSale as $prod){
+                if($prod->productId == $id){
+                    $valid = false;
+                }
+            }
+            if($valid){
+                $product->delete();
+                header('Location: /admin/products?result=3');
+            }else{
+                header('Location: /admin/products?error=1');
+            }
+        }
     }
 }
 
