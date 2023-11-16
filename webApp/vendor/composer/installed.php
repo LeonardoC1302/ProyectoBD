@@ -3,7 +3,7 @@
         'name' => 'leona/web-app',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '701380d00c21e92d0742f731887dfc078d8b73e3',
+        'reference' => 'b47f63999f98068d7ea4306f92ad81a55564373f',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'leona/web-app' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '701380d00c21e92d0742f731887dfc078d8b73e3',
+            'reference' => 'b47f63999f98068d7ea4306f92ad81a55564373f',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
