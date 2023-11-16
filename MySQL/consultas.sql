@@ -31,6 +31,14 @@ VALUES
 ('Kevin', 'Chang', 'Kevin@gamail.com', '88888887', 112, 0, '2023-10-11', 3, 1),
 ('Mauricio', 'Chaves', 'Kevin3@gamail.com', '88388287', 15, 1, '2023-10-11', 2, 2);
 
+INSERT INTO performance (report, rating, employeeId) 
+VALUES
+('Good Job, Hard worker, helps others', 9, 1),
+('Poor Performance', 3, 2),
+('Great Worker', 10, 3),
+('Very efficient, could be a better teamate', 7, 4);
+
+
 
 delete from users where id =  4;
 alter table users AUTO_INCREMENT = 4;
@@ -41,7 +49,9 @@ alter table employee AUTO_INCREMENT = 1;
 delete from rol where id > 0;
 alter table rol AUTO_INCREMENT = 1;
 
-update employee set hours = 52 where id = 4;
+update employee set pay = 0 where id = 1;
 update country set socialcharge = 0.05 where id = 1;
 
-update users set verified=1 where id=2;
+update users set verified=1 where id=5;
+update users set token = "" where id=5;
+

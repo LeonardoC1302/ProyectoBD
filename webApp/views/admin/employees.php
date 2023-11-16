@@ -13,7 +13,7 @@
         </tr>
 
     </thead>
-
+<!-- list of all employees  -->
     <tbody> 
         <?php foreach($employee as $em){ ?>
         <tr>
@@ -46,7 +46,6 @@
 </table>
 
 <div class="actions">
-    <a> </a>
+    <a href="/admin" class="link-btn"> Return </a>
     <a href="/admin/employeeSearch" class="link-btn">Employee Query</a>
-    <a> </a>
 </div>

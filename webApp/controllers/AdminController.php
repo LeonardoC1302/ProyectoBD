@@ -17,15 +17,18 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Model\ReportResult;
 use Model\Sale;
 use Model\UserServer;
+use Model\ReportResult2;
+use Model\Performance;
 
-class Admincontroller {
+//all router->render functions enable the redirection to the wanted webpage
+
+class Admincontroller { //Main page for admin functions
     public static function index(Router $router){
         $router->render('admin/index', [
         ]);
-        
     }
 
-    public static function employees(Router $router){
+    public static function employees(Router $router){ //Sends data from MySQL to employee.php
         $employee = Employee::all();
         $rol = Rol::all();
         $country = Country::all();
@@ -39,16 +42,16 @@ class Admincontroller {
         
     }
 
-    public static function employeeSearch(Router $router){
+    public static function employeeSearch(Router $router){ //Recieves data from the form in EmployeeReport.php
         $employee = Employee::all();
         $rol = Rol::all();
         $country = Country::all();
         $department = Department::all();
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if(count($_POST) == 4){
+            if(count($_POST) == 4){ //Queries all employees and their data
                 $results = EmployeeResults::employeeQuery($_POST['Name'], $_POST['Surname'], $_POST['Rol'], $_POST['Country']);
             }else{
-                $results = EmployeeResults::employeeQueryAll();
+                $results = EmployeeResults::employeeQueryAll(); //Return all employees if data is not filled
             }
         }
 
@@ -68,7 +71,7 @@ class Admincontroller {
             $date = date("Y-m-d", strtotime($selectedDate));
             $results = EmployeeResults::employeeQueryDate($date);
 
-            if($_POST['selectedDate'] == ''){
+            if($_POST['selectedDate'] == ''){ //enables filtering by date
                 $results = EmployeeResults::employeeQueryAll();
             }
 
@@ -76,27 +79,29 @@ class Admincontroller {
             $results = EmployeeResults::employeeQueryAll();
         }
 
-        $payLog = SalaryLog::all();
+        $payLog = SalaryLog::all();       //extracts log and performance data from sql
+        $performance = Performance::all();
             
         $router->render('admin/employeeReport', [
             'results'=>$results,
-            'payLog'=>$payLog
+            'payLog'=>$payLog,
+            'performance'=>$performance
         ]);
     }
 
-    public static function payment(Router $router){
+    public static function payment(Router $router){  //processes the payment updating employee data
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $id = $_POST['id'];
             $employee = Employee::find($id); 
 
-            $log = new Salarylog();
+            $log = new Salarylog();  //Inserts payment to pay log
             $log->description = "Pago a " . $employee->name . " " . $employee->surname . " el dia " . date("Y-m-d") . ", Con un monto de: ₡" . round($_POST['totalSalary'], 2);
             $log->amount = (float)round($_POST['totalSalary'], 2);
             $log->datePayed = date("Y-m-d");
             $log->employeeId = (int)$_POST['id'];
             $log->save();
 
-            $employee->hours = 0;
+            $employee->hours = 0;       
             $employee->lastPay = date("Y-m-d");
             $employee->pay = 1;
 
@@ -108,29 +113,48 @@ class Admincontroller {
     public static function employeeReport2(Router $router){
         $results = '';
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if($_POST['filter'] == ""){
+            if($_POST['filter'] == "" || $_POST['filter2'] == ""){
                 $results = "None Selected";
             }
-            switch ($_POST['filter']) {
-                case "employees":
-                    $results = ReportResult::filterByEmployee();
-                    break;
-                case "roles":
-                    $results = ReportResult::filterByRole();
-                    break;
-                case "departments":
-                    $results = ReportResult::filterByDepartment();
-                    break;
-                case "countries":
-                    $results = ReportResult::filterByCountry();
-                    break;
+
+            if($_POST['filter2'] == "Salary"){  //takes the filters entered by user and searched data accordingly
+                switch ($_POST['filter']) {
+                    case "employees":
+                        $results = ReportResult::filterByEmployee();
+                        break;
+                    case "roles":
+                        $results = ReportResult::filterByRole();
+                        break;
+                    case "departments":
+                        $results = ReportResult::filterByDepartment();
+                        break;
+                    case "countries":
+                        $results = ReportResult::filterByCountry();
+                        break;
+                }
+            }else{
+                switch ($_POST['filter']) {
+                    case "employees":
+                        $results = ReportResult2::filterByEmployee2();
+                        break;
+                    case "roles":
+                        $results = ReportResult2::filterByRole2();
+                        break;
+                    case "departments":
+                        $results = ReportResult2::filterByDepartment2();
+                        break;
+                    case "countries":
+                        $results = ReportResult2::filterByCountry2();
+                        break;
+                }
             }
         }
-
         $filter = $_POST['filter'];
+        $filter2 = $_POST['filter2'];
         $router->render('admin/employeeReport2', [
             'results'=>$results,
-            'filter'=>$filter
+            'filter'=>$filter,
+            'filter2'=>$filter2
         ]);
     }
 
