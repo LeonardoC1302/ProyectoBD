@@ -171,7 +171,8 @@ class Admincontroller {
                     mkdir(IMAGES_DIR);
                 }
                 $image->save(IMAGES_DIR . $imageName);
-                $product->save();
+                $product->saveLinkedServer();
+                // $product->save();
                 header('Location: /admin/products?result=1');
             }
         }
@@ -213,7 +214,8 @@ class Admincontroller {
             $alerts = $product->validate();
             if(empty($alerts)){
                 // debug($product);
-                $product->save();
+                $product->saveLinkedServer();
+                // $product->save();
                 header('Location: /admin/products?result=2');
             }
 

@@ -76,22 +76,82 @@ class Product extends ActiveRecordServer {
     }
 
     public function formatLocation()
-{
-    // Assuming $this->location contains the binary representation of the geometry
-    // Adjust the column name and table name as needed
-    $sql = "SELECT TOP 1 location.STAsText() AS location_text FROM " .static::$table . " WHERE id = :id";
-    $stmt = self::$db->prepare($sql);
-    $stmt->bindParam(':id', $this->id, \PDO::PARAM_INT);
-    // debug($sql);
-    $stmt->execute();
-    $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+    {
+        // Assuming $this->location contains the binary representation of the geometry
+        // Adjust the column name and table name as needed
+        $sql = "SELECT TOP 1 location.STAsText() AS location_text FROM " .static::$table . " WHERE id = :id";
+        $stmt = self::$db->prepare($sql);
+        $stmt->bindParam(':id', $this->id, \PDO::PARAM_INT);
+        // debug($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-    if ($result) {
-        // Assuming 'location_text' is the alias used in the SQL query
-        return $result['location_text'];
-    } else {
-        return null; // or handle the case where the location is not found
+        if ($result) {
+            // Assuming 'location_text' is the alias used in the SQL query
+            return $result['location_text'];
+        } else {
+            return null; // or handle the case where the location is not found
+        }
     }
-}
+
+    public function saveLinkedServer(){
+        if(!is_null($this->id)){
+            $result = $this->updateLinkedServer();
+        } else {
+            $result = $this->createLinkedServer();
+        }
+        return $result;
+    }
+
+    public function createLinkedServer()
+    {
+        $attributes = $this->attributes();
+        $columns = implode(', ', array_keys($attributes));
+        $values = "''" . implode("'', ''", array_values($attributes)) . "''";
+
+        $query = "DECLARE @sql NVARCHAR(MAX);
+        SET @sql = ' INSERT INTO [LEOC\INSTANCE2].storage.dbo." . static::$table . " ($columns) OUTPUT INSERTED.id VALUES ($values)';
+        EXEC [LEOC\INSTANCE2].master.dbo.sp_executesql @sql;";
+
+        debug($query);
+
+        $result = self::$db->query($query);
+
+        if ($result) {
+            // Assuming $db is your PDO connection object
+            $insertedRow = $result->fetch(\PDO::FETCH_ASSOC); // Fetch the inserted row
+            $insertedId = $insertedRow['id']; // Assuming 'id' is your primary key column name
+
+            return [
+                'result' => $result,
+                'id' => $insertedId
+            ];
+        } else {
+            // Handle the case when the query fails
+            return [
+                'result' => false,
+                'id' => null
+            ];
+        }
+    }
+
+    public function updateLinkedServer(){
+        $attributes = $this->attributes();
+        $values = [];
+        foreach ($attributes as $key=>$value) {
+            $values[] = "{$key}=''{$value}''";
+        }
+        
+        $query = "DECLARE @sql NVARCHAR(MAX);
+        SET @sql = ' UPDATE [LEOC\INSTANCE2].storage.dbo." . static::$table . " SET ";
+        $query .= join(', ', $values);
+        $query .= " WHERE id = ''" . $this->id . "''';\n ";
+        $query .= " EXEC [LEOC\INSTANCE2].master.dbo.sp_executesql @sql;";
+
+        debug($query);
+        
+        $result = self::$db->query($query);
+        return $result;
+    }
 
 }
