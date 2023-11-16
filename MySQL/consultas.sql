@@ -32,8 +32,8 @@ VALUES
 ('Mauricio', 'Chaves', 'Kevin3@gamail.com', '88388287', 15, 1, '2023-10-11', 2, 2);
 
 
-delete from department where id > 0;
-alter table department AUTO_INCREMENT = 1;
+delete from users where id =  4;
+alter table users AUTO_INCREMENT = 4;
 delete from country where id > 0;
 alter table country AUTO_INCREMENT = 1;
 delete from employee where id > 0;
@@ -43,3 +43,5 @@ alter table rol AUTO_INCREMENT = 1;
 
 update employee set hours = 52 where id = 4;
 update country set socialcharge = 0.05 where id = 1;
+
+update users set verified=1 where id=2;

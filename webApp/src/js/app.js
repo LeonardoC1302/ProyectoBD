@@ -15,7 +15,7 @@ function responsiveMenu() {
 }
 
 setTimeout(() => {
-    const alert = document.querySelector('.alert.success');
+    const alert = document.querySelector('.alert');
     if (alert) {
         alert.remove();
     }

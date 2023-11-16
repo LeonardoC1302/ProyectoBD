@@ -7,6 +7,7 @@ use Model\Client;
 use Model\CommentType;
 use Model\Comment;
 use Model\Consult;
+use Model\User;
 
 class HelpController {
     public static function apply(Router $router){
@@ -20,6 +21,7 @@ class HelpController {
         ]);
         
     }public static function serviceEmp(Router $router){
+        User::syncPostgre();
         $alerts = [];
         if($_SERVER['REQUEST_METHOD'] === 'GET'){
             if (!empty($_GET['search'])) {

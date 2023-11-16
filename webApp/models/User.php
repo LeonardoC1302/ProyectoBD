@@ -4,6 +4,7 @@ namespace Model;
 
 class User extends ActiveRecord {
     protected static $db_server;
+    protected static $db_postgreSQL;
     protected static $table = 'users';
     protected static $columns_db = ['id', 'name', 'surname', 'email', 'password', 'phone', 'admin', 'verified', 'token'];
 
@@ -31,6 +32,9 @@ class User extends ActiveRecord {
 
     public static function setDbServer($database){
         self::$db_server = $database;
+    }
+    public static function setDbServer2($database){
+        self::$db_postgreSQL = $database;
     }
 
     public function validateLogin(){
@@ -188,6 +192,26 @@ class User extends ActiveRecord {
             $result = self::$db_server->query($query);
         }
     }
+    public static function syncPostgre(){
+        $users = self::all();
+        foreach ($users as $user) {
+            $attributes = $user->sanitizeData();
     
-    
+            // Build the merge statement
+            $query = "DO
+            $$
+            BEGIN
+            IF EXISTS (SELECT 1 FROM clients WHERE name ='". $attributes["name"]. " ". $attributes["surname"]."' ) THEN
+                -- Update the existing record
+                UPDATE clients SET name ='". $attributes["name"]. " ". $attributes["surname"]."'  WHERE name ='". $attributes["name"]. " ". $attributes["surname"]."' ;
+            ELSE
+                -- Insert a new record
+                INSERT INTO clients (name) VALUES ('". $attributes["name"]. " ". $attributes["surname"]."');
+            END IF;
+            END
+            $$;";
+            $stmt = self::$db_postgreSQL->prepare($query);
+            $stmt->execute();
+        }
+    }
 }

@@ -30,12 +30,12 @@ class LoginController {
                         // Create or use cart
                         $userServer = UserServer::where('email', $user->email);
                         $cart = Cart::where('userId', $userServer->id);
+                        
                         if(empty($cart)){
                             $cart = new Cart();
                             $cart->userId = $userServer->id;
-                            $cart->save();
+                            $result = $cart->save();
                         }
-
                         $_SESSION['cartId'] = $cart->id;
                         // Redirect 
                         if($user->admin == 1){
@@ -78,6 +78,8 @@ class LoginController {
                     $user->generateToken();
                     $user->save();
                     User::syncSQLServer();
+                    User::syncPostgre();
+                    User::syncPostgre();
                     // Send email
                     $mail = new Email($user->email, $user->name, $user->token);
                     $mail->sendRecover();
@@ -115,6 +117,7 @@ class LoginController {
                 $user->token = '';
                 $result = $user->save();
                 User::syncSQLServer();
+                User::syncPostgre();
                 if($result){
                     header('Location: /');
                 }
@@ -151,6 +154,7 @@ class LoginController {
                     // Save user
                     $result = $user->save();
                     User::syncSQLServer();
+                    User::syncPostgre();
                     if($result){
                         header('Location: /message');
                     }
@@ -176,6 +180,7 @@ class LoginController {
             $user->token = '';
             $user->save();
             User::syncSQLServer();
+            User::syncPostgre();
             User::setAlerts('success', 'Your account has been verified');
         }
 
