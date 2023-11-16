@@ -66,6 +66,9 @@ $router->get('/policies', [HelpController::class, 'policies']);
 // ADMIN ROUTES
 $router->get('/admin', [AdminController::class, 'index']);
 
+$router->get('/admin/sales', [AdminController::class, 'sales']);
+$router->post('/admin/sales', [AdminController::class, 'sales']);
+
 $router->get('/admin/employees', [AdminController::class, 'employees']);
 $router->get('/admin/employeeSearch', [AdminController::class, 'employeeSearch']);
 $router->post('/admin/employeeSearch', [AdminController::class, 'employeeSearch']);
