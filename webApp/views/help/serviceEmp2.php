@@ -5,7 +5,7 @@
 <div class="squareContainer">
     <div class="scrollable-content">
         <ul class = "result-list">
-        <li>Client Name: <?php echo $orderInfo[0]["clientId"]; ?></li>
+        <li>Client Name: <?php echo $clientInfo[0]["name"]; ?></li>
             <li>Order ID: <?php echo $orderInfo[0]["id"]; ?></li>
             <li>Sale Date: <?php echo $orderInfo[0]["date"]; ?></li>
             <li>Total: <?php echo $orderInfo[0]["total"]; ?></li>
@@ -17,6 +17,6 @@
 
 <div class="service-form">
         <div class="actions">
-            <a href="/orderReport" class="boton">Report a problem</a>
+            <a href="/orderReport?id=<?php echo $orderInfo[0]["id"];?>" class="boton">Report a problem</a>
         </div>  
 </div>
