@@ -1,0 +1,32 @@
+@use 'base/variables' as v;
+
+.sales-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: v.$gap;
+    .sale-container{
+        display: flex;
+        flex-direction: column;
+        border: 1px solid v.$accent;
+        width: 50rem;
+        padding: v.$gap;
+        p{
+            font-weight: v.$bold;
+            span {
+                font-weight: v.$regular;
+            }
+        }
+        .sale-products{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border-top: 1px solid v.$black;
+            .sale-product{
+                margin: 0;
+                border-bottom: 1px solid v.$black;
+            }
+        }
+    }
+}

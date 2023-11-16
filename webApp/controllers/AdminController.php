@@ -15,6 +15,8 @@ use Model\productsXCart;
 use Model\productsXsale;
 use Intervention\Image\ImageManagerStatic as Image;
 use Model\ReportResult;
+use Model\Sale;
+use Model\UserServer;
 use Model\ReportResult2;
 use Model\Performance;
 
@@ -279,6 +281,42 @@ class Admincontroller { //Main page for admin functions
                 header('Location: /admin/products?error=1');
             }
         }
+    }
+
+    public static function sales(Router $router){
+        $sales = Sale::all();
+        foreach($sales as $sale){
+            $sale->products = $sale->getProducts();
+        }
+
+        $warehouses = Warehouse::all();
+        $productTypes = ProductType::all();
+        $products = Product::all();
+        $users = UserServer::all();
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if($_POST['date'] != ''){
+                $sales = Sale::filterDate($sales, $_POST['date']);
+            }
+            if($_POST['productTypeId'] != ''){
+                $sales = Sale::filterProductType($sales, $_POST['productTypeId']);
+            }
+            if($_POST['warehouseId'] != ''){
+                $sales = Sale::filterWarehouse($sales, $_POST['warehouseId']);
+            }
+            if($_POST['productId'] != ''){
+                $sales = Sale::filterProduct($sales, $_POST['productId']);
+            }
+        }
+        
+        $router->render('admin/sales', [
+            'sales' => $sales,
+            'warehouses' => $warehouses,
+            'productTypes' => $productTypes,
+            'products' => $products,
+            'users' => $users
+        ]);
+        
     }
 }
 
