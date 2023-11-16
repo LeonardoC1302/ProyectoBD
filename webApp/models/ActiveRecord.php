@@ -1,5 +1,8 @@
 <?php
 
+//All objects that are childs of active records use these functions to work with tables
+//all models are objects that work as representations of tables in the DB 
+
 namespace Model;
 
 class ActiveRecord {
@@ -15,6 +18,7 @@ class ActiveRecord {
         self::$db = $database;
     }
 
+    //either inserts or updates data
     public function save(){
         if(!is_null($this->id)){
             $result = $this->update();
@@ -24,6 +28,7 @@ class ActiveRecord {
         return $result;
     }
 
+    //create data
     public function create() {
         $attributes = $this->sanitizeData();
         // Insert data
@@ -40,6 +45,7 @@ class ActiveRecord {
          ];
     }
 
+    //update data
     public function update(){
         // Sanitize inputs
         $attributes = $this->sanitizeData();
@@ -75,6 +81,7 @@ class ActiveRecord {
         return $attributes;
     }
 
+    //sanitiza data
     public function sanitizeData(){
         $attributes = $this->attributes();
         $sanitized = [];
@@ -89,27 +96,32 @@ class ActiveRecord {
         return static::$alerts;
     }
 
+    //alerts for validation
     public static function setAlerts($type, $message){
         static::$alerts[$type][] = $message;
     }
 
+    //validations
     public function validate(){
         static::$alerts = [];
         return static::$alerts;
     }
 
+    //selects all data form a table
     public static function all(){
         $query = "SELECT * FROM " . static::$table;
         $result = self::querySQL($query);
         return $result;
     }
 
+    //gets an sepecific set of data given a quantity
     public static function get($quantity){
         $query = "SELECT * FROM " . static::$table . " LIMIT " . $quantity;
         $result = self::querySQL($query);
         return $result;
     }
 
+    //where clause
     public static function where($column, $value){
         $query = "SELECT * FROM " . static::$table . " WHERE $column = '$value'";
         // debug($query);
@@ -117,6 +129,7 @@ class ActiveRecord {
         return array_shift($result); // Get the first element of the array
     }
 
+    //finds sepecific data given an id
     public static function find($id){
         $query = "SELECT * FROM " . static::$table . " WHERE id = $id";
         $result = self::querySQL($query);
@@ -138,6 +151,7 @@ class ActiveRecord {
         return $array;
     }
 
+    //create an active record object
     protected static function createObject($register){
         $object = new static;
         foreach($register as $key=>$value){
@@ -148,6 +162,8 @@ class ActiveRecord {
         return $object;
     }
 
+    //the following 8 functions all do the same, the only difference is the $query variable
+    //each function runs a different mysql query for different needs
     public static function employeeQuery($name, $surname, $rolId, $countryId) {
         $query = "
             SELECT
@@ -393,6 +409,140 @@ class ActiveRecord {
                 rol r ON e.rolId = r.id
             GROUP BY 
                 c.id, c.name;
+            ";
+    
+            $statement = self::$db->prepare($query);
+    
+            if ($statement === false) {
+                die("Query preparation failed: " . self::$db->error);
+            }
+    
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            $array = [];
+            while ($register = $result->fetch_assoc()) {
+                $array[] = static::createObject($register);
+            }
+    
+            $statement->close();
+            return $array;
+        }
+
+        public static function filterByCountry2() {
+            $query = "
+            SELECT 
+                c.name AS Name,
+                SUM((e.hours * r.salary) * c.socialcharge) AS SocialChargeCost
+            FROM 
+                country c
+            JOIN 
+                employee e ON c.id = e.countryId
+            JOIN 
+                rol r ON e.rolId = r.id
+            GROUP BY 
+                c.id, c.name;
+            ";
+    
+            $statement = self::$db->prepare($query);
+    
+            if ($statement === false) {
+                die("Query preparation failed: " . self::$db->error);
+            }
+    
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            $array = [];
+            while ($register = $result->fetch_assoc()) {
+                $array[] = static::createObject($register);
+            }
+    
+            $statement->close();
+            return $array;
+        }
+
+        public static function filterByEmployee2() {
+            $query = "
+            SELECT 
+                CONCAT(e.name, ' ', e.surname) AS Name,
+                SUM((e.hours * r.salary) * c.socialcharge) AS SocialChargeCost
+            FROM 
+                employee e
+            JOIN 
+                rol r ON e.rolId = r.id
+            JOIN 
+                country c ON e.countryId = c.id
+            GROUP BY 
+                e.id, Name;
+            ";
+    
+            $statement = self::$db->prepare($query);
+    
+            if ($statement === false) {
+                die("Query preparation failed: " . self::$db->error);
+            }
+    
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            $array = [];
+            while ($register = $result->fetch_assoc()) {
+                $array[] = static::createObject($register);
+            }
+    
+            $statement->close();
+            return $array;
+        }
+
+        public static function filterByRole2() {
+            $query = " 
+            SELECT 
+                r.rol AS Name,
+                SUM((e.hours * r.salary) * c.socialcharge) AS SocialChargeCost
+            FROM 
+                rol r
+            JOIN 
+                employee e ON r.id = e.rolId
+            JOIN 
+                country c ON e.countryId = c.id
+            GROUP BY 
+                r.id, Name;
+            ";
+    
+            $statement = self::$db->prepare($query);
+    
+            if ($statement === false) {
+                die("Query preparation failed: " . self::$db->error);
+            }
+    
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            $array = [];
+            while ($register = $result->fetch_assoc()) {
+                $array[] = static::createObject($register);
+            }
+    
+            $statement->close();
+            return $array;
+        }
+
+        public static function filterByDepartment2() {
+            $query = "
+            SELECT 
+                d.name AS Name,
+                SUM((e.hours * r.salary) * c.socialcharge) AS SocialChargeCost
+            FROM 
+                department d
+            JOIN 
+                rol r ON d.id = r.departmentId
+            JOIN 
+                employee e ON r.id = e.rolId
+            JOIN 
+                country c ON e.countryId = c.id
+            GROUP BY 
+                d.id, Name;
             ";
     
             $statement = self::$db->prepare($query);

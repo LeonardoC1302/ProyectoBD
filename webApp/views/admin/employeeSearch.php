@@ -3,12 +3,12 @@
 <div class="actions">
     <a href="/admin/employees" class="link-btn">Return to Employees</a>
     <a class="line"> Today's Date: <?php echo date('y-m-d') ?> </a>
-    <a href="/admin/employeeReport" class="link-btn"> Click Here for Salary Report </a>
+    <a href="/admin/employeeReport" class="link-btn"> Salaries Info </a>
 </div>
-
+<!-- form to insert data -->
 <div class="container">
         <form class="square-container" method="POST">
-            <!-- Add search input fields and buttons here -->
+
             <h2 class="search-header">Search:</h2>
             <div class="input-container">
                 <label for="Name">Name:</label>
@@ -43,7 +43,7 @@
 
         </form>
 
-        
+        <!-- Data results table -->
 
         <div class="square-container">
             <div class="scrollable-content">
@@ -55,7 +55,7 @@
                 <li><b><?php echo $index . "." ?> <?php echo $r->Name ?></b></li>
                 <li>Country: <?php echo $r->Country ?> </li>
                 <li>Deparment: <?php echo $r->Department ?></li>
-                <li>Rol: <?php echo $r->Rol ?></li>
+                <li>Role: <?php echo $r->Rol ?></li>
                 <li>Hours Worked This Period: <?php echo $r->hours ?></li>
                 <li>Pay per Hour: ₡<?php echo $r->salary ?> - Social Charge: <?php echo $r->socialcharge*100 ?>%</li>
                 <li>Current Salary To Pay: ₡<?php echo round($r->CurrentSalary,2) ?></li>
