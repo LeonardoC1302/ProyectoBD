@@ -15,7 +15,7 @@
         <i class='bx bx-dollar-circle option__icon'></i>
         <p class="option__name">Manage Sales</p>
     </a>
-    <a href="/admin/suggestions" class="option">
+    <a href="/customerService" class="option">
         <i class='bx bx-message-check option__icon'></i>
         <p class="option__name">Manage Suggestions</p>
     </a>
