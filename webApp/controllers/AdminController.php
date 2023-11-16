@@ -14,7 +14,6 @@ use Model\Salarylog;
 use Model\productsXCart;
 use Model\productsXsale;
 use Intervention\Image\ImageManagerStatic as Image;
-use Model\ByEmployee;
 use Model\ReportResult;
 
 class Admincontroller {
