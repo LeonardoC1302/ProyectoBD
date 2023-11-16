@@ -43,25 +43,3 @@ alter table rol AUTO_INCREMENT = 1;
 
 update employee set hours = 52 where id = 4;
 update country set socialcharge = 0.05 where id = 1;
-
-SELECT
-	CONCAT(e.name, ' ', e.surname) AS Name,
-    d.Name AS Department,
-    r.rol as Rol,
-    e.hours,
-    r.salary,
-    c.socialcharge,
-    (e.hours * r.salary * (1 - c.socialcharge)) AS CurrentSalary,
-    DATE_ADD(e.lastPay, INTERVAL 15 DAY) AS NextPay
-FROM
-    employee e
-JOIN
-    rol r ON e.rolId = r.id
-JOIN
-    department d ON e.countryId = d.id
-JOIN
-    country c ON e.countryId = c.id
-WHERE
-    DATE_ADD(e.lastPay, INTERVAL 15 DAY) = '23-11-29' ;
-    
-SELECT DATE_ADD(CURDATE(), INTERVAL 15 DAY) AS NextPay;

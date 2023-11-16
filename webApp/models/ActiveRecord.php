@@ -280,6 +280,139 @@ class ActiveRecord {
             $statement->close();
             return $array;
         }
+
+        public static function filterByEmployee() {
+            $query = "
+            SELECT 
+                CONCAT(e.name, ' ', e.surname) AS Name,
+                SUM(sl.amount) AS TotalSalaryCost
+            FROM 
+                salarylog sl
+            JOIN 
+                employee e ON sl.employeeid = e.id
+            GROUP BY 
+                sl.employeeId, e.name, e.surname;
+            ";
+    
+            $statement = self::$db->prepare($query);
+    
+            if ($statement === false) {
+                die("Query preparation failed: " . self::$db->error);
+            }
+    
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            $array = [];
+            while ($register = $result->fetch_assoc()) {
+                $array[] = static::createObject($register);
+            }
+    
+            $statement->close();
+            return $array;
+        }
+
+        public static function filterByRole() {
+            $query = "
+            SELECT 
+                r.rol AS Name,
+                SUM((e.hours * r.salary) * (1 - c.socialcharge)) AS TotalSalaryCost
+            FROM 
+                rol r
+            JOIN 
+                employee e ON r.id = e.rolId
+            JOIN 
+                country c ON e.countryId = c.id
+            GROUP BY 
+                r.rol;
+            ";
+    
+            $statement = self::$db->prepare($query);
+    
+            if ($statement === false) {
+                die("Query preparation failed: " . self::$db->error);
+            }
+    
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            $array = [];
+            while ($register = $result->fetch_assoc()) {
+                $array[] = static::createObject($register);
+            }
+    
+            $statement->close();
+            return $array;
+        }
+
+        public static function filterByDepartment() {
+            $query = "
+            SELECT 
+                d.name AS Name,
+                SUM((e.hours * r.salary) * (1 - c.socialcharge)) AS TotalSalaryCost
+            FROM 
+                department d
+            JOIN 
+                rol r ON d.id = r.departmentId
+            JOIN 
+                employee e ON r.id = e.rolId
+            JOIN 
+                country c ON e.countryId = c.id
+            GROUP BY 
+                d.id, d.name;
+            ";
+    
+            $statement = self::$db->prepare($query);
+    
+            if ($statement === false) {
+                die("Query preparation failed: " . self::$db->error);
+            }
+    
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            $array = [];
+            while ($register = $result->fetch_assoc()) {
+                $array[] = static::createObject($register);
+            }
+    
+            $statement->close();
+            return $array;
+        }
+
+        public static function filterByCountry() {
+            $query = "
+            SELECT 
+                c.name AS Name,
+                SUM((e.hours * r.salary) * (1 - c.socialcharge)) AS TotalSalaryCost
+            FROM 
+                country c
+            JOIN 
+                employee e ON c.id = e.countryId
+            JOIN 
+                rol r ON e.rolId = r.id
+            GROUP BY 
+                c.id, c.name;
+            ";
+    
+            $statement = self::$db->prepare($query);
+    
+            if ($statement === false) {
+                die("Query preparation failed: " . self::$db->error);
+            }
+    
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            $array = [];
+            while ($register = $result->fetch_assoc()) {
+                $array[] = static::createObject($register);
+            }
+    
+            $statement->close();
+            return $array;
+        }
+    
     
 
     // Sync the object with the new values

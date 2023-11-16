@@ -12,7 +12,8 @@ use Model\Department;
 use Model\Country;
 use Model\Salarylog;
 use Model\ActiveRecord;
-
+use Model\ByEmployee;
+use Model\ReportResult;
 
 class Admincontroller {
     public static function index(Router $router){
@@ -64,6 +65,10 @@ class Admincontroller {
             $date = date("Y-m-d", strtotime($selectedDate));
             $results = EmployeeResults::employeeQueryDate($date);
 
+            if($_POST['selectedDate'] == ''){
+                $results = EmployeeResults::employeeQueryAll();
+            }
+
         }else{
             $results = EmployeeResults::employeeQueryAll();
         }
@@ -98,7 +103,31 @@ class Admincontroller {
     }
 
     public static function employeeReport2(Router $router){
+        $results = '';
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if($_POST['filter'] == ""){
+                $results = "None Selected";
+            }
+            switch ($_POST['filter']) {
+                case "employees":
+                    $results = ReportResult::filterByEmployee();
+                    break;
+                case "roles":
+                    $results = ReportResult::filterByRole();
+                    break;
+                case "departments":
+                    $results = ReportResult::filterByDepartment();
+                    break;
+                case "countries":
+                    $results = ReportResult::filterByCountry();
+                    break;
+            }
+        }
+
+        $filter = $_POST['filter'];
         $router->render('admin/employeeReport2', [
+            'results'=>$results,
+            'filter'=>$filter
         ]);
     }
 
