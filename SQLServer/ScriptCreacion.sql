@@ -1,6 +1,6 @@
 USE
     [storage] GO
-    /****** Object:  Table [dbo].[addresses]    Script Date: 16/11/2023 17:26:09 ******/
+    /****** Object:  Table [dbo].[addresses]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -19,7 +19,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[affinities]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[affinities]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -38,7 +38,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[carts]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[carts]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -55,7 +55,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[countries]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[countries]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -73,7 +73,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[currencies]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[currencies]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -91,7 +91,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[employees]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[employees]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -110,7 +110,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[payments]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[payments]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -132,7 +132,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[products]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[products]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -156,7 +156,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[productsXCart]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[productsXCart]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -176,7 +176,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[productTypes]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[productTypes]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -193,7 +193,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[productXsales]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[productXsales]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -213,7 +213,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[roles]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[roles]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -231,7 +231,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[sales]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[sales]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -251,7 +251,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[users]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[users]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
@@ -276,7 +276,7 @@ CREATE TABLE
                 OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
             ) ON [PRIMARY]
     ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY] GO
-    /****** Object:  Table [dbo].[warehouses]    Script Date: 16/11/2023 17:26:10 ******/
+    /****** Object:  Table [dbo].[warehouses]    Script Date: 16/11/2023 21:22:23 ******/
 SET ANSI_NULLS ON GO
 SET QUOTED_IDENTIFIER ON GO
 CREATE TABLE
