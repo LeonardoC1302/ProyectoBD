@@ -1,10 +1,4 @@
 USE [storage]
-GO
-/****** Object:  Table [dbo].[addresses]    Script Date: 16/11/2023 21:26:46 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [dbo].[addresses](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[street] [varchar](50) NOT NULL,
