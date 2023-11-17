@@ -243,6 +243,14 @@ class Product extends ActiveRecordServer {
         return $result['distance'];
     }
 
+    public static function filterName($name){
+        $sql = "SELECT * FROM " . static::$table . " WHERE productName LIKE '%" . $name . "%'";
+        $stmt = self::$db->prepare($sql);
+        $stmt->execute();
+        $array = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return array_map([static::class, 'createObject'], $array);
+    }
+
     // public static function all(){
     //     $sql = "SELECT * FROM OPENQUERY([" . $_ENV['LSERVER1'] . "], 'SELECT * FROM storage.dbo.products') ";
     //     $sql .= " UNION ALL ";

@@ -26,7 +26,12 @@ class PagesController {
     }
 
     public static function products(Router $router){
-        $products = Product::all();
+        $filter = $_GET['search'] ?? null;
+        if($filter){
+            $products = Product::filterName($filter);
+        } else{
+            $products = Product::all();
+        }
         $router->render('pages/products', [
             'mainPage' => true,
             'products' => $products

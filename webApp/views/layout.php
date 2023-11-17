@@ -42,10 +42,10 @@
     </header>
     <?php
         $mainPage = $mainPage ?? false;
-        if ($mainPage) { ?>
+        if ($mainPage) {?>
             <div class="search-bar">
                 <form action="/products" class="search-input">
-                    <input type="text" name="search" placeholder="Search on LabProSource">
+                    <input type="text" name="search" placeholder="Search on LabProSource" value="<?php echo $_GET['search'] ?? null ?>">
                     <button class="search-icon" type="submit">
                         <i class='bx bx-search' ></i>
                     </button>
