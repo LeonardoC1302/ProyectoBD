@@ -106,14 +106,29 @@ class Product extends ActiveRecordServer {
     public function createLinkedServer()
     {
         $attributes = $this->attributes();
+        $linkedServer = null;
+        switch($attributes['warehouseId']){
+            case 1:
+                $linkedServer = $_ENV['LSERVER1'];
+                break;
+            case 2:
+                $linkedServer = $_ENV['LSERVER2'];
+                break;
+            case 3:
+                $linkedServer = $_ENV['LSERVER3'];
+                break;
+        }
+
+        if(is_null($linkedServer)){
+            return false;
+        }
+
         $columns = implode(', ', array_keys($attributes));
         $values = "''" . implode("'', ''", array_values($attributes)) . "''";
 
         $query = "DECLARE @sql NVARCHAR(MAX);
-        SET @sql = ' INSERT INTO [LEOC\INSTANCE2].storage.dbo." . static::$table . " ($columns) OUTPUT INSERTED.id VALUES ($values)';
-        EXEC [LEOC\INSTANCE2].master.dbo.sp_executesql @sql;";
-
-        debug($query);
+        SET @sql = ' INSERT INTO [" . $linkedServer . "].storage.dbo." . static::$table . " ($columns) OUTPUT INSERTED.id VALUES ($values)';
+        EXEC [" . $linkedServer . "].master.dbo.sp_executesql @sql;";
 
         $result = self::$db->query($query);
 
@@ -141,14 +156,32 @@ class Product extends ActiveRecordServer {
         foreach ($attributes as $key=>$value) {
             $values[] = "{$key}=''{$value}''";
         }
+
+        $linkedServer = null;
+        switch($attributes['warehouseId']){
+            case 1:
+                $linkedServer = $_ENV['LSERVER1'];
+                break;
+            case 2:
+                $linkedServer = $_ENV['LSERVER2'];
+                break;
+            case 3:
+                $linkedServer = $_ENV['LSERVER3'];
+                break;
+        }
+
+        debug($linkedServer);
+
+        if(is_null($linkedServer)){
+            return false;
+        }
         
         $query = "DECLARE @sql NVARCHAR(MAX);
-        SET @sql = ' UPDATE [LEOC\INSTANCE2].storage.dbo." . static::$table . " SET ";
+        SET @sql = ' UPDATE [" . $linkedServer . "].storage.dbo." . static::$table . " SET ";
         $query .= join(', ', $values);
         $query .= " WHERE id = ''" . $this->id . "''';\n ";
-        $query .= " EXEC [LEOC\INSTANCE2].master.dbo.sp_executesql @sql;";
+        $query .= " EXEC [" . $linkedServer . "].master.dbo.sp_executesql @sql;";
 
-        debug($query);
         
         $result = self::$db->query($query);
         return $result;

@@ -24,11 +24,13 @@ use Model\Performance;
 
 class Admincontroller { //Main page for admin functions
     public static function index(Router $router){
+        isAdmin();
         $router->render('admin/index', [
         ]);
     }
 
     public static function employees(Router $router){ //Sends data from MySQL to employee.php
+        isAdmin();
         $employee = Employee::all();
         $rol = Rol::all();
         $country = Country::all();
@@ -43,6 +45,7 @@ class Admincontroller { //Main page for admin functions
     }
 
     public static function employeeSearch(Router $router){ //Recieves data from the form in EmployeeReport.php
+        isAdmin();
         $employee = Employee::all();
         $rol = Rol::all();
         $country = Country::all();
@@ -66,6 +69,7 @@ class Admincontroller { //Main page for admin functions
     //Employee Validations Search and Reports
 
     public static function employeeReport(Router $router){
+        isAdmin();
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $selectedDate = $_POST["selectedDate"];
             $date = date("Y-m-d", strtotime($selectedDate));
@@ -90,6 +94,7 @@ class Admincontroller { //Main page for admin functions
     }
 
     public static function payment(Router $router){  //processes the payment updating employee data
+        isAdmin();
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $id = $_POST['id'];
             $employee = Employee::find($id); 
@@ -111,6 +116,7 @@ class Admincontroller { //Main page for admin functions
     }
 
     public static function employeeReport2(Router $router){
+        isAdmin();
         $results = '';
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if($_POST['filter'] == "" || $_POST['filter2'] == ""){
@@ -159,6 +165,7 @@ class Admincontroller { //Main page for admin functions
     }
 
     public static function products(Router $router){
+        isAdmin();
         $products = Product::all();
         $productTypes = ProductType::all();
         $warehouses = Warehouse::all();
@@ -176,6 +183,7 @@ class Admincontroller { //Main page for admin functions
     }
 
     public static function createProduct(Router $router){
+        isAdmin();
         $warehouses = Warehouse::all();
         $productTypes = ProductType::all();
 
@@ -211,6 +219,7 @@ class Admincontroller { //Main page for admin functions
     }
 
     public static function updateProduct(Router $router){
+        isAdmin();
         $id = validateORredirect('/admin/products');
         $product = Product::find($id);
         $alerts = [];
@@ -239,7 +248,7 @@ class Admincontroller { //Main page for admin functions
             if(empty($alerts)){
                 // debug($product);
                 $product->saveLinkedServer();
-                // $product->save();
+                $product->save();
                 header('Location: /admin/products?result=2');
             }
 
@@ -254,6 +263,7 @@ class Admincontroller { //Main page for admin functions
     }
 
     public static function deleteProduct(Router $router){
+        isAdmin();
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             // debug($_POST['id']);
             $id = $_POST['id'];
@@ -286,6 +296,7 @@ class Admincontroller { //Main page for admin functions
     }
 
     public static function sales(Router $router){
+        isAdmin();
         $sales = Sale::all();
         foreach($sales as $sale){
             $sale->products = $sale->getProducts();

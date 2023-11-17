@@ -165,13 +165,13 @@ class User extends ActiveRecord {
 
     public static function syncSQLServer(){
         $users = self::all();
-    
         foreach ($users as $user) {
             $attributes = $user->sanitizeData();
     
             // Build the merge statement
+            $randomPoint = "POINT(" . rand(0, 100) . " " . rand(0, 100) . ")";
             $query = "MERGE INTO " . self::$table . " AS target ";
-            $query .= "USING (VALUES ('" . join("', '", array_values($attributes)) . "')) AS source (" . join(', ', array_keys($attributes)) . ") ";
+            $query .= "USING (VALUES ('" . join("', '", array_values($attributes)) .  "' , '" . $randomPoint . "')) AS source (" . join(', ', array_keys($attributes)) . ", location) ";
             $query .= "ON target.email = source.email ";  // Assuming email is a unique key
             $query .= "WHEN MATCHED THEN UPDATE SET ";
             
@@ -185,14 +185,15 @@ class User extends ActiveRecord {
     
             $query .= " WHEN NOT MATCHED THEN INSERT (";
             $query .= join(', ', array_keys($attributes));
-            $query .= ") VALUES ('";
+            $query .= ", location) VALUES ('";
             $query .= join("', '", array_values($attributes));
-            $query .= "');";
+            $query .= "', '" . $randomPoint . "');";
+
             // Execute the query
             $result = self::$db_server->query($query);
         }
     }
-    public static function syncPostgre(){
+    public static function syncPostgre($fullName = null){
         $users = self::all();
         foreach ($users as $user) {
             $attributes = $user->sanitizeData();
@@ -201,15 +202,16 @@ class User extends ActiveRecord {
             $query = "DO
             $$
             BEGIN
-            IF EXISTS (SELECT 1 FROM clients WHERE name ='". $attributes["name"]. " ". $attributes["surname"]."' ) THEN
+            IF EXISTS (SELECT 1 FROM clients WHERE name ='". $fullName ."' ) THEN
                 -- Update the existing record
-                UPDATE clients SET name ='". $attributes["name"]. " ". $attributes["surname"]."'  WHERE name ='". $attributes["name"]. " ". $attributes["surname"]."' ;
+                UPDATE clients SET name ='". $attributes["name"]. " ". $attributes["surname"]."'  WHERE name ='". $fullName ."' ;
             ELSE
                 -- Insert a new record
                 INSERT INTO clients (name) VALUES ('". $attributes["name"]. " ". $attributes["surname"]."');
             END IF;
             END
             $$;";
+
             $stmt = self::$db_postgreSQL->prepare($query);
             $stmt->execute();
         }

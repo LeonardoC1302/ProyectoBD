@@ -28,65 +28,15 @@ VALUES ('John Doe', 1, 1), ('Alice Smith', 2, 2), ('Bob Johnson', 3, 3), ('Eva B
 
 INSERT INTO
     productTypes (productTypeName)
-VALUES ('Electronics'), ('Clothing'), ('Furniture'), ('Appliances'), ('Books');
+VALUES ('Equipment'), ('Chemicals'), ('Consumables'), ('Bundles'), ('Books');
 
-INSERT INTO
-    products (
-        productName,
-        productTypeId,
-        warehouseId,
-        location,
-        stock,
-        price,
-        image,
-        description
-    )
-VALUES (
-        'Laptop',
-        1,
-        1,
-        NULL,
-        100,
-        999.99,
-        'laptop_image.jpg',
-        'High-performance laptop with advanced features.'
-    ), (
-        'T-shirt',
-        2,
-        2,
-        NULL,
-        500,
-        19.99,
-        'tshirt_image.jpg',
-        'Comfortable cotton t-shirt in various colors.'
-    ), (
-        'Sofa',
-        3,
-        3,
-        NULL,
-        50,
-        599.99,
-        'sofa_image.jpg',
-        'Stylish and comfortable sofa for your living room.'
-    ), (
-        'Refrigerator',
-        4,
-        1,
-        NULL,
-        30,
-        799.99,
-        'fridge_image.jpg',
-        'Energy-efficient refrigerator with spacious compartments.'
-    ), (
-        'Book',
-        5,
-        2,
-        NULL,
-        200,
-        9.99,
-        'book_image.jpg',
-        'Best-selling novel by a renowned author.'
-    );
+INSERT [dbo].[products] ([id], [productName], [productTypeId], [warehouseId], [location], [stock], [price], [image], [description]) VALUES (1, N'Bunsen Burner', 1, 3, 0x00000000010C00000000000024400000000000003440, 10, CAST(500.00 AS Decimal(10, 2)), N'c5f1669d47fb4a4e736bcd75b0faef56.jpg', N'The Bunsen burner is a versatile gas burner designed for precision and efficiency in laboratory settings. Comprising a vertical metal tube connected to a gas source, it features an adjustable air intake mechanism and a heat-resistant base.'); 
+INSERT [dbo].[products] ([id], [productName], [productTypeId], [warehouseId], [location], [stock], [price], [image], [description]) VALUES (2, N'Sulfuric Acid', 2, 1, 0x00000000010C00000000000024400000000000003440, 15, CAST(100.00 AS Decimal(10, 2)), N'8953e3ea9f6c93d9a3ce9b51ed42abfe.jpg', N'Dangerous Acid'); 
+INSERT [dbo].[products] ([id], [productName], [productTypeId], [warehouseId], [location], [stock], [price], [image], [description]) VALUES (3, N'Ammonia', 2, 2, 0x00000000010C00000000000024400000000000003440, 20, CAST(150.00 AS Decimal(10, 2)), N'd63cb1c7b91cfd48ac4172d151f875e9.jpg', N'Chemical');
+INSERT [dbo].[products] ([id], [productName], [productTypeId], [warehouseId], [location], [stock], [price], [image], [description]) VALUES (4, N'Erlenmeyer', 1, 2, 0x00000000010C00000000000024400000000000003440, 10, CAST(100.00 AS Decimal(10, 2)), N'f8b3fa34b1437f709d1745026f00f834.jpg', N'Erlenmeyer');
+INSERT [dbo].[products] ([id], [productName], [productTypeId], [warehouseId], [location], [stock], [price], [image], [description]) VALUES (5, N'Ethanol', 2, 3, 0x00000000010C00000000000024400000000000003440, 50, CAST(75.00 AS Decimal(10, 2)), N'86a35a7eb40b62910b1e1eaf18449bb5.jpg', N'Ethanol');
+INSERT [dbo].[products] ([id], [productName], [productTypeId], [warehouseId], [location], [stock], [price], [image], [description]) VALUES (6, N'Glasses', 1, 1, 0x00000000010C00000000000024400000000000003440, 15, CAST(15.00 AS Decimal(10, 2)), N'beaba524a5c1921e39151897f2ac1690.jpg', N'Glasses');
+
 
 INSERT INTO
     affinities (

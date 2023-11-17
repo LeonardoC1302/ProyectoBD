@@ -65,6 +65,7 @@ class PagesController {
     }
 
     public static function cart(Router $router){
+        isAuth();
         $productsXcart = productsXCart::whereAll('cartId', $_SESSION['cartId']);
 
         $products = [];
@@ -106,6 +107,7 @@ class PagesController {
     }
 
     public static function checkout(Router $router){
+        isAuth();
         $alerts = [];
         $productsXcart = productsXCart::whereAll('cartId', $_SESSION['cartId']);
 
@@ -152,10 +154,12 @@ class PagesController {
     }
 
     public static function account(Router $router){
+        isAuth();
         $alerts = [];
         $user = User::find($_SESSION['id']);
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $fullName = $user->name . ' ' . $user->surname;
             $auth = new User($_POST);
             $auth->sync($_POST);
             $alerts = $auth->validateUpdate();
@@ -168,6 +172,7 @@ class PagesController {
                     $user->hashPassword();
                     $result = $user->save();
                     User::syncSQLServer();
+                    User::syncPostgre($fullName);
                 }
             }
             
@@ -177,6 +182,8 @@ class PagesController {
                 $user->email = $auth->email;
                 $user->phone = $auth->phone;
                 $user->save();
+                User::syncSQLServer();
+                User::syncPostgre($fullName);
                 User::setAlerts('success', 'The user was updated successfully');
             }
         }
@@ -189,6 +196,7 @@ class PagesController {
     }
 
     public static function orders(Router $router){
+        isAuth();
         $router->render('pages/orders', [
         ]);
     }
