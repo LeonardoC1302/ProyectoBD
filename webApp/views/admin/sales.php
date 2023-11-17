@@ -1,3 +1,7 @@
+<div class="actions">
+    <a href="/admin" class="link-btn">Return to Panel</a>
+</div>
+
 <div class = 'center'>
     <form class="form" method = 'POST'>
         <div class="form__field">

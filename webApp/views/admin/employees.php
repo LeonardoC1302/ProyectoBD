@@ -1,3 +1,8 @@
+<div class="actions">
+    <a href="/admin" class="link-btn"> Return to Panel</a>
+    <a href="/admin/employeeSearch" class="link-btn">Employee Query</a>
+</div>
+
 <h1 class="line">Employees</h1>
 <table class = "line">
     <thead>
@@ -44,8 +49,3 @@
         <?php } ?>
     </tbody>
 </table>
-
-<div class="actions">
-    <a href="/admin" class="link-btn"> Return </a>
-    <a href="/admin/employeeSearch" class="link-btn">Employee Query</a>
-</div>
