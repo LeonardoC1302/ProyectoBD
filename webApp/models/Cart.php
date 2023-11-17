@@ -49,11 +49,27 @@ class Cart extends ActiveRecordServer{
     }
 
     public function shippingPrice(){
-        if($this->subtotal() == 0){
+        $userServer = UserServer::where('email', $_SESSION['email']);
+        $userLocation = $userServer->formatLocation();
+        $productsXcart = productsXCart::whereAll('cartId', $this->id);
+        if(empty($productsXcart)){
             return 0;
-        } else{
-            return 15.28;
         }
+        // Get which product is the farthest
+        $maxDistance = 0;
+        foreach($productsXcart as $productXcart){
+            $product = Product::find($productXcart->productId);
+            $productLocation = $product->formatLocation2();
+            $distance = floatval( Product::distance($userLocation, $productLocation) );
+            if($distance > $maxDistance){
+                $maxDistance = $distance;
+            }
+        }
+        // Calculate shipping price
+        $shippingPrice = $maxDistance * 0.2;
+        // Only 2 decimals
+        $shippingPrice = number_format($shippingPrice, 2);
+        return $shippingPrice;
     }
 
     public function totalPrice(){

@@ -155,6 +155,12 @@ class LoginController {
                     $result = $user->save();
                     User::syncSQLServer();
                     User::syncPostgre();
+                    // Create a cart for the user
+                    $userServer = UserServer::where('email', $user->email);
+                    $cart = new Cart();
+                    $cart->userId = $userServer->id;
+                    $result = $cart->save();
+                    // Redirect
                     if($result){
                         header('Location: /message');
                     }

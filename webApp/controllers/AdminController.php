@@ -204,7 +204,7 @@ class Admincontroller { //Main page for admin functions
                 }
                 $image->save(IMAGES_DIR . $imageName);
                 $product->saveLinkedServer();
-                // $product->save();
+                $product->save();
                 header('Location: /admin/products?result=1');
             }
         }
@@ -287,6 +287,7 @@ class Admincontroller { //Main page for admin functions
                 }
             }
             if($valid){
+                $product->deleteLinkedServer();
                 $product->delete();
                 header('Location: /admin/products?result=3');
             }else{
