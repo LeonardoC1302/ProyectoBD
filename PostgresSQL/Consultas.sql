@@ -8,11 +8,10 @@ select * from orders;
 select * from comment;
 select * from clients;
 
-insert into orders (description, "clientId", date, total, status)
-values ('', 1, '2023-11-21', 60.88, 'en camino')
-
 delete from orders where id > 0;
 ALTER SEQUENCE public.orders_id_seq RESTART WITH 1;
 
-delete from comment where id > 0;
-ALTER SEQUENCE public.comment_id_seq RESTART WITH 1;
+update clients set name = 'Leche Pinito' where id = 4
+
+delete from clients where id > 4;
+ALTER SEQUENCE public.clients_id_seq RESTART WITH 5;
