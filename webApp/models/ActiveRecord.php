@@ -331,16 +331,11 @@ class ActiveRecord {
         public static function filterByRole() {
             $query = "
             SELECT 
-                r.rol AS Name,
-                SUM((e.hours * r.salary) * (1 - c.socialcharge)) AS TotalSalaryCost
-            FROM 
-                rol r
-            JOIN 
-                employee e ON r.id = e.rolId
-            JOIN 
-                country c ON e.countryId = c.id
-            GROUP BY 
-                r.rol;
+            R.rol AS Name, SUM(S.amount) AS TotalSalaryCost
+            FROM salarylog S
+            JOIN employee E ON S.employeeId = E.id
+            JOIN rol R ON E.RolId = R.id
+            GROUP BY R.id
             ";
     
             $statement = self::$db->prepare($query);
@@ -364,18 +359,18 @@ class ActiveRecord {
         public static function filterByDepartment() {
             $query = "
             SELECT 
-                d.name AS Name,
-                SUM((e.hours * r.salary) * (1 - c.socialcharge)) AS TotalSalaryCost
+                D.name AS Name,
+                SUM(S.amount) AS TotalSalaryCost
             FROM 
-                department d
+                salarylog S
             JOIN 
-                rol r ON d.id = r.departmentId
+                employee E ON S.employeeId = E.id
             JOIN 
-                employee e ON r.id = e.rolId
+                rol R ON E.RolId = R.id
             JOIN 
-                country c ON e.countryId = c.id
+                department D ON R.departmentId = D.id
             GROUP BY 
-                d.id, d.name;
+                D.name
             ";
     
             $statement = self::$db->prepare($query);
@@ -399,16 +394,20 @@ class ActiveRecord {
         public static function filterByCountry() {
             $query = "
             SELECT 
-                c.name AS Name,
-                SUM((e.hours * r.salary) * (1 - c.socialcharge)) AS TotalSalaryCost
+                C.name AS Name,
+                SUM(S.amount) AS TotalSalaryCost
             FROM 
-                country c
+                salarylog S
             JOIN 
-                employee e ON c.id = e.countryId
+                employee E ON S.employeeId = E.id
             JOIN 
-                rol r ON e.rolId = r.id
+                rol R ON E.RolId = R.id
+            JOIN 
+                department D ON R.departmentId = D.id
+            JOIN 
+                country C ON E.countryId = C.id
             GROUP BY 
-                c.id, c.name;
+                C.name
             ";
     
             $statement = self::$db->prepare($query);
@@ -432,16 +431,20 @@ class ActiveRecord {
         public static function filterByCountry2() {
             $query = "
             SELECT 
-                c.name AS Name,
-                SUM((e.hours * r.salary) * c.socialcharge) AS SocialChargeCost
+                C.name As Name,
+                ROUND(SUM(S.amount * C.socialcharge), 2) AS SocialChargeCost
             FROM 
-                country c
+                salarylog S
             JOIN 
-                employee e ON c.id = e.countryId
+                employee E ON S.employeeId = E.id
             JOIN 
-                rol r ON e.rolId = r.id
+                rol R ON E.RolId = R.id
+            JOIN 
+                department D ON R.departmentID = D.id
+            JOIN 
+                country C ON E.countryId = C.id
             GROUP BY 
-                c.id, c.name;
+                C.name
             ";
     
             $statement = self::$db->prepare($query);
@@ -465,16 +468,21 @@ class ActiveRecord {
         public static function filterByEmployee2() {
             $query = "
             SELECT 
-                CONCAT(e.name, ' ', e.surname) AS Name,
-                SUM((e.hours * r.salary) * c.socialcharge) AS SocialChargeCost
+                E.id,
+                CONCAT(E.name, ' ', E.surname) AS Name,
+                ROUND(SUM(S.amount * C.socialcharge), 2) AS SocialChargeCost
             FROM 
-                employee e
+                salarylog S
             JOIN 
-                rol r ON e.rolId = r.id
+                employee E ON S.employeeId = E.id
             JOIN 
-                country c ON e.countryId = c.id
+                rol R ON E.RolId = R.id
+            JOIN 
+                department D ON R.departmentId = D.id
+            JOIN 
+                country C ON E.countryId = C.id
             GROUP BY 
-                e.id, Name;
+                E.id
             ";
     
             $statement = self::$db->prepare($query);
@@ -498,16 +506,20 @@ class ActiveRecord {
         public static function filterByRole2() {
             $query = " 
             SELECT 
-                r.rol AS Name,
-                SUM((e.hours * r.salary) * c.socialcharge) AS SocialChargeCost
+            R.rol AS Name,
+            ROUND(SUM(S.amount * C.socialcharge), 2) AS SocialChargeCost
             FROM 
-                rol r
+                salarylog S
             JOIN 
-                employee e ON r.id = e.rolId
+                employee E ON S.employeeId = E.id
             JOIN 
-                country c ON e.countryId = c.id
+                rol R ON E.RolId = R.id
+            JOIN 
+                department D ON R.departmentID = D.id
+            JOIN 
+                country C ON E.countryId = C.id
             GROUP BY 
-                r.id, Name;
+                R.rol, R.id
             ";
     
             $statement = self::$db->prepare($query);
@@ -531,18 +543,20 @@ class ActiveRecord {
         public static function filterByDepartment2() {
             $query = "
             SELECT 
-                d.name AS Name,
-                SUM((e.hours * r.salary) * c.socialcharge) AS SocialChargeCost
+                D.name AS Name,
+                ROUND(SUM(S.amount * C.socialcharge), 2) AS SocialChargeCost
             FROM 
-                department d
+                salarylog S
             JOIN 
-                rol r ON d.id = r.departmentId
+                employee E ON S.employeeId = E.id
             JOIN 
-                employee e ON r.id = e.rolId
+                rol R ON E.RolId = R.id
             JOIN 
-                country c ON e.countryId = c.id
+                department D ON R.departmentID = D.id
+            JOIN 
+                country C ON E.countryId = C.id
             GROUP BY 
-                d.id, Name;
+                D.name
             ";
     
             $statement = self::$db->prepare($query);

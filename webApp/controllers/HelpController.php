@@ -19,9 +19,9 @@ class HelpController {
     public static function service(Router $router){
         $router->render('help/service', [
         ]);
-        
+    
     }public static function serviceEmp(Router $router){
-        User::syncPostgre();
+        //User::syncPostgre();
         $alerts = [];
         if($_SERVER['REQUEST_METHOD'] === 'GET'){
             if (!empty($_GET['search'])) {
@@ -71,16 +71,20 @@ class HelpController {
         $date = date('Y-m-d');
         
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-                $reportType = (int)$_POST["Type"];
-                $description = $_POST["Description"];
-                $comment = new Comment();
-                $comment->create($description, 0,$reportType,$orderInfo[0]['clientId'], $clientOrderId, $date);
-                header("Location: /orderInfo?id={$clientOrderId}");
+                $reportType = (int)$_POST["typeId"];
+                $description = $_POST["description"];
+                $comment = new Comment($_POST);
+                $alerts = $comment->validate();
+                if(empty($alerts['error'])){
+                    $comment->create($description, 0,$reportType,$orderInfo[0]['clientId'], $clientOrderId, $date);
+                    header("Location: /orderInfo?id={$clientOrderId}");
+                }
         }
         $router->render('help/report', [
             'orderInfo'=>$orderInfo,
             'clientInfo'=>$clientInfo,
-            'comment'=>$type
+            'comment'=>$type,
+            'alerts'=>$alerts
         ]);
         
     }

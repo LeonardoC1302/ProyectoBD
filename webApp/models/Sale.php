@@ -37,19 +37,18 @@ class Sale extends ActiveRecordServer{
             $productXsale->save();
         }
     }
-    public static function syncPostgre(){
-        $sales = self::all();
-        foreach ($sales as $sale) {
+    public static function syncPostgre($sale){
+        
             $attributes = $sale->attributes();
     
-            // Build the merge statement
             $query = "
                 -- Insert a new record
                 INSERT INTO orders (description, \"clientId\", date, total, status) VALUES ('','". $attributes["userId"]. "', '". $attributes["saleDate"]. "','". $attributes["total"]. "', 'en camino');
                 ";
+            
+            //debug($query);
             $stmt = self::$db_postgreSQL->prepare($query);
             $stmt->execute();
-        }
     }
 
     public function getProducts(){

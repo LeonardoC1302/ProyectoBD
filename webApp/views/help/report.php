@@ -1,4 +1,6 @@
-
+<?php 
+    include_once __DIR__ . "/../templates/alerts.php";
+?>
 <h1 class="service_title">Report a Problem
 </h1>
 
@@ -9,6 +11,7 @@
 
 <div class="container">
         <form class="square-container" method="POST">
+        <div class="scrollable-content">
             <div class="input-container">
                 <label for="OrderID">OrderID:     <?php echo "  " . $orderInfo[0]["id"];?></label>
             </div>
@@ -17,7 +20,7 @@
             </div>
             <div class="drop-down">
                 <legend>Report Type</legend>
-                <select name="Type" id="Type">
+                <select name="typeId" id="typeId">
                 <option value="" disabled selected>-- Select type --</option>
                 <?php $index = 0; 
                 foreach($comment as $t){ ?>
@@ -29,10 +32,11 @@
             <div scrollable-content>
                 <div class="description-container">
                     <label for="description">Description:</label>
-                    <textarea type="text" id="Description" name="Description" placeholder="-- Enter description --"></textarea>
+                    <textarea type="text" id="description" name="description" placeholder="-- Enter description --"></textarea>
                 </div>
             </div>
             
             <input class="search-button" type="submit" value="Enviar">
+        </div>
         </form>
 </div>

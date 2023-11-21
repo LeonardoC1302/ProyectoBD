@@ -119,41 +119,43 @@ class Admincontroller { //Main page for admin functions
         isAdmin();
         $results = '';
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if($_POST['filter'] == "" || $_POST['filter2'] == ""){
+            if(count($_POST) < 2 || !$_POST['filter'] || !$_POST['filter2']){
                 $results = "None Selected";
+            }else{
+                if($_POST['filter2'] == "Salary"){  //takes the filters entered by user and searched data accordingly
+                    switch ($_POST['filter']) {
+                        case "employees":
+                            $results = ReportResult::filterByEmployee();
+                            break;
+                        case "roles":
+                            $results = ReportResult::filterByRole();
+                            break;
+                        case "departments":
+                            $results = ReportResult::filterByDepartment();
+                            break;
+                        case "countries":
+                            $results = ReportResult::filterByCountry();
+                            break;
+                    }
+                }else{
+                    switch ($_POST['filter']) {
+                        case "employees":
+                            $results = ReportResult2::filterByEmployee2();
+                            break;
+                        case "roles":
+                            $results = ReportResult2::filterByRole2();
+                            break;
+                        case "departments":
+                            $results = ReportResult2::filterByDepartment2();
+                            break;
+                        case "countries":
+                            $results = ReportResult2::filterByCountry2();
+                            break;
+                    }
+                }
             }
 
-            if($_POST['filter2'] == "Salary"){  //takes the filters entered by user and searched data accordingly
-                switch ($_POST['filter']) {
-                    case "employees":
-                        $results = ReportResult::filterByEmployee();
-                        break;
-                    case "roles":
-                        $results = ReportResult::filterByRole();
-                        break;
-                    case "departments":
-                        $results = ReportResult::filterByDepartment();
-                        break;
-                    case "countries":
-                        $results = ReportResult::filterByCountry();
-                        break;
-                }
-            }else{
-                switch ($_POST['filter']) {
-                    case "employees":
-                        $results = ReportResult2::filterByEmployee2();
-                        break;
-                    case "roles":
-                        $results = ReportResult2::filterByRole2();
-                        break;
-                    case "departments":
-                        $results = ReportResult2::filterByDepartment2();
-                        break;
-                    case "countries":
-                        $results = ReportResult2::filterByCountry2();
-                        break;
-                }
-            }
+            
         }
         $filter = $_POST['filter'];
         $filter2 = $_POST['filter2'];

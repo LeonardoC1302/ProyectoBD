@@ -195,23 +195,34 @@ class User extends ActiveRecord {
     }
     public static function syncPostgre($fullName = null){
         $users = self::all();
-        foreach ($users as $user) {
+        if($fullName){
+            foreach ($users as $user) {
+                $attributes = $user->sanitizeData();
+                $query = "DO
+                $$
+                BEGIN
+                IF EXISTS (SELECT 1 FROM clients WHERE name ='". $fullName ."' ) THEN
+                    -- Update the existing record
+                    UPDATE clients SET name ='". $attributes["name"]. " ". $attributes["surname"]."'  WHERE name ='". $fullName ."' ;
+                ELSE
+                    -- Insert a new record
+                    INSERT INTO clients (name) VALUES ('". $attributes["name"]. " ". $attributes["surname"]."');
+                END IF;
+                END
+                $$;";
+                $stmt = self::$db_postgreSQL->prepare($query);
+                $stmt->execute();
+        }
+        }else{
+            $user = end($users);
             $attributes = $user->sanitizeData();
-    
-            // Build the merge statement
             $query = "DO
             $$
             BEGIN
-            IF EXISTS (SELECT 1 FROM clients WHERE name ='". $fullName ."' ) THEN
-                -- Update the existing record
-                UPDATE clients SET name ='". $attributes["name"]. " ". $attributes["surname"]."'  WHERE name ='". $fullName ."' ;
-            ELSE
                 -- Insert a new record
                 INSERT INTO clients (name) VALUES ('". $attributes["name"]. " ". $attributes["surname"]."');
-            END IF;
             END
             $$;";
-
             $stmt = self::$db_postgreSQL->prepare($query);
             $stmt->execute();
         }

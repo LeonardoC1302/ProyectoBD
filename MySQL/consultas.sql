@@ -40,8 +40,8 @@ VALUES
 
 
 
-delete from users where id =  4;
-alter table users AUTO_INCREMENT = 4;
+delete from users where id >  0;
+alter table users AUTO_INCREMENT = 0;
 delete from country where id > 0;
 alter table country AUTO_INCREMENT = 1;
 delete from employee where id > 0;
@@ -49,9 +49,8 @@ alter table employee AUTO_INCREMENT = 1;
 delete from rol where id > 0;
 alter table rol AUTO_INCREMENT = 1;
 
-update employee set pay = 0 where id = 1;
-update country set socialcharge = 0.05 where id = 1;
+update employee set hours = 155 where id = 4;
+update rol set salary = 7000.0 where id = 3;
 
-update users set verified=1 where id=5;
-update users set token = "" where id=5;
-
+update users set verified=1 where id=2;
+update users set token = "" where id=2;

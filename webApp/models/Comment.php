@@ -24,4 +24,15 @@ class Comment extends ActiveRecordPostgreSql{
         $this->date = $args['date'] ?? '';
 
     }
+
+    public function validate(){
+        if(!$this->typeId) {
+            self::$alerts['error'][] = 'You need to select a type for the comment';
+        }
+        
+        if(!$this->description) {
+            self::$alerts['error'][] = 'No description was added';
+        }
+        return self::$alerts;
+    }
 }

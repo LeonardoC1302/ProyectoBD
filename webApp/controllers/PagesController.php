@@ -144,7 +144,7 @@ class PagesController {
                 $result = $sale->save();
                 $saleId = $result['id'];
                 $sale->saveProducts($productsXcart, $saleId);
-                Sale::syncPostgre();
+                Sale::syncPostgre($sale);
                 $cart->clear();
                 header('Location: /products');
             }

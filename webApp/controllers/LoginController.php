@@ -78,8 +78,7 @@ class LoginController {
                     $user->generateToken();
                     $user->save();
                     User::syncSQLServer();
-                    User::syncPostgre();
-                    User::syncPostgre();
+                    //User::syncPostgre();
                     // Send email
                     $mail = new Email($user->email, $user->name, $user->token);
                     $mail->sendRecover();
@@ -117,7 +116,7 @@ class LoginController {
                 $user->token = '';
                 $result = $user->save();
                 User::syncSQLServer();
-                User::syncPostgre();
+                //User::syncPostgre();
                 if($result){
                     header('Location: /');
                 }
@@ -153,6 +152,7 @@ class LoginController {
                     $email->sendConfirmation();
                     // Save user
                     $result = $user->save();
+                    //$fullName = $user->name . " " . $user->surname;
                     User::syncSQLServer();
                     User::syncPostgre();
                     // Create a cart for the user
@@ -186,7 +186,7 @@ class LoginController {
             $user->token = '';
             $user->save();
             User::syncSQLServer();
-            User::syncPostgre();
+            //User::syncPostgre();
             User::setAlerts('success', 'Your account has been verified');
         }
 
